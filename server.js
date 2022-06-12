@@ -1,14 +1,18 @@
-const express = require('express') //duh
+const express = require('express') // server software
 const { response } = require('express')//defines response to use express
 const { request } = require('express')//defines request to use express
 
 //used for user validation of valid user name and password entry 
 const { check, validationResult } = require('express-validator');//defines check and validation result of express-valdator
-const session = require('express-session'); // express-sessions used for session auth
+const session = require('express-session'); // express-sessions used for session auth, --session middleware
 const { v4: uuidv4 } = require('uuid'); // uuid, To call: uuidv4()
+const passport = require('passport');  // authentication
+const connectEnsureLogin = require('connect-ensure-login');// authorization
+
 const User = require('./user.js'); // User Model 
 
 const app = express() //express is now called app
+
 const MongoClient = require('mongodb').MongoClient //for base mongoDB use
 
 // const mongoose = require('mongoose');//for utilization of mongoose to make mongoDB work easier
@@ -24,11 +28,11 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
 // allows express to make request bodies into json format
-app.use(express.json())
+app.use(express.json())// parser middleware
 
 app.use(passport.initialize());//Middleware to use Passport with Express
 app.use(passport.session()); //Needed to use express-session with passport
-passport.use(User.createStrategy())
+passport.use(User.createStrategy()) // Passport Local Strategy
 
 // Configure Sessions Middleware for use 
 app.use(session({
@@ -98,6 +102,9 @@ const loginValidation = [
 //     res.send(req.sessionID);
 //   });
 
+// To use with sessions
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // default site first page, user login
 app.get('/',(request,response)=>{

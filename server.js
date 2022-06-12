@@ -3,13 +3,13 @@ const { response } = require('express')//defines response to use express
 const { request } = require('express')//defines request to use express
 
 //used for user validation of valid user name and password entry 
-const { check, validationResult } = require('express-validator');//defines check and validation result of express-valdator
-const session = require('express-session'); // express-sessions used for session auth, --session middleware
-const { v4: uuidv4 } = require('uuid'); // uuid, To call: uuidv4()
-const passport = require('passport');  // authentication
-const connectEnsureLogin = require('connect-ensure-login');// authorization
+// const { check, validationResult } = require('express-validator');//defines check and validation result of express-valdator
+// const session = require('express-session'); // express-sessions used for session auth, --session middleware
+// const { v4: uuidv4 } = require('uuid'); // uuid, To call: uuidv4()
+// const passport = require('passport');  // authentication
+// const connectEnsureLogin = require('connect-ensure-login');// authorization
 
-const User = require('./user.js'); // User Model 
+// const User = require('./user.js'); // User Model 
 
 const app = express() //express is now called app
 
@@ -25,41 +25,43 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 // allows express to process body of requests
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 
 // allows express to make request bodies into json format
 app.use(express.json())// parser middleware
 
-app.use(passport.initialize());//Middleware to use Passport with Express
-app.use(passport.session()); //Needed to use express-session with passport
-passport.use(User.createStrategy()) // Passport Local Strategy
-
-// Configure Sessions Middleware for use 
-app.use(session({
-    genid: function (req) {
-        // returns random ID
-      return uuidv4();
-    },
-    // secret string signs cookies
-    secret: secretS,
-    // reduces call volume only saves if session data has changed
-    resave: false,
-    // new uninitialized sessions get forcibly saved.
-    saveUninitialized: true,
-    // set parameters for cookie usage, yum
-    cookie: {maxAge:60*60*1000,secure: true}
-  }));
-
-// enable this option if using a proxy
-// app.set('trust proxy',1)
+// app.use(passport.initialize());//Middleware to use Passport with Express
+// app.use(passport.session()); //Needed to use express-session with passport
+// passport.use(User.createStrategy()) // Passport Local Strategy
 
 const PORT = 2121 //local host connection Port
 require('dotenv').config() //loads .env file contents into process.env accessible
 
+// secret string useed for signing cookies that hold the session ID
+// const secretS = process.env.SECRET
+
+// Configure Sessions Middleware for use 
+// app.use(session({
+//     genid: function (req) {
+//         // returns random ID
+//       return uuidv4();
+//     },
+//     // secret string signs cookies
+//     secret: secretS,
+//     // reduces call volume only saves if session data has changed
+//     resave: false,
+//     // new uninitialized sessions get forcibly saved.
+//     saveUninitialized: true,
+//     // set parameters for cookie usage, yum
+//     cookie: {maxAge:60*60*1000,secure: true}
+//   }));
+
+// enable this option if using a proxy
+// app.set('trust proxy',1)
+
+
 // const Schema = mongoose.Schema; //tells code to reference mongoose for schema defn
 
-// secret string useed for signing cookies that hold the session ID
-const secretS = process.env.SECRET
 
 // sets MongoDB connection variables and retrieves unique url from environment file
 let db,
@@ -72,6 +74,16 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
         db = client.db(dbName)
     })
 
+
+
+
+
+
+
+
+
+
+    
 // defines User object and types for use with mongoDB/mongoose
 // const User = new Schema({
 //     username: String,
@@ -90,12 +102,12 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 // })
 
 // array that user logins are passed to in order to check validity
-const loginValidation = [
-    check('userName', "User name should be creative!")
-    .notEmpty().isLength({max: 30, min:3}).withMessage("User name must be between 3 and 30 characters long.").trim().escape(),
-    check('password')
-    .notEmpty().isLength({min:8,max:30}).withMessage('Passwords must be betweeen 8 and 30 characters long.').trim().escape()
-]
+// const loginValidation = [
+//     check('userName', "User name should be creative!")
+//     .notEmpty().isLength({max: 30, min:3}).withMessage("User name must be between 3 and 30 characters long.").trim().escape(),
+//     check('password')
+//     .notEmpty().isLength({min:8,max:30}).withMessage('Passwords must be betweeen 8 and 30 characters long.').trim().escape()
+// ]
 
 // Home Page Route
 // app.get('/', (req, res) => {
@@ -103,21 +115,22 @@ const loginValidation = [
 //   });
 
 // To use with sessions
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 // default site first page, user login
 app.get('/',(request,response)=>{
+    // request.logout();
     response.sendFile(__dirname + '/public/static/login.html')
 })
 
 //*main page, after login, displays all forum threads
 // *this and other requests should be re-written using Asyns and await + try and catch
+// use connectEnsureLogin.ensureLoggedIn() to verify someone is logged in
 app.get('/main',(request, response)=>{
     db.collection('threads').find().toArray()
     .then(data => {
-        console.log(request.session.username)
-        response.render('index.ejs', { threads: data, user: request.session.username})
+        response.render('index.ejs', { threads: data}) //, user: request.session.username
     })
     .catch(error => console.error(error))
 })
@@ -140,33 +153,39 @@ app.put('/addOneLike', (request, response) => {
     .catch(error => console.error(error))
     
 })
+// for authenticating login and immediately directing to main page after success
+// app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),  function(req, res) {
+// 	console.log(req.user)
+// 	res.redirect('/main');
+// });
 
 //*adds a new user from the static login screen new user form
 // validates user name and password forms using loginValidation array defined at start of program
-app.post('/users/addUser', loginValidation, (request, response) => {
+// use , loginValidation, to run through array of validators, this is meant to be used in tandem with authentication via passport.
+app.post('/users/addUser', (request, response) => {
 
     // uses express-validator to check results of user request
-    const errors = validationResult(request)
+    // const errors = validationResult(request)
     
     // if there are errors in the array returned from checking submission it returns a json holding array of errors
-    if( !errors.isEmpty()){
-        console.log('user add failed')
-        return response.status(422).json({errors:errors.array()})
-    }
+    // if( !errors.isEmpty()){
+    //     console.log('user add failed')
+    //     return response.status(422).json({errors:errors.array()})
+    // }
     // executes new user login code if no errors
-    else{
+    // else{
         // inserts new user to users collection in MongoDB
         db.collection('users').insertOne({userName: request.body.userName,
         password: request.body.password})
         .then(result => {
             // after user added sends user via a redirect to the main page to view threads
-            request.session.username = request.body.userName;
+            // request.session.username = request.body.userName;
             console.log('user Added')
             response.redirect(`/main`)
         })
         // logs any errors occured when working with database insert
         .catch(error => console.error(error))
-    }
+    // }
 })
 
 //*handles user request to add a new thread to forum
@@ -211,7 +230,7 @@ app.get('/threads/getThread/:name',(request, response)=>{
 })
 
 //*handles user submission of new message to thread by adding to the messages array in the thread document
-app.post('/threads/addMessage', (request, response) => {
+app.post('/threads/addMessage',(request, response) => {
     console.log(request.body.userName)
     // finds correct thread and updates message array with new message 
     // *relies on user to self-identify user name currently

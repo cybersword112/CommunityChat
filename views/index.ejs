@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommunityChat</title>
+</head>
+<body>
+    <header>
+        <button href="/login" action="GET"></button>
+            <h1>Welcome <%= String(user) %></h1>
+    </header>
+    <h1>Discussions:</h1>
+    <ul class="threads">
+        <!-- loop to store threads from database that are located in thr threads object array -->
+    <% for(let i=0; i < threads.length; i++) {%>
+        <li class="thread">
+            <a href="/threads/getThread/<%=threads[i].threadName%>" class="threadName"><span><%= threads[i].threadName %></span></a>
+            <span><%= threads[i].threadPrompt %></span>
+            <span><%= threads[i].likes %></span>
+            <span class='fa fa-thumbs-up'></span>
+            <span class='fa fa-trash'></span>
+        </li>
+    <% } %>
+    </ul>
+    <h2>Start A Thread:</h2>
+
+    <form action="/addThread" method="POST">
+        <input type="text" placeholder="thread name" name="threadName">
+        <input type="text" placeholder="thread prompt" name="threadPrompt">
+        <input type="submit">
+    </form>
+    
+
+    <script src='js/main.js'></script>
+</body>
+</html>

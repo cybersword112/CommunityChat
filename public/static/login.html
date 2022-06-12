@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Login</h1>
+<!-- login form for user already in database -->
+    <h2>Returning User:</h2>
+
+    <form action="/users" method="GET">
+        <!-- <input type = "hidden" name="userName" value="<%= info.threadName %>"> -->
+        <input type="text" placeholder="user name" name="userName">
+        <input type="text" placeholder="password" name="message">
+        <input type="submit">
+    </form>
+
+<!-- login form for user that needs to be validated and placed in database -->
+    <h2>New User:</h2>
+
+    <form action="/users/addUser" method="POST">
+        <!-- <input type = "hidden" name="userName" value="<%= info.threadName %>"> -->
+        <input type="text" placeholder="user name" name="userName" required>
+        <input type="password" placeholder="password" name="password" required>
+        <!-- <input type="password" placeholder="passwordConf" name="passwordConf" required> -->
+        <input type="submit" value="login">
+    </form>
+    
+
+    <script src='js/main.js'></script>
+</body>
+</html>

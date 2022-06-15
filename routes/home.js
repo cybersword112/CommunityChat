@@ -1,13 +1,13 @@
 const express = require('express')
 
 const {
-    homeView,
+  homeView,
 } = require('../controllers/homeController')
 
 const { protectRoute } = require('../auth/protect')
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/home',homeView)
+router.get('/home',protectRoute,homeView)
 
-module.exports = router;
+module.exports = router

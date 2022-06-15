@@ -29,6 +29,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/',require('./routes/login'))
-app.use('/main',require('./routes/main'))
+app.use('/dashboard',require('./routes/dashboard'))
+app.use('/home',require('./routes/home'))
 
 app.listen(PORT, console.log("server is up"))

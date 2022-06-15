@@ -29,5 +29,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/',require('./routes/login'))
+app.use('/main',require('./routes/main'))
 
 app.listen(PORT, console.log("server is up"))

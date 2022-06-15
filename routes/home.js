@@ -8,6 +8,6 @@ const { protectRoute } = require('../auth/protect')
 
 const router = express.Router()
 
-router.get('/home',protectRoute,homeView)
+router.get('/',protectRoute,homeView)
 
 module.exports = router

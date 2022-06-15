@@ -4,6 +4,6 @@ const { dashboardView } = require('../controllers/dashboardController')
 
 const router = express.Router()
 
-router.get('/dashboard',protectRoute,dashboardView)
+router.get('/',protectRoute,dashboardView)
 
 module.exports = router

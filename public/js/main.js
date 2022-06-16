@@ -16,27 +16,29 @@ Array.from(thumbText).forEach((element) => {
 //*handles fetch for deletion of threads from client to server and database (mongo)
 async function deleteThread(){
   //*selects thread name text directly from dom
-  const thName = this.parentNode.childNodes[1].innerText
-  const prompt = this.parentNode.childNodes[3].innerText
+  const id = this.parentNode.childNodes[1].innerText
+  // const topic = this.parentNode.childNodes[1].innerText
+  // const postedBy = this.parentNode.childNodes[3].innerText
   // handles attempt of delete request to backend
+  console.log(id)
   try{
     //sends request to server to delete thread
-    const response = await fetch('deleteThread', {
+    const response = await fetch('/home', {
       // method of request
       method: 'delete',
       // headers of request, lets backend know how to treat it
       headers: { 'Content-Type': 'application/json' },
       // body of request
       body: JSON.stringify({
-        'threadNameS': thName,
-        'promptS': prompt
+        'id':id
+        // 'topic': topic,
+        // 'postedBy': postedBy,
       })
     })
     //stores response from server in data
-    const data = await response.json()
-    console.log(data)
+    const data = await response
     // reloads current page
-    location.reload()
+    // location.reload()
 
   }
   // if there is an issue with the try portion then catch will fire and console log the error

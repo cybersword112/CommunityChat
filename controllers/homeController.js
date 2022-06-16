@@ -2,8 +2,8 @@ const Thread = require('../models/threadModel')
 
 
 const homeView = (req, res) => {
-  const threads = Thread.find()
-    .then((_)=> {
+  const threads = Thread.find({})
+    .then((threads) => {
       res.render('home',{
         threads:threads,
         user:req.user,
@@ -28,7 +28,18 @@ const addThread = (req, res) => {
   }
 }
 
+const deleteThread = (req,res) => {
+  const { id } = req.body
+  console.log(String(id))
+  Thread.findOneAndDelete({ _id:id})
+    .then(() => {
+      res.sendStatus(200)
+    } )
+    .catch((err) => console.log(err))
+}
+
 module.exports = {
   homeView,
   addThread,
+  deleteThread,
 }

@@ -26,6 +26,7 @@
         <!-- loop to store threads from database that are located in thr threads object array -->
     <% for(let i=0; i < threads.length; i++) {%>
         <li class="thread">
+            <span><%= threads[i]._id %></span>   
             <a href="/threads/getThread/<%=threads[i].threadName%>" class="topic"><span><%= threads[i].topic %></span></a>
             <span><%= threads[i].postedBy %></span>
             <span><%= threads[i].likes %></span>
@@ -43,6 +44,6 @@
     </form>
     
 
-    <script src='/public/js/main.js'></script>
+    <script src='/js/main.js'></script>
 </body>
 </html>

@@ -17,10 +17,10 @@ Array.from(thumbText).forEach((element) => {
 async function deleteThread(){
   //*selects thread name text directly from dom
   const id = this.parentNode.childNodes[1].innerText
-  // const topic = this.parentNode.childNodes[1].innerText
-  // const postedBy = this.parentNode.childNodes[3].innerText
+  const topic = this.parentNode.childNodes[3].innerText
+  const postedBy = this.parentNode.childNodes[5].innerText
   // handles attempt of delete request to backend
-  console.log(id)
+  console.log(id,topic,postedBy)
   try{
     //sends request to server to delete thread
     const response = await fetch('/home', {
@@ -30,15 +30,15 @@ async function deleteThread(){
       headers: { 'Content-Type': 'application/json' },
       // body of request
       body: JSON.stringify({
-        'id':id
-        // 'topic': topic,
-        // 'postedBy': postedBy,
+        'id':id,
+        'topic': topic,
+        'postedBy': postedBy,
       })
     })
     //stores response from server in data
     const data = await response
     // reloads current page
-    // location.reload()
+    location.reload()
 
   }
   // if there is an issue with the try portion then catch will fire and console log the error

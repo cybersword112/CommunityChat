@@ -29,9 +29,8 @@ const addThread = (req, res) => {
 }
 
 const deleteThread = (req,res) => {
-  const { id } = req.body
-  console.log(String(id))
-  Thread.findOneAndDelete({ _id:id})
+  console.log(req.body)
+  Thread.findOneAndDelete({ _id:req.body.id})
     .then(() => {
       res.sendStatus(200)
     } )

@@ -1,16 +1,48 @@
-<%- include('layout.ejs'); %>
-<div class="container">
-    <div class="row justify-content-center">
-<h1>this is main page</h1>
-        <h3>My name is <%= user.name %> </h3> &nbsp;
-        <h3>I stay at <%= user.location %> </h3> <br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommunityChat</title>
+</head>
+<body>
+    <header>
+        <button href="/login" action="GET"></button>
+    </header>
+    <h1>Discussions:</h1>
+    <ul class="threads">
+        <!-- loop to store threads from database that are located in thr threads object array -->
+    <% for(let i=0; i < threads.length; i++) {%>
+        <li class="thread">
+            <a href="/threads/getThread/<%=threads[i].threadName%>" class="topic"><span><%= threads[i].topic %></span></a>
+            <span><%= threads[i].postedBy %></span>
+            <span><%= threads[i].likes %></span>
+            <span class='fa fa-thumbs-up'></span>
+            <span class='fa fa-trash'></span>
+        </li>
+    <% } %>
+    </ul>
+    <h2>Start A Thread:</h2>
 
-    </div>
-</div>
-<div>
-    <a href="/logout"> <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logout</button> </a>
-</div>
+    <form action="/home" method="POST">
+        <input type="hidden" value="<%= String(user.name) %>" name="postedBy">
+        <input type="text" placeholder="topic" name="topic">
+        <input type="submit">
+    </form>
+    
 
+    <script src='/public/js/main.js'></script>
 </body>
-
 </html>

@@ -30,8 +30,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', require('./routes/login'))
-app.use('/dashboard', require('./routes/dashboard'))
-app.use('/home', require('./routes/home'))
+app.use('/', require('./routes/loginRoute'))
+app.use('/dashboard', require('./routes/dashboardRoute'))
+app.use('/home', require('./routes/homeRoute'))
 
 app.listen(PORT, console.log('server is up'))

@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy
 
 //load model
 
-const User = require('../models/User')
+const User = require('../models/userModel')
 
 const loginCheck = passport => {
   passport.use(

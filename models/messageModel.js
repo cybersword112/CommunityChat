@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
-const ThreadSchema = new mongoose.Schema({
-  topic:{
+const MessageSchema = new mongoose.Schema({
+  threadId: {
+    type: String,
+    required: true,
+  },
+  message:{
     type:String,
     required:true
   },
@@ -17,15 +21,11 @@ const ThreadSchema = new mongoose.Schema({
     type:Number,
     default:0
   },
-  messages:{
-    type:Array,
-    default:[],
-  },
   date: {
     type: Date,
     default: Date.now,
   },
 })
 
-const Thread = mongoose.model('Thread',ThreadSchema)
-module.exports = Thread
+const Message = mongoose.model('Message',MessageSchema)
+module.exports = Message

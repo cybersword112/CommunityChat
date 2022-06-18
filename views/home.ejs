@@ -23,11 +23,12 @@
     </header>
     <h1>Discussions:</h1>
     <ul class="threads">
+    
         <!-- loop to store threads from database that are located in thr threads object array -->
     <% for(let i=0; i < threads.length; i++) {%>
         <li class="thread">
-            <span><%= threads[i]._id %></span>   
-            <a href="/threads/getThread/<%=threads[i].threadName%>" class="topic"><span><%= threads[i].topic %></span></a>
+            <span style="display: none;"><%= threads[i]._id %></span>   
+            <a href="/messages/<%= threads[i]._id %>" class="topic"><span><%= threads[i].topic %></span></a>
             <span><%= threads[i].postedBy %></span>
             <span><%= threads[i].likes %></span>
             <span class='fa fa-thumbs-up'></span>

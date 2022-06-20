@@ -17,8 +17,8 @@ const messagesView = (req, res) => {
 }
 
 const addMessage = async (req, res) => {
-  const { message ,postedBy } = req.body
-  if (!threadId || !postedBy || !message) {
+  const {threadId , message ,postedBy } = req.body
+  if (!postedBy || !message || !threadId) {
     // console.log(threadId, message, postedBy)
     console.log('Fill empty fields')
   }

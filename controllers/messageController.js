@@ -17,7 +17,8 @@ const messagesView = (req, res) => {
 }
 
 const addMessage = async (req, res) => {
-  const {threadId , message ,postedBy } = req.body
+  const { message ,postedBy } = req.body
+  const { threadId } = req.params
   if (!postedBy || !message || !threadId) {
     // console.log(threadId, message, postedBy)
     console.log('Fill empty fields')
@@ -32,7 +33,9 @@ const addMessage = async (req, res) => {
     thread.messages.push(newMessage)
     newMessage
       .save()
-      .then(res.redirect('/messages/:threadId'))
+      .then(messagesView(threadId))
+
+      // .then(res.redirect('/messages/:threadId'))
       .catch((err) => console.log(err))
   }
 }

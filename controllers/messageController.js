@@ -7,33 +7,37 @@ const messagesView = (req, res) => {
   threadId = req.params.threadId
   const messages = Message.find({ threadId:threadId })
     .then((messages) => {
-
+      let messagesObj = messages.map(item=>item.toObject())
+      console.log(messagesObj)
       res.render('messages',{
         info:messages,
-        user:req.user._id,
-        thread:threadId,
+        activeUser:req.user,
+        threadId:threadId,
       })
     })
 }
 
 const addMessage = async (req, res) => {
-  const { message ,postedBy } = req.body
-  const { threadId } = req.params
-  if (!postedBy || !message || !threadId) {
+  const { message} = req.body
+  let {user} = req.body
+  const { threadId } = req.body
+  // console.log(user)
+  if (!user || !message || !threadId) {
     // console.log(threadId, message, postedBy)
     console.log('Fill empty fields')
   }
   else {
+    // console.log(user)
     const newMessage = new Message({
-      threadId,
-      message,
-      postedBy
+      threadId:threadId,
+      message:message,
+      user:user,
     })
     const thread = await Thread.findById(threadId)
     thread.messages.push(newMessage)
     newMessage
       .save()
-      .then(messagesView(threadId))
+      .then(res.redirect(`/messages/${threadId}`))
 
       // .then(res.redirect('/messages/:threadId'))
       .catch((err) => console.log(err))

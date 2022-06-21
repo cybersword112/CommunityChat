@@ -9,9 +9,8 @@ const MessageSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  postedBy:{
-    type:String,
-    default:'Anonymous'
+  user:{
+    type:Object
   },
   likes:{
     type:Number,

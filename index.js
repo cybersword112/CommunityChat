@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
-// eslint-disable-next-line no-undef
-const PORT = process.env.PORT || 7000
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
+// eslint-disable-next-line no-undef
+const PORT = process.env.PORT || 7000
 const session = require('express-session')
 const passport = require('passport')
 const { loginCheck } = require('./auth/passport')
@@ -22,7 +22,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(session({
-  secret: 'oneboy',
+  secret: process.env.SECRET,
   saveUninitialized: true,
   resave: true
 }))

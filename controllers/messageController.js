@@ -28,6 +28,7 @@ const addMessage = async (req, res) => {
   }
   else {
     console.log( req.body.user )
+    user = JSON.parse(req.body.user)
     console.log( user.username )
 
     const newMessage = new Message({

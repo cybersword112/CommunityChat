@@ -4,7 +4,7 @@ const Thread = require('../models/threadModel')
 const homeView = (req, res) => {
   const threads = Thread.find({})
     .then((threads) => {
-      res.render('home',{
+      res.render('index',{
         threads:threads,
         user:req.user,
       })

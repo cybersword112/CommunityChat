@@ -34,5 +34,4 @@ app.use('/', require('./routes/loginRoute'))
 app.use('/dashboard', require('./routes/dashboardRoute'))
 app.use('/home', require('./routes/homeRoute'))
 app.use('/messages', require('./routes/messageRoute'))
-
 app.listen(PORT, console.log('server is up'))

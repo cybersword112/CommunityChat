@@ -1,0 +1,397 @@
+body.body_dark {
+  color: $black_150;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .topics-filter .nav-item .nav-link.active,
+  .topics-filter .nav-item .nav-link:hover,
+  .learn_btn,
+  .forum_l_inner .forum_head .left li,
+  .pagination_inner .go_btn input,
+  .text_btn.dark_btn,
+  .forum-statistics .statistics-widget h4,
+  .community-area .nav-tabs .nav-item button.active,
+  .single-forum-post-widget .post-title h6 a,
+  .single-news-widget .news-content h5 a,
+  .forum-category-area .single-category-widget h5,
+  .forum-right-sidebar-widget .single-widget-box .widget-header h5,
+  .forum-post-widget .widget-header h2,
+  .forum-right-sidebar-widget .single-widget-box.stat-widget .row h5,
+  .client-testimonial-widget .widget-header .client-info .c-name,
+  .single-forum-blog-widget .blog-content h5 a,
+  .all-question-widget .widget-header .title h4,
+  .single-question-widget .question-content .question-header .qtn-title h6,
+  .forum-right-sidebar-widget
+    .single-widget-box.helpful-user
+    .widget-content
+    .single-user
+    .user-info
+    h6
+    a,
+  .forum-right-sidebar-widget
+    .single-widget-box.populer-topics
+    .widget-content
+    .single-topic
+    .topic-content
+    h6
+    a,
+  .blog_related_post .grid_post_content .b_title,
+  .add-question-widget .widget-title,
+  .add-question-widget label,
+  .user-list-widget .single-user-widget h6,
+  .user-list-widget .single-user-widget .user-activity div p,
+  .user-list-widget .widget-filter .nice_select,
+  .single-question-widget-2 .user-ans .answer,
+  .filter-tab-2 > ul > li a.active,
+  .info_list li span,
+  .community-post .post-content .entry-content .post-title a,
+  .journalism-content-wrapper .journalism-title,
+  .section_title.title-img .title-lg,
+  .communities-boxes .com-box .com-box-content .title a {
+    color: #fff;
+  }
+
+  .single-forum-post-widget .post-title h6 a,
+  .single-news-widget .news-content h5 a,
+  .single-forum-blog-widget .blog-content h5 a,
+  .forum-right-sidebar-widget .single-widget-box.top-user ul li a,
+  .single-question-widget .question-content .question-header .qtn-title h6,
+  .forum-right-sidebar-widget
+    .single-widget-box.helpful-user
+    .widget-content
+    .single-user
+    .user-info
+    h6
+    a,
+  .forum-right-sidebar-widget
+    .single-widget-box.populer-topics
+    .widget-content
+    .single-topic
+    .topic-content
+    h6
+    a,
+  .blog_related_post .grid_post_content .b_title,
+  .community-post .post-content .entry-content .post-title a,
+  .communities-boxes .com-box .com-box-content .title a {
+    &:hover {
+      color: var(--brand_color);
+    }
+  }
+  .journalism-feature-image::before {
+    background-image: linear-gradient(45deg, #4c4cf10d 0%, #6666eb0d 100%);
+  }
+  .ticket_categories li a,
+  .categorie_list li a,
+  .common_question_area .question_menu .nav li a,
+  .forum-right-sidebar-widget .single-widget-box.top-user ul li a,
+  .forum-right-sidebar-widget .single-widget-box.stat-widget-2 span,
+  .info_list li a {
+    color: $black_150;
+  }
+
+  .forum_footer_area,
+  .doc_footer_top,
+  .doc_footer_area {
+    background: #010101;
+  }
+  .right-nav .js-darkmode-btn ion-icon.dark-mode {
+    display: block;
+  }
+  .right-nav .js-darkmode-btn ion-icon.light-mode {
+    display: none;
+  }
+
+  .doc_community_item h4 {
+    color: #232361;
+  }
+
+.feature-content-text p {
+  color:$black_300;
+}
+
+
+  .body_wrapper,
+  .img_modal,
+  .doc_features_area,
+  .blog_top_post,
+  .video_slider_area {
+    background: #131417;
+  }
+
+  .doc_community_area,
+  .common_question_area,
+  .freelancing_list,
+  .asking_area {
+    background: $black_800;
+  }
+
+  .navbar_fixed .menu_toggle .hamburger span,
+  .navbar_fixed .menu_toggle .hamburger-cross span,
+  .dark_menu .menu_toggle .hamburger span,
+  .dark_menu .menu_toggle .hamburger-cross span {
+    background: #fff;
+  }
+
+  .blog_grid_inner,
+  .dark_menu .right-nav .nav_btn.tp_btn {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #f5f5f5 !important;
+  }
+  .navbar_fixed.menu_one .menu > .nav-item {
+    &.active {
+      > .nav-link {
+        color: var(--brand_color);
+      }
+    }
+    > .nav-link {
+      color: #f5f5f5;
+      &.active,
+      &:hover {
+        color: var(--brand_color);
+      }
+    }
+  }
+
+  .search-banner-light {
+    background: radial-gradient(circle, #444857, #2c303a);
+  }
+  .banner-area-7 {
+    .search-banner-light {
+      background: inherit;
+    }
+  }
+  .banner-area-4,
+  .banner-area-5 {
+    .search-banner-light {
+      background: inherit;
+    }
+  }
+  .blog_top_post.blog_classic_item,
+  .h_item,
+  .common_question_area .question_menu .topic_list_item,
+  .asking_area .asking_item,
+  .status_area .status_inner,
+  .r_heading,
+  .l_tags_wd .nav li a,
+  .page-link,
+  .forum_l_inner .forum_head,
+  .answer-action,
+  .changelog_info .line,
+  .doc_features_inner,
+  .recommended_item,
+  .categories_guide_item,
+  .bg_color,
+  .doc_about_widget ul li a,
+  .blog_grid_post,
+  blockquote,
+  .comments_widget li .text,
+  .cheatsheet_item,
+  .ab_wd .nice_select,
+  .breadcrumb_area_three,
+  .blog_post_author,
+  .w_tag_list li a,
+  .ticket_categories li .count,
+  .community-topic-widget-box,
+  .single-news-widget,
+  .forum-category-area .single-category-widget,
+  .single-forum-post-widget,
+  .forum-post-widget .post-filter-widget,
+  .forum-right-sidebar-widget .single-widget-box .widget-header,
+  .single-forum-blog-widget,
+  .newsletter-form-widget,
+  .forum-left-sidebar-widget,
+  .forum-blog-slider .slick-arrow,
+  .client-testimonial-slider .slick-arrow,
+  .blog_single_item,
+  .blog_related_post,
+  .comment_inner,
+  .blog_comment_box,
+  .add-question-widget,
+  .user-details-widget,
+  .qna-statistics,
+  .single-user-widget,
+  .user-list-widget .widget-filter .table-sorting,
+  .user-list-widget .widget-filter .nice-select .list,
+  .single-badge-widget,
+  .single-question-widget-2,
+  .all-question-widget-2 .widget-header,
+  .author_option,
+  .forum_body_area,
+  .funfact-boxes .funfact-box,
+  .community-box {
+    background: #2c303a;
+  }
+  .bg-white {
+    background: #2c303a !important;
+  }
+  .forum-right-sidebar-widget .single-widget-box .widget-header {
+    box-shadow: 0px 1px 0px 0px #2c303a;
+  }
+  .forum-right-sidebar-widget .single-widget-box,
+  .client-testimonial-widget,
+  .all-question-widget,
+  .single-question-widget,
+  .widget-pagination-box {
+    background-color: transparent;
+    border-color: #2c303a;
+    box-shadow: none;
+
+    .border-start,
+    .border-bottom,
+    .border-top,
+    .border-end {
+      border-color: #2c303a !important;
+    }
+  }
+  .client-testimonial-widget:hover {
+    box-shadow: 0px 20px 45px 0px #334d7226;
+  }
+
+  .forum_body .navbar-nav li .media .media-right .nav li .dropdown-menu {
+    background-color: #131417;
+    border-color: #2c303a;
+  }
+
+  .forum-right-sidebar-widget .form-control {
+    background-color: transparent;
+    border-color: #2c303a;
+    color: #fff;
+    &:focus {
+      background-color: transparent;
+    }
+  }
+  .navbar_fixed.menu_one {
+    background: #171544;
+    box-shadow: 0 0 25px 5px #000;
+  }
+
+  .dark_menu:not(.navbar_fixed) .menu_toggle .hamburger span,
+  .dark_menu .menu_toggle .hamburger-cross span,
+  .menu_one.dark_menu .hamburger span {
+    background: #fff !important;
+  }
+
+  .community-post.style-two:hover,
+  .header_search_form .input-wrapper input {
+    background: #252830;
+  }
+  .header_search_form.right_search .input-wrapper input {
+    background: #fff;
+  }
+  .pagination_inner .go_btn input,
+  .search_form .form-control,
+  .ab_wd .nice_select {
+    background: #5a5f73;
+    border-color: #2c303a;
+  }
+
+  .community-post.style-two:not(:last-child),
+  .bb-radius,
+  .post-header,
+  .community-post.style-two:hover,
+  .doc_footer_bottom,
+  .ticket_categories li:not(:last-child),
+  .single_list,
+  .comments_widget li .text,
+  .common_question_area .question_menu .topic_list_item,
+  .footer_copyright,
+  .pagination_inner .go_btn .input-group-append button,
+  .forum_l_inner .forum_head,
+  .r_heading,
+  .user_list_wd,
+  .navbar-nav li,
+  .comment_list .navbar-nav li,
+  .question_list_wd,
+  .forum_l_inner,
+  .forum_body .topic_list li,
+  .single-question-widget .question-body .q-text .q-tag-list li a,
+  .single-question-widget .comment-bar .form-group .form-control {
+    border-color: #2c303a;
+  }
+  .profile_info .p_info_item_inner .p_info_item,
+  .p_social {
+    border-color: #3f4b53;
+  }
+
+  .doc_features_item,
+  .all-question-widget .widget-header .filter-tab .custom-select,
+  .all-question-widget .widget-header .filter-tab > ul > li a,
+  .user-list-widget .widget-filter .nice_select::after {
+    border-color: $black_700;
+  }
+
+  .ab_wd .nice_select span,
+  .doc_testimonial_slider .item h3,
+  .doc_testimonial_slider .item .name,
+  .doc_testimonial_area .custom_slider_nav .slide_info,
+  .doc_testimonial_area .custom_slider_nav button:hover,
+  .user-details-widget p a,
+  .user-details-widget .user-text,
+  .qna-statistics p,
+  .user-list-widget .single-user-widget p,
+  .user-list-widget .single-user-widget .user-activity div span,
+  .single-badge-widget.locked::before,
+  .single-badge-widget p,
+  .single-question-widget-2 p {
+    color: $black_150;
+  }
+  .forum-statistics .statistics-widget p {
+    color: #6b707f;
+  }
+  .search_form button {
+    color: #8f94a6;
+  }
+  .bg-disable,
+  .forum-user-wrapper,
+  .about-journalism {
+    background-color: #4c4cf10d;
+  }
+
+  .funfact-area {
+    background-image: linear-gradient(45deg, #4c4cf10d 0%, #6666eb0d 100%);
+  }
+  .first_logo {
+    display: none;
+  }
+
+  .white_logo {
+    display: block !important;
+  }
+
+  .header_logo img.sticky_logo {
+    display: none;
+  }
+  .forum-right-sidebar-widget .single-widget-box.stat-widget-2 h4 span {
+    color: var(--brand_color);
+  }
+  /** === Sticky Menu Navbar === **/
+  .sticky_menu {
+    .navbar-brand img {
+      display: none;
+    }
+
+    .navbar-brand img + img {
+      display: block;
+    }
+
+    .menu_one,
+    .menu > .nav-item.submenu .dropdown-menu,
+    .menu > .nav-item.submenu .dropdown-menu:before {
+      background: #252830;
+    }
+
+    .menu > .nav-item.submenu .dropdown-menu,
+    .menu > .nav-item.submenu .dropdown-menu:before {
+      border-color: #5a5f73;
+    }
+
+    .menu_one .menu > .nav-item .nav-link,
+    .menu > .nav-item.submenu .dropdown-menu .nav-item .nav-link h5 {
+      color: #fff;
+    }
+  }
+}

@@ -7,8 +7,8 @@ const messagesView = (req, res) => {
   threadId = req.params.threadId
   const messages = Message.find({ threadId:threadId })
     .then((messages) => {
-      let messagesObj = messages.map(item=>item.toObject())
-      console.log(messagesObj)
+      // let messagesObj = messages.map(item=>item.user.toObject())
+      // console.log(messages)
       res.render('messages',{
         info:messages,
         activeUser:req.user,
@@ -27,7 +27,9 @@ const addMessage = async (req, res) => {
     console.log('Fill empty fields')
   }
   else {
-    // console.log(user)
+    console.log( req.body.user )
+    console.log( user.username )
+
     const newMessage = new Message({
       threadId:threadId,
       message:message,

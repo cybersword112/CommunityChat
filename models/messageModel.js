@@ -1,4 +1,8 @@
 const mongoose = require('mongoose')
+const UserSchema = require('mongoose').model('User').schema
+
+
+
 
 const MessageSchema = new mongoose.Schema({
   threadId: {
@@ -9,9 +13,7 @@ const MessageSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  user:{
-    type:Object
-  },
+  user:{},
   likes:{
     type:Number,
     default:0

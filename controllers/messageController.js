@@ -9,7 +9,7 @@ const messagesView = (req, res) => {
     .then((messages) => {
       // let messagesObj = messages.map(item=>item.user.toObject())
       // console.log(messages)
-      res.render('messages',{
+      res.render('forum-single',{
         info:messages,
         activeUser:req.user,
         threadId:threadId,

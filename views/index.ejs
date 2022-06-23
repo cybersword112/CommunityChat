@@ -357,20 +357,283 @@
             <div class="container">
                 <div class="d-flex justify-content-between mb-35 flex-wrap">
                     <h2 class="section-title-h2 mb-0">Community</h2>
-                    <div><a href="../public/static/add-question.html" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a></div>
+                    <div><a href="/home/post" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a></div>
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button" role="tab" aria-controls="profile" aria-selected="true">Posts</button>
+                    </li>
+                    <!-- <li class="nav-item" role="presentation">
                         <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
                             type="button" role="tab" aria-controls="home" aria-selected="false">Show topics</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                            type="button" role="tab" aria-controls="profile" aria-selected="true">Posts</button>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="tab-content mt-30" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <!-- loop to store threads from database that are located in thr threads object array -->
+                                <% for(let i=0; i < threads.length; i++) {%>
+                                    <div class="single-forum-post-widget wow fadeInUp">
+                                        <div class="post-content">
+                                            <div class="post-title">
+                                                <span style="display: none;"><%= threads[i]._id %></span> 
+                                                <h6><a href="/messages/<%= threads[i]._id %>" class="topic"><span><%= threads[i].topic %></span></a>
+                                                    <span><i class="icon_check_alt2"></i></span>
+                                                </h6>
+                                            </div>
+                                            <div class="post-info">
+                                                <div class="author">
+                                                    <img src="img/user-circle-alt.svg" alt="icon"><%= threads[i].postedBy %>
+                                                </div>
+            
+                                                <div class="post-time">
+                                                    <img src="img/time-outline.svg" alt="">10 min ago
+                                                </div>
+                                                <div class="post-category">
+                                                    <a href="#">
+                                                        <img src="img/home_three/forum-catagory-02.svg" alt="">Announcements
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags">
+                                                <div class="single-tag tag-jq">jQuery</div>
+                                                <div class="single-tag tag-php">Php</div>
+                                            </div>
+                                        </div>
+                                        <div class="post-reach">
+                                            <div class="post-view">
+                                                <img src="img/forum/eye-outline.svg" alt="icon">591 Views
+                                            </div>
+                                            <div class="post-like">
+                                                <img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes
+                                            </div>
+                                            <div class="post-comment">
+                                                <img src="img/forum/chatbubbles-outline.svg" alt="icon">155 Replies
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <% } %>
+                        <div class="single-forum-post-widget wow fadeInUp">
+                            <div class="post-content">
+                                <div class="post-title">
+                                    <h6><a href="#">This forum is a special forum for general announcements.</a>
+                                        <span><i class="icon_check_alt2"></i></span>
+                                    </h6>
+                                </div>
+                                <div class="post-info">
+                                    <div class="author">
+                                        <img src="img/user-circle-alt.svg" alt="icon">Zain Siphron
+                                    </div>
+
+                                    <div class="post-time">
+                                        <img src="img/time-outline.svg" alt="">10 min ago
+                                    </div>
+                                    <div class="post-category">
+                                        <a href="#">
+                                            <img src="img/home_three/forum-catagory-02.svg" alt="">Announcements
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post-tags">
+                                    <div class="single-tag tag-jq">jQuery</div>
+                                    <div class="single-tag tag-php">Php</div>
+                                </div>
+                            </div>
+                            <div class="post-reach">
+                                <div class="post-view">
+                                    <img src="img/forum/eye-outline.svg" alt="icon">591 Views
+                                </div>
+                                <div class="post-like">
+                                    <img src="img/forum/thumbs-up-outline.svg" alt="icon">250 Likes
+                                </div>
+                                <div class="post-comment">
+                                    <img src="img/forum/chatbubbles-outline.svg" alt="icon">155 Replies
+                                </div>
+                            </div>
+                        </div>
+                        <section class="all-question-area bg-disable pt-100 pb-120 d-flex justify-content-center">
+                            <div class="container custom-container">
+                              <div class="row">
+                                <div class="col-xl-2 d-xl-block d-none pe-0">
+                                  <div class="forum-left-sidebar-widget">
+                                    <ul class="list-unstyled nav-sidebar">
+                                      <li class="nav-item">
+                                        <a href="index.html" class="nav-link"><img src="img/side-nav/home.png" alt="">Home</a>
+                                      </li>
+                                      <li class="nav-item active">
+                                        <a href="forum-topics.html" class="nav-link"><img src="img/side-nav/question.png"
+                                            alt="briefcase">Questions</a>
+                                        <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                        <ul class="list-unstyled dropdown_nav">
+                                          <li><a href="#">New Questions</a></li>
+                                          <li><a href="#" class="active">Trending Questions</a></li>
+                                          <li><a href="#">Must read Questions</a></li>
+                                          <li><a href="#">Hot Questions</a></li>
+                                        </ul>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="#" class="nav-link"><img src="img/side-nav/link.png" alt="">Communities</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="#" class="nav-link"><img src="img/side-nav/megaphone.png" alt="">Polls</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="#" class="nav-link"><img src="img/side-nav/mortarboard.png" alt="">Education</a>
+                                        <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                        <ul class="list-unstyled dropdown_nav">
+                                          <li><a href="#">Typography</a></li>
+                                          <li><a href="#">Code</a></li>
+                                          <li><a href="#">Image</a></li>
+                                          <li><a href="#">Video</a></li>
+                                          <li><a href="#">Keyboard Shortcuts</a></li>
+                                        </ul>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="#" class="nav-link"><img src="img/side-nav/robot.png" alt="">Technology</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="badges.html" class="nav-link"><img src="img/side-nav/badge.png" alt="">Badges</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="add-question.html" class="nav-link"><img src="img/side-nav/add.png" alt="">Add group</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="user-list.html" class="nav-link"><img src="img/side-nav/chat.png" alt="">User</a>
+                                        <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                        <ul class="list-unstyled dropdown_nav">
+                                          <li><a href="forum-profile.html">User Profile</a></li>
+                                          <li><a href="user-list.html">User List</a></li>
+                                          <li><a href="user-details.html">User Details</a></li>
+                                        </ul>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="#" class="nav-link"><img src="img/side-nav/lifeguard.png" alt="">Help</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="#" class="nav-link"><img src="img/side-nav/bag.png" alt="">Buy Theme</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-xl-7 pe-xl-0 ps-xxl-4">
+                                  <div class="add-question-widget">
+                                    <!-- <form action="/home" method="POST">
+                                        <input type="hidden" value="<%= String(user.name) %>" name="postedBy">
+                                        <input type="text" placeholder="topic" name="topic">
+                                        <input type="submit">
+                                    </form> -->
+                                    <h4 class="widget-title">Create New Thread</h4>
+                                    <form action="/home" method="POST" >
+                                        <input type="hidden" value="<%= String(user.name) %>" name="postedBy">
+                                      <div class="mt-30">
+                                        <label class="label" for="inp_title">Topic<span>*</span></label>
+                                        <div class="icon-input-group">
+                                          <input class="form-control" type="text" id="inp_title" name="topic"/>
+                                          <i class="icon_chat_alt"></i>
+                                        </div>
+                                        <div class="instruction">
+                                          Please choose an appropriate topic for the thread
+                                        </div>
+                                      </div>
+                                      <!-- <div class="mt-25">
+                                        <label class="label" for="inp_category">Category <span>*</span></label>
+                                        <div class="icon-input-group">
+                                          <select id="inp_category" class="custom-select form-control">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                          </select>
+                                          <i class="icon_folder-open"></i>
+                                        </div>
+                                        <div class="instruction">
+                                          Please choose an appropriate title for the equation so
+                                          it can be answered easily.
+                                        </div>
+                                      </div> -->
+                                      <!-- <div class="mt-25">
+                                        <label class="label" for="inp_tag">Tags <span>*</span></label>
+                                        <div class="icon-input-group">
+                                          <input class="form-control" type="text" id="inp_tag" />
+                                          <i class="icon_tags"></i>
+                                        </div>
+                                        <div class="instruction">
+                                          Please choose suitable Keywords Ex:
+                                          <span>question, poll</span>
+                                        </div>
+                                      </div> -->
+                      <!-- 
+                                      <div class="mt-25">
+                                        <label class="label" for="inp_desc">Description <span>*</span></label>
+                                        <textarea id="inp_desc" cols="30" rows="7" class="form-control"></textarea>
+                      
+                                        <div class="instruction">
+                                          Please choose an appropriate title for the equation so
+                                          it can be answered easily.
+                                        </div>
+                                      </div> -->
+                                      <div class="mt-25">
+                                        <!-- <label class="label">Attach File <span>*</span></label>
+                                        <div id="dropzone" class="dropzone">
+                      
+                                        </div>
+                      
+                                        <ul class="dropzone-file-preview pt-3" id="dropzone-preview-container">
+                                          <li>
+                                            <div class="upload-progress" data-dz-uploadprogress></div>
+                                            <div class="preview-info">
+                                              <ion-icon name="attach"></ion-icon>
+                                              <span data-dz-name></span>
+                                            </div>
+                                            <button data-dz-remove>Remove</button>
+                                          </li>
+                                        </ul>
+                                        <div class="form-check mt-30">
+                                          <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck">
+                                          <label class="form-check-label" for="disabledFieldsetCheck">
+                                            Is this question is a poll? If you want to be doing a poll click here.
+                                          </label>
+                                        </div>
+                                        <div class="form-check mt-10">
+                                          <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck2">
+                                          <label class="form-check-label" for="disabledFieldsetCheck2">
+                                            Get notified by email when someone answers this question.
+                                          </label>
+                                        </div>
+                                        <div class="form-check mt-10">
+                                          <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck3">
+                                          <label class="form-check-label" for="disabledFieldsetCheck3">
+                                            By asking your question, you agree to the Terms of Service and Privacy
+                                            Policy.
+                                          </label>
+                                        </div> -->
+                      
+                                        <div class="d-flex justify-content-between mt-60">
+                      
+                                          <button class="cancel_btn">Cancel</button>
+                      
+                                          <button class="action_btn" type="submit">Submit</button>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                    
+
+                        <div class="row">
+                            <div class="col-sm-5 mx-auto">
+                                <a href="#"
+                                    class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                                    <div class="arrow-cont">
+                                        <i class="arrow_carrot-down first"></i>
+                                        <i class="arrow_carrot-down second"></i>
+                                    </div> Show
+                                    More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row gy-4 justify-content-center">
 
                             <div class="col-md-6 col-lg-4">
@@ -504,104 +767,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <!-- loop to store threads from database that are located in thr threads object array -->
-                                <% for(let i=0; i < threads.length; i++) {%>
-                                    <div class="single-forum-post-widget wow fadeInUp">
-                                        <div class="post-content">
-                                            <div class="post-title">
-                                                <span style="display: none;"><%= threads[i]._id %></span> 
-                                                <h6><a href="/messages/<%= threads[i]._id %>" class="topic"><span><%= threads[i].topic %></span></a>
-                                                    <span><i class="icon_check_alt2"></i></span>
-                                                </h6>
-                                            </div>
-                                            <div class="post-info">
-                                                <div class="author">
-                                                    <img src="img/user-circle-alt.svg" alt="icon"><%= threads[i].postedBy %>
-                                                </div>
-            
-                                                <div class="post-time">
-                                                    <img src="img/time-outline.svg" alt="">10 min ago
-                                                </div>
-                                                <div class="post-category">
-                                                    <a href="#">
-                                                        <img src="img/home_three/forum-catagory-02.svg" alt="">Announcements
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="post-tags">
-                                                <div class="single-tag tag-jq">jQuery</div>
-                                                <div class="single-tag tag-php">Php</div>
-                                            </div>
-                                        </div>
-                                        <div class="post-reach">
-                                            <div class="post-view">
-                                                <img src="img/forum/eye-outline.svg" alt="icon">591 Views
-                                            </div>
-                                            <div class="post-like">
-                                                <img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes
-                                            </div>
-                                            <div class="post-comment">
-                                                <img src="img/forum/chatbubbles-outline.svg" alt="icon">155 Replies
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                <% } %>
-                        <div class="single-forum-post-widget wow fadeInUp">
-                            <div class="post-content">
-                                <div class="post-title">
-                                    <h6><a href="#">This forum is a special forum for general announcements.</a>
-                                        <span><i class="icon_check_alt2"></i></span>
-                                    </h6>
-                                </div>
-                                <div class="post-info">
-                                    <div class="author">
-                                        <img src="img/user-circle-alt.svg" alt="icon">Zain Siphron
-                                    </div>
-
-                                    <div class="post-time">
-                                        <img src="img/time-outline.svg" alt="">10 min ago
-                                    </div>
-                                    <div class="post-category">
-                                        <a href="#">
-                                            <img src="img/home_three/forum-catagory-02.svg" alt="">Announcements
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="post-tags">
-                                    <div class="single-tag tag-jq">jQuery</div>
-                                    <div class="single-tag tag-php">Php</div>
-                                </div>
-                            </div>
-                            <div class="post-reach">
-                                <div class="post-view">
-                                    <img src="img/forum/eye-outline.svg" alt="icon">591 Views
-                                </div>
-                                <div class="post-like">
-                                    <img src="img/forum/thumbs-up-outline.svg" alt="icon">250 Likes
-                                </div>
-                                <div class="post-comment">
-                                    <img src="img/forum/chatbubbles-outline.svg" alt="icon">155 Replies
-                                </div>
-                            </div>
-                        </div>
-                    
-
-                        <div class="row">
-                            <div class="col-sm-5 mx-auto">
-                                <a href="#"
-                                    class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
-                                    <div class="arrow-cont">
-                                        <i class="arrow_carrot-down first"></i>
-                                        <i class="arrow_carrot-down second"></i>
-                                    </div> Show
-                                    More
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -931,6 +1097,7 @@
     <script src="js/plugins.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="js/main.js"></script>
+    <script src = "js/mainCC.js"></script>
 </body>
 
 </html>

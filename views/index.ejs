@@ -518,11 +518,7 @@
                                 </div>
                                 <div class="col-xl-7 pe-xl-0 ps-xxl-4">
                                   <div class="add-question-widget">
-                                    <!-- <form action="/home" method="POST">
-                                        <input type="hidden" value="<%= String(user.name) %>" name="postedBy">
-                                        <input type="text" placeholder="topic" name="topic">
-                                        <input type="submit">
-                                    </form> -->
+
                                     <h4 class="widget-title">Create New Thread</h4>
                                     <form action="/home" method="POST" >
                                         <input type="hidden" value="<%= String(user.name) %>" name="postedBy">
@@ -561,16 +557,15 @@
                                           <span>question, poll</span>
                                         </div>
                                       </div> -->
-                      <!-- 
+                      
                                       <div class="mt-25">
-                                        <label class="label" for="inp_desc">Description <span>*</span></label>
-                                        <textarea id="inp_desc" cols="30" rows="7" class="form-control"></textarea>
+                                        <label class="label" for="inp_desc">Description <span>:</span></label>
+                                        <textarea id="inp_desc" cols="30" rows="7" class="form-control" name="content"></textarea>
                       
                                         <div class="instruction">
-                                          Please choose an appropriate title for the equation so
-                                          it can be answered easily.
+                                         The thread description is a good place to tell people what your thread is about.
                                         </div>
-                                      </div> -->
+                                      </div>
                                       <div class="mt-25">
                                         <!-- <label class="label">Attach File <span>*</span></label>
                                         <div id="dropzone" class="dropzone">

@@ -12,13 +12,14 @@ const homeView = (req, res) => {
 }
 
 const addThread = (req, res) => {
-  const { topic, postedBy } = req.body
-  if (!topic || !postedBy) {
+  const { topic, postedBy, content } = req.body
+  if (!topic || !postedBy || !content) {
     console.log('Fill empty fields')
   }
   else {
     const newThread = new Thread({
       topic,
+      content,
       postedBy
     })
     newThread

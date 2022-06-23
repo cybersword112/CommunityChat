@@ -380,7 +380,7 @@
                                         <img src="img/forum/author-avatar.png" alt="">
                                     </a>
                                     <div class="forum-post-author">
-                                        <a class="author-name" href="#"> Eh Jewel </a>
+                                        <a class="author-name" href="#"> <%= thread.postedBy %> </a>
                                         <div class="forum-author-meta">
                                             <div class="author-badge">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -393,7 +393,7 @@
                                             </div>
                                             <div class="author-badge">
                                                 <i class="icon_calendar"></i>
-                                                <a href="#">January 16 at 10:32 PM</a>
+                                                <a href="#"><%= thread.date %></a>
                                             </div>
                                         </div>
                                     </div>
@@ -408,30 +408,12 @@
 
                         <!-- Forum post content -->
                         <div class="q-title">
-                            <span class="question-icon" title="Question">Q:</span>
-                            <h1>Sticky navbar is shown, but state is inactive</h1>
+                            <span class="question-icon" title="Question">Topic:</span>
+                            <h1><%= thread.topic %></h1>
                         </div>
                         <div class="forum-post-content">
                             <div class="content">
-                                <p>Daft blimey cor blimey guvnor jolly good don't get shirty with me what a load of
-                                    rubbish no biggie ruddy cuppa cheesed off bleeding, arse spiffing it's your round
-                                    codswallop gormless off his nut bodge I smashing, mufty chancer Oxford my good sir
-                                    bobby it's all gone to pot bite your arm off wind up Harry. Blatant A bit of how's
-                                    your father it's your round are you taking the piss gutted mate codswallop golly
-                                    gosh, James Bond I old chimney pot is bum bag do one, fanny around crikey pukka
-                                    tomfoolery nancy boy. </p>
-                                <p> Spiffing good time burke give us a bell absolutely bladdered gutted mate tosser
-                                    cuppa happy days Harry young delinquent amongst car boot, baking cakes cheesed off I
-                                    down the pub what a load of rubbish such a fibber knees up me old mucker wind up
-                                    smashing. My lady cheeky faff about what a plonker so I said pardon you chimney pot
-                                    cheesed off haggle quaint, cup of tea gormless excuse my French mush bleeding
-                                    knackered squiffy mush, such a fibber dropped a clanger jolly good he lost his
-                                    bottle vagabond no biggie fanny around brilliant. Chip shop absolutely bladdered
-                                    cockup up the kyver cracking goal is pardon you cuppa easy peasy the full monty the
-                                    bee's knees blatant, bugger pear shaped a load of old tosh zonked give us a bell up
-                                    the duff bleeder fantastic James Bond chap. Off his nut the BBC mufty hotpot my lady
-                                    I super tomfoolery nancy boy, loo fanny around bits and bobs nice one only a quid
-                                    Eaton blow off barmy, knees up bobby cup of char barney a no biggie gormless.</p>
+                                <p><%= thread.content %></p>
                             </div>
                             <div class="forum-post-btm">
                                 <div class="taxonomy forum-post-tags">
@@ -449,7 +431,7 @@
                         </div>
 
                         <!-- Best answer -->
-                        <div class="best-answer">
+                        <!-- <div class="best-answer">
                             <div class="row">
                                 <div class="col-lg-9">
                                     <div class="forum-post-top">
@@ -496,7 +478,99 @@
                                     Thanks!
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
+                        <form action="/messages" method="POST" >
+                            <input type="hidden"  name="threadId" value="<%= threadId %>">
+                            <input type="hidden"  value="<%= JSON.stringify({username:activeUser.name, userID: activeUser._id}) %>" name="user">
+                          <div class="mt-30">
+                            <label class="label" for="inp_title">Reply<span>:</span></label>
+                            <div class="icon-input-group">
+                              <input class="form-control" type="text" id="inp_title" name="message" placeholder="reply..."/>
+                              <i class="icon_chat_alt"></i>
+                            </div>
+                            <div class="instruction">
+                              Post reply.
+                            </div>
+                          </div>
+                          <!-- <div class="mt-25">
+                            <label class="label" for="inp_category">Category <span>*</span></label>
+                            <div class="icon-input-group">
+                              <select id="inp_category" class="custom-select form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                              </select>
+                              <i class="icon_folder-open"></i>
+                            </div>
+                            <div class="instruction">
+                              Please choose an appropriate title for the equation so
+                              it can be answered easily.
+                            </div>
+                          </div> -->
+                          <!-- <div class="mt-25">
+                            <label class="label" for="inp_tag">Tags <span>*</span></label>
+                            <div class="icon-input-group">
+                              <input class="form-control" type="text" id="inp_tag" />
+                              <i class="icon_tags"></i>
+                            </div>
+                            <div class="instruction">
+                              Please choose suitable Keywords Ex:
+                              <span>question, poll</span>
+                            </div>
+                          </div> -->
+          <!-- 
+                          <div class="mt-25">
+                            <label class="label" for="inp_desc">Description <span>*</span></label>
+                            <textarea id="inp_desc" cols="30" rows="7" class="form-control"></textarea>
+          
+                            <div class="instruction">
+                              Please choose an appropriate title for the equation so
+                              it can be answered easily.
+                            </div>
+                          </div> -->
+                          <div class="mt-25">
+                            <!-- <label class="label">Attach File <span>*</span></label>
+                            <div id="dropzone" class="dropzone">
+          
+                            </div>
+          
+                            <ul class="dropzone-file-preview pt-3" id="dropzone-preview-container">
+                              <li>
+                                <div class="upload-progress" data-dz-uploadprogress></div>
+                                <div class="preview-info">
+                                  <ion-icon name="attach"></ion-icon>
+                                  <span data-dz-name></span>
+                                </div>
+                                <button data-dz-remove>Remove</button>
+                              </li>
+                            </ul>
+                            <div class="form-check mt-30">
+                              <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck">
+                              <label class="form-check-label" for="disabledFieldsetCheck">
+                                Is this question is a poll? If you want to be doing a poll click here.
+                              </label>
+                            </div>
+                            <div class="form-check mt-10">
+                              <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck2">
+                              <label class="form-check-label" for="disabledFieldsetCheck2">
+                                Get notified by email when someone answers this question.
+                              </label>
+                            </div>
+                            <div class="form-check mt-10">
+                              <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck3">
+                              <label class="form-check-label" for="disabledFieldsetCheck3">
+                                By asking your question, you agree to the Terms of Service and Privacy
+                                Policy.
+                              </label>
+                            </div> -->
+          
+                            <div class="d-flex justify-content-between mt-60">
+          
+                              <button class="cancel_btn">Cancel</button>
+          
+                              <button class="action_btn" type="submit">Submit</button>
+                            </div>
+                          </div>
+                        </form>
 
                         <!-- All answer -->
                         <div class="all-answers">
@@ -512,7 +586,56 @@
                                 </div>
                                 <p>Page 1 of 4</p>
                             </div>
+                        <% if (info != false) { %>
+                            <% for(let i=0; i < info.length; i++) {%>
+                                <!-- <li class="message">
+                                    <span class = "userName"> <strong> <%= info[i].date %> </strong></span>, 
+                                    <span class = "userName"> <strong> <%= info[i].user.username %> </strong></span>:
+                                    <br>
+                                    <span><%= info[i].message %></span>
+                                    <span><%= info[i].likes %></span>
+                                    <span class='fa fa-thumbs-up'></span>
+                                    <span class='fa fa-trash'></span>
+                                </li> -->
+                                <div class="forum-comment">
+                                    <div class="forum-post-top">
+                                        <a class="author-avatar" href="#">
+                                            <img src="img/forum/author-avatar.png" alt="author avatar">
+                                        </a>
+                                        <div class="forum-post-author">
+                                            <a class="author-name" href="#"><%= info[i].user.username %></a>
+                                            <div class="forum-author-meta">
+                                                <div class="author-badge">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="16px"
+                                                        height="15px">
+                                                        <path fill-rule="evenodd" fill="rgb(131, 135, 147)"
+                                                            d="M11.729,12.136 L11.582,12.167 C11.362,12.415 11.125,12.645 10.869,12.857 L14.999,12.857 C15.134,12.857 15.255,12.944 15.307,13.077 C15.359,13.211 15.331,13.365 15.235,13.467 L14.488,14.268 C14.053,14.733 13.452,15.000 12.838,15.000 L2.495,15.000 C1.872,15.000 1.286,14.740 0.845,14.268 L0.098,13.467 C0.002,13.365 -0.026,13.211 0.026,13.077 C0.077,12.944 0.199,12.857 0.334,12.857 L4.463,12.857 C2.928,11.585 2.000,9.630 2.000,7.499 L2.000,6.785 C2.000,6.194 2.449,5.713 3.000,5.713 L12.333,5.713 C12.885,5.713 13.333,6.194 13.333,6.785 L13.333,7.343 C13.869,7.160 14.736,6.973 15.355,7.400 C15.783,7.696 16.000,8.209 16.000,8.928 C16.000,11.239 11.903,12.100 11.729,12.136 ZM14.994,8.002 C14.557,7.698 13.715,7.941 13.294,8.113 C13.197,9.261 12.837,10.339 12.255,11.269 C13.480,10.911 15.333,10.116 15.333,8.928 C15.333,8.462 15.223,8.158 14.994,8.002 ZM10.261,4.419 C10.376,4.573 10.353,4.798 10.209,4.921 C10.148,4.974 10.074,4.999 10.001,4.999 C9.903,4.999 9.807,4.954 9.740,4.865 C9.198,4.139 9.198,3.002 9.741,2.277 C10.086,1.816 10.086,1.040 9.742,0.580 C9.627,0.426 9.650,0.201 9.794,0.078 C9.937,-0.044 10.146,-0.020 10.263,0.134 C10.805,0.860 10.805,1.996 10.263,2.722 C9.917,3.183 9.917,3.959 10.261,4.419 ZM8.259,4.419 C8.373,4.573 8.350,4.798 8.207,4.921 C8.145,4.974 8.071,4.999 7.999,4.999 C7.901,4.999 7.804,4.954 7.738,4.865 C7.195,4.139 7.195,3.002 7.738,2.277 C8.082,1.816 8.082,1.040 7.739,0.580 C7.624,0.426 7.647,0.201 7.791,0.078 C7.935,-0.045 8.145,-0.020 8.259,0.134 C8.802,0.860 8.802,1.996 8.259,2.722 C7.915,3.183 7.915,3.959 8.259,4.419 ZM6.261,4.418 C6.376,4.572 6.353,4.797 6.210,4.920 C6.148,4.973 6.074,4.999 6.001,4.999 C5.903,4.999 5.807,4.953 5.741,4.865 C5.198,4.139 5.198,3.002 5.741,2.276 C6.085,1.815 6.085,1.039 5.742,0.580 C5.627,0.426 5.650,0.201 5.794,0.078 C5.937,-0.046 6.147,-0.020 6.262,0.133 C6.804,0.859 6.804,1.996 6.262,2.721 C5.918,3.182 5.918,3.959 6.261,4.418 Z" />
+                                                    </svg>
+                                                    <span>Talker</span>
+                                                </div>
+                                                <div class="author-badge">
+                                                    <i class="icon_calendar"></i>
+                                                    <a href="#"><%= info[i].date %></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content">
+                                        <p><%= info[i].message %></p>
+                                        <div class="action-button-container action-btns">
+                                            <a href="#" class="action_btn btn-ans ask-btn reply-btn">Reply</a>
+                                            <a href="#" class="action_btn btn-ans ask-btn too-btn">Like(s) <%= info[i].likes %></a>
+                                            <span class='fa fa-thumbs-up'></span>
+                                            <span class='fa fa-trash'></span>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            <% } %>
+                            <% } else{ %>
+                                <li>no messages</li>
+                            <% } %>
                             <div class="forum-comment">
                                 <div class="forum-post-top">
                                     <a class="author-avatar" href="#">
@@ -549,7 +672,7 @@
                                 </div>
                             </div>
 
-                            <div class="forum-comment">
+                            <!-- <div class="forum-comment">
                                 <div class="forum-post-top">
                                     <a class="author-avatar" href="#">
                                         <img src="img/forum/author-avatar-2.jpg" alt="author avatar">
@@ -652,7 +775,7 @@
                                         <a href="#" class="action_btn btn-ans ask-btn too-btn">Helpful</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="pagination-wrapper">
                                 <div class="view-post-of">

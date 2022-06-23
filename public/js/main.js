@@ -841,13 +841,13 @@
   }
 
   // === Focus Search Form
-  $(document).on("keydown", function (e) {
-    if (e.keyCode === 191) {
-      e.preventDefault();
-      $("input[type=search]").focus();
-      return;
-    }
-  });
+  // $(document).on("keydown", function (e) {
+  //   if (e.keyCode === 191) {
+  //     e.preventDefault();
+  //     $("input[type=search]").focus();
+  //     return;
+  //   }
+  // });
 
   let doc_banner_area = $(".has_search input[type=search]");
   doc_banner_area.on("focus", function () {

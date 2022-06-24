@@ -7,7 +7,7 @@ const passport = require('passport')
 
 //For Register Page
 const registerView = (req, res) => {
-  res.render('register', {} )
+  res.render('signup', {} )
 }
 
 //Post Request that handles Register
@@ -24,7 +24,7 @@ const registerUser = (req, res) => {
     User.findOne({ email: email }).then((user) => {
       if (user) {
         console.log('email exists')
-        res.render('register', {
+        res.render('signup', {
           name,
           email,
           password,
@@ -56,7 +56,7 @@ const registerUser = (req, res) => {
 
 // For View
 const loginView = (req, res) => {
-  res.render('login', {} )
+  res.render('signin', {} )
 }
 
 const loginUser = (req,res) => {
@@ -64,13 +64,13 @@ const loginUser = (req,res) => {
   //required
   if(!email || !password){
     console.log('Please fill in all the fields')
-    res.render('login',{
+    res.render('signup',{
       email,
       password,
     })
   } else {
     passport.authenticate('local', {
-      successRedirect:'/dashboard',
+      successRedirect:'/home',
       failureRedirect:'/login',
       failureFlash:true,
     })(req,res)

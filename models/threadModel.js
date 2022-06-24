@@ -5,6 +5,9 @@ const ThreadSchema = new mongoose.Schema({
     type:String,
     required:true
   },
+  content:{
+    type:String,
+  },
   postedBy:{
     type:String,
     default:'Anonymous'

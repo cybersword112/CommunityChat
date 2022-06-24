@@ -4,7 +4,7 @@ const Thread = require('../models/threadModel')
 const homeView = (req, res) => {
   const threads = Thread.find({})
     .then((threads) => {
-      res.render('home',{
+      res.render('index',{
         threads:threads,
         user:req.user,
       })
@@ -12,13 +12,14 @@ const homeView = (req, res) => {
 }
 
 const addThread = (req, res) => {
-  const { topic, postedBy } = req.body
-  if (!topic || !postedBy) {
+  const { topic, postedBy, content } = req.body
+  if (!topic || !postedBy || !content) {
     console.log('Fill empty fields')
   }
   else {
     const newThread = new Thread({
       topic,
+      content,
       postedBy
     })
     newThread
@@ -30,7 +31,7 @@ const addThread = (req, res) => {
 
 const deleteThread = (req,res) => {
   console.log(req.body)
-  Thread.findOneAndDelete({ _id:req.body.id})
+  Thread.findOneAndDelete({ _id:req.body.id })
     .then(() => {
       res.sendStatus(200)
     } )

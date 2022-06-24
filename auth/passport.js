@@ -30,6 +30,7 @@ const loginCheck = passport => {
         .catch((error) => console.log(error))
     })
   )
+  
 
   passport.serializeUser((user,done) => {
     done(null,user.id)

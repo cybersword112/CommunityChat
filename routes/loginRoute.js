@@ -6,6 +6,7 @@ const {
   loginView,
   registerUser,
   loginUser,
+  logoutUser,
 } = require('../controllers/loginController')
 
 
@@ -13,6 +14,7 @@ const router = express.Router()
 
 router.get('/register', registerView)
 router.get('/login', loginView)
+router.post('/logout', logoutUser)
 
 router.post('/register',registerUser)
 router.post('/login', loginUser)

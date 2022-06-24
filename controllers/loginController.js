@@ -77,9 +77,17 @@ const loginUser = (req,res) => {
   }
 }
 
+const logoutUser = (req,res) => {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/login');
+  })
+}
+
 module.exports =  {
   registerView,
   loginView,
   registerUser,
   loginUser,
+  logoutUser,
 }

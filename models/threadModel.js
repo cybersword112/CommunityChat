@@ -8,6 +8,11 @@ const ThreadSchema = new mongoose.Schema({
   content:{
     type:String,
   },
+  tags:{
+    type:Array,
+    required:true,
+    default:[]
+  },
   postedBy:{
     type:String,
     default:'Anonymous'
@@ -17,6 +22,10 @@ const ThreadSchema = new mongoose.Schema({
     default:0
   },
   dislikes:{
+    type:Number,
+    default:0
+  },
+  views:{
     type:Number,
     default:0
   },

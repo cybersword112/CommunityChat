@@ -116,7 +116,18 @@
                         </li> -->
                     </ul>
                     <div class="right-nav">
+                        <% if (user) { %>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fa fa-user"></i>Welcome: <%= user.name %>
+                        </a>
+                        <form action="/logout" method="post" >  
+                            <button type="submit" class="btn btn-primary" onclick="logout()">
+                                <i class="fa fa-sign-out"></i>Logout
+                            </button>
+                        </form>
+                        <% } else { %>
                         <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="/login">Sign In</a>
+                        <% } %>
                         <div class="px-2 js-darkmode-btn" title="Toggle dark mode">
                             <label for="something" class="tab-btn tab-btns">
                                 <ion-icon name="moon"></ion-icon>
@@ -357,7 +368,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between mb-35 flex-wrap">
                     <h2 class="section-title-h2 mb-0">Community</h2>
-                    <div><a href="/home/post" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a></div>
+                    <div><a href="#newThread" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a></div>
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -452,6 +463,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-5 mx-auto">
+                                <a href="#"
+                                    class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                                    <div class="arrow-cont">
+                                        <i class="arrow_carrot-down first"></i>
+                                        <i class="arrow_carrot-down second"></i>
+                                    </div> Show
+                                    More
+                                </a>
+                            </div>
+                        </div>
                         <section class="all-question-area bg-disable pt-100 pb-120 d-flex justify-content-center">
                             <div class="container custom-container">
                               <div class="row">
@@ -516,7 +539,7 @@
                                     </ul>
                                   </div>
                                 </div>
-                                <div class="col-xl-7 pe-xl-0 ps-xxl-4">
+                                <div class="col-xl-7 pe-xl-0 ps-xxl-4" id="newThread">
                                   <div class="add-question-widget">
 
                                     <h4 class="widget-title">Create New Thread</h4>
@@ -546,7 +569,7 @@
                                           it can be answered easily.
                                         </div>
                                       </div> -->
-                                      <!-- <div class="mt-25">
+                                      <div class="mt-25">
                                         <label class="label" for="inp_tag">Tags <span>*</span></label>
                                         <div class="icon-input-group">
                                           <input class="form-control" type="text" id="inp_tag" />
@@ -554,9 +577,9 @@
                                         </div>
                                         <div class="instruction">
                                           Please choose suitable Keywords Ex:
-                                          <span>question, poll</span>
+                                          <span>question, event, rant, compliment.</span>
                                         </div>
-                                      </div> -->
+                                      </div>
                       
                                       <div class="mt-25">
                                         <label class="label" for="inp_desc">Description <span>:</span></label>
@@ -613,19 +636,6 @@
                                   </div>
                                 </div>
                     
-
-                        <div class="row">
-                            <div class="col-sm-5 mx-auto">
-                                <a href="#"
-                                    class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
-                                    <div class="arrow-cont">
-                                        <i class="arrow_carrot-down first"></i>
-                                        <i class="arrow_carrot-down second"></i>
-                                    </div> Show
-                                    More
-                                </a>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">

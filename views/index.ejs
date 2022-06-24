@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/mcustomscrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="css/style-main.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <title>CommunityChat</title>
+    <title>CommunityChat -Local Forums</title>
 </head>
 
 <body data-scroll-animation="true">
@@ -27,7 +27,7 @@
                 <div class="spinner"></div>
                 <div class="text">
                     <img src="img/spinner_logo.png" alt="">
-                    <h4><span><bold>CC</bold></span></h4>
+                    <h4><span><bold>CommunityChat</bold></span></h4>
                 </div>
             </div>
             <h2 class="head">Fetching communities, one second!</h2>
@@ -41,7 +41,7 @@
         <nav class="navbar navbar-expand-lg  menu_one sticky-nav d-none d-lg-block">
             <div class="container">
                 <a class="navbar-brand header_logo" href="index.html">
-                    <span>CC</span>
+                    <span class="display-6">CC</span>
                     <!-- <img class="first_logo sticky_logo" src="img/logo.png" srcset="img/logo-2x.png 2x" alt="logo">
                     <img class="white_logo main_logo" src="img/logo-w.png" srcset="img/logo-w2x.png 2x" alt="logo"> -->
                 </a>
@@ -117,9 +117,7 @@
                     </ul>
                     <div class="right-nav">
                         <% if (user) { %>
-                        <a href="#" class="btn btn-primary">
-                            <i class="fa fa-user"></i>Welcome: <%= user.name %>
-                        </a>
+                            <h6 class="btn text-center" ><%= user.name %></h6>
                         <form action="/logout" method="post" >  
                             <button type="submit" class="btn btn-primary" onclick="logout()">
                                 <i class="fa fa-sign-out"></i>Logout
@@ -155,12 +153,23 @@
                         </span>
                     </button>
                     <a class="navbar-brand header_logo" href="index.html">
-                        <img class="sticky_logo " src="img/logo.png" srcset="img/logo-2x.png 2x" alt="logo">
-                        <img class="main_logo white_logo" src="img/logo-w.png" srcset="img/logo-w2x.png 2x" alt="logo">
+                        <span class="display-6">CC</span>
+                        <!-- <img class="sticky_logo " src="img/logo.png" srcset="img/logo-2x.png 2x" alt="logo">
+                        <img class="main_logo white_logo" src="img/logo-w.png" srcset="img/logo-w2x.png 2x" alt="logo"> -->
                     </a>
                 </div>
                 <div class="mobile_menu_right">
                     <div class="right-nav">
+                        <% if (user) { %>
+                            <h6 class="btn text-center" ><%= user.name %></h6>
+                        <form action="/logout" method="post" >  
+                            <button type="submit" class="btn btn-primary" onclick="logout()">
+                                <i class="fa fa-sign-out"></i>Logout
+                            </button>
+                        </form>
+                        <% } else { %>
+                        <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="/login">Sign In</a>
+                        <% } %>
                         <div class="px-2 js-darkmode-btn" title="Toggle dark mode">
                             <label for="something2" class="tab-btn tab-btns">
                                 <ion-icon name="moon"></ion-icon>
@@ -183,8 +192,9 @@
                 </div>
                 <div class="mobile_logo">
                     <a class="navbar-brand header_logo me-0" href="index.html">
-                        <img class="sticky_logo main_logo" src="img/logo.png" srcset="img/logo-2x.png 2x" alt="logo">
-                        <img class="white_logo" src="img/logo-w.png" srcset="img/logo-w2x.png 2x" alt="logo">
+                        <span class="display-6">CommunityChat</span>
+                        <!-- <img class="sticky_logo main_logo" src="img/logo.png" srcset="img/logo-2x.png 2x" alt="logo">
+                        <img class="white_logo" src="img/logo-w.png" srcset="img/logo-w2x.png 2x" alt="logo"> -->
                     </a>
                 </div>
             </div>
@@ -194,15 +204,15 @@
                         <li class="nav-item dropdown submenu active">
                             <a href="index.html" class="nav-link dropdown-toggle">Home</a>
                             <i class="arrow_carrot-down_alt2 mobile_dropdown_icon"></i>
-                            <ul class="dropdown-menu">
+                            <!-- <ul class="dropdown-menu">
                                 <li class="nav-item active"><a href="index.html" class="nav-link">Demo 01</a></li>
                                 <li class="nav-item"><a href="index-2.html" class="nav-link">Demo 02</a></li>
                                 <li class="nav-item "><a href="index-3.html" class="nav-link">Demo 03</a></li>
                                 <li class="nav-item "><a href="index-4.html" class="nav-link">Demo 04</a></li>
                                 <li class="nav-item "><a href="index-5.html" class="nav-link">Demo 05</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
-                        <li class="nav-item dropdown submenu">
+                        <!-- <li class="nav-item dropdown submenu">
                             <a class="nav-link dropdown-toggle" href="#">
                                 Pages
                             </a>
@@ -247,7 +257,7 @@
                                 <li class="nav-item"><a href="blog-list.html" class="nav-link">Blog List</a></li>
                                 <li class="nav-item"><a href="blog-single.html" class="nav-link">Blog Details</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
             </div>
@@ -295,10 +305,14 @@
             <div class="container">
                 <div class="row doc_banner_content">
                     <div class="col-12 px-0">
+                        <% if (user) { %>
+                            <h4 class ="banner-title-h1">Hi <%= user.name %>, </h4>
+                            <% } %>
                         <h1 class="banner-title-h1">Welcome to CommunityChat</h1>
                         <p class="banner-text-p">a tool to help communities grow closer through local interactions.</p>
                     </div>
-                    <div class="col-lg-8 mx-auto">
+                    <!-- Search bar -->
+                    <!-- <div class="col-lg-8 mx-auto">
                         <div class="banner-search-box mt-40">
                             <form action="#">
                                 <div class="input-wrapper">
@@ -308,7 +322,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -479,7 +493,7 @@
                             <div class="container custom-container">
                               <div class="row">
                                 <div class="col-xl-2 d-xl-block d-none pe-0">
-                                  <div class="forum-left-sidebar-widget">
+                                  <!-- <div class="forum-left-sidebar-widget">
                                     <ul class="list-unstyled nav-sidebar">
                                       <li class="nav-item">
                                         <a href="index.html" class="nav-link"><img src="img/side-nav/home.png" alt="">Home</a>
@@ -537,7 +551,7 @@
                                         <a href="#" class="nav-link"><img src="img/side-nav/bag.png" alt="">Buy Theme</a>
                                       </li>
                                     </ul>
-                                  </div>
+                                  </div> -->
                                 </div>
                                 <div class="col-xl-7 pe-xl-0 ps-xxl-4" id="newThread">
                                   <div class="add-question-widget">

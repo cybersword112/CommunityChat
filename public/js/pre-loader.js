@@ -9,14 +9,15 @@
   cites[2] = "You can create any type of product documentation with Docy";
   cites[3] = "Advanced visual search system powered by Ajax";
   var cite = cites[Math.floor(Math.random() * cites.length)];
-  $("#preloader p").text(cite);
+
+  // $("#preloader p").text(cite);
   $("#preloader").addClass("loading");
 
   $(window).on("load", function () {
     setTimeout(function () {
-      $("#preloader").fadeOut(500, function () {
+      $("#preloader").fadeOut(100, function () {
         $("#preloader").removeClass("loading");
       });
-    }, 500);
+    }, 100);
   });
 })(jQuery);

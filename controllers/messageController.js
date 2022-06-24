@@ -13,7 +13,7 @@ const messagesView = async (req, res) => {
     res.render('forum-single',{
       thread:thread,
       info:messages,
-      activeUser:req.user,
+      user:req.user,
       threadId:threadId,
     })
     // .then((messages) => {

@@ -1,4 +1,5 @@
 const express = require('express')
+
 const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
@@ -9,11 +10,15 @@ const session = require('express-session')
 const passport = require('passport')
 const { loginCheck } = require('./auth/passport')
 loginCheck(passport)
+
 // eslint-disable-next-line no-undef
 const dataBase = process.env.DB_STRING
 
 mongoose
-  .connect(dataBase, { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(dataBase, { 
+    useUnifiedTopology: true, 
+    useNewUrlParser: true
+  })
   .then(() => console.log('connected to db via mongoose'))
   .catch(err => console.log(err))
 

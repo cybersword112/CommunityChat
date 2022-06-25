@@ -13,6 +13,7 @@ const {
 const router = express.Router()
 
 router.get('/register', registerView)
+router.get('/', loginView)
 router.get('/login', loginView)
 router.post('/logout', logoutUser)
 

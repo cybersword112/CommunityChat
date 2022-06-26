@@ -17,6 +17,10 @@ const ThreadSchema = new mongoose.Schema({
     type:String,
     default:'Anonymous'
   },
+  bIsAnonPost:{
+    type:Boolean,
+    default:false
+  },
   likes:{
     type:Number,
     default:0

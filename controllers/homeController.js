@@ -1,8 +1,9 @@
-const Thread = require('../models/threadModel')
 
 
+const Thread = require('../models/threadModel') 
+// renders home page
 const homeView = (req, res) => {
-  const threads = Thread.find({})
+  const threads = Thread.find({}).sort({ date: -1 })
     .then((threads) => {
       res.render('index',{
         threads:threads,
@@ -10,17 +11,28 @@ const homeView = (req, res) => {
       })
     })
 }
-
+// adds thread to database
 const addThread = (req, res) => {
   const { topic, postedBy, content } = req.body
-  if (!topic || !postedBy || !content) {
+  let { tags, bIsAnonPost } = req.body
+  if (!topic || !postedBy || !content ) {
     console.log('Fill empty fields')
   }
   else {
+    if(tags){
+      tags = tags.split(',')
+    }
+    if(bIsAnonPost === 'on'){
+      bIsAnonPost = true
+    } else {
+      bIsAnonPost = false
+    }
     const newThread = new Thread({
       topic,
       content,
-      postedBy
+      postedBy,
+      tags,
+      bIsAnonPost,
     })
     newThread
       .save()
@@ -28,7 +40,7 @@ const addThread = (req, res) => {
       .catch((err) => console.log(err))
   }
 }
-
+// deletes thread from database
 const deleteThread = (req,res) => {
   console.log(req.body)
   Thread.findOneAndDelete({ _id:req.body.id })
@@ -37,7 +49,7 @@ const deleteThread = (req,res) => {
     } )
     .catch((err) => console.log(err))
 }
-
+// exports
 module.exports = {
   homeView,
   addThread,

@@ -14,6 +14,10 @@ const MessageSchema = new mongoose.Schema({
     required:true
   },
   user:{},
+  bIsAnonPost:{
+    type:Boolean,
+    default:false
+  },
   likes:{
     type:Number,
     default:0

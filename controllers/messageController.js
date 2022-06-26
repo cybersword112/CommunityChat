@@ -24,7 +24,7 @@ const messagesView = async (req, res) => {
 
 const addMessage = async (req, res) => {
   const { message } = req.body
-  let { user } = req.body
+  let { user, bIsAnonPost } = req.body
   const { threadId } = req.body
   // console.log(user)
   if (!user || !message || !threadId) {
@@ -36,11 +36,16 @@ const addMessage = async (req, res) => {
       console.log( req.body.user )
       user = JSON.parse(req.body.user)
       console.log( user.username )
-
+      if(bIsAnonPost === 'on'){
+        bIsAnonPost = true
+      } else {
+        bIsAnonPost = false
+      }
       const newMessage = new Message({
         threadId:threadId,
         message:message,
         user:user,
+        bIsAnonPost:bIsAnonPost,
       })
       const thread = await Thread.findById(threadId)
       console.log(thread)

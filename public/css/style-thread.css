@@ -1,10 +1,20 @@
 .originalPost{
-    background-color: #b3b3b3;
+    background-color: #b3b3b34b;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
 }
 .originalContent{
     margin-bottom: 10px;
-    background-color: #b3b3b3;
+    background-color: #b3b3b341;
+    border-radius: 5px;
+}
+.forum-post-top .forum-post-author .author-name.userName{
+    font-weight: bold;
+    background-color: aliceblue;
+    color: orange;
+}
+.replies{
+    background-color: #b3b3b341;
+    border-radius: 5px;
 }

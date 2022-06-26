@@ -39,7 +39,7 @@
         <div class="click_capture"></div>
         <nav class="navbar navbar-expand-lg menu_one sticky-nav d-lg-block d-none">
             <div class="container">
-                <a class="navbar-brand header_logo" href="index.html">
+                <a class="navbar-brand header_logo" href="/home">
                     <span class="display-6">CC</span>
                     <!-- <img class="first_logo sticky_logo" src="img/logo.png" srcset="img/logo-2x.png 2x" alt="logo" />
                     <img class="white_logo main_logo" src="img/logo-w.png" srcset="img/logo-w2x.png 2x" alt="logo" /> -->
@@ -218,7 +218,11 @@
                                         <img src="img/forum/author-avatar.png" alt="">
                                     </a>
                                     <div class="forum-post-author">
-                                        <a class="author-name" href="#"> <%= thread.postedBy %> </a>
+                                        <% if(thread.bIsAnonPost === true){ %>
+                                            <a class="author-name userName" href="#"> Anonymous </a>
+                                        <% }else{ %>
+                                            <a class="author-name userName" href="#"> <%= thread.postedBy %> </a>
+                                        <% } %>
                                         <div class="forum-author-meta">
                                             <div class="author-badge">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -251,8 +255,8 @@
                         </div> -->
                         <div class="forum-post-content originalContent">
                             <div class="content text-left">
-                                <h5 class="title"><%= thread.topic %>:</h5>
-                                <p class="" ><%= thread.content %></p>
+                                <h5 class="title">Thread Title: <%= thread.topic %></h5>
+                                <p class="" >Post Content: <%= thread.content %></p>
                             </div>
                             <div class="action-button-container">
                                 <a href="#postMessage" class="action_btn btn-ans ask-btn reply-btn">Reply</a>
@@ -286,13 +290,17 @@
                             </div> -->
                         <% if (info != false) { %>
                             <% for(let i=0; i < info.length; i++) {%>
-                                <div class="forum-comment">
+                                <div class="forum-comment replies">
                                     <div class="forum-post-top">
-                                        <!-- <a class="author-avatar" href="#">
+                                        <a class="author-avatar" href="#">
                                             <img src="img/forum/author-avatar.png" alt="author avatar">
-                                        </a> -->
+                                        </a>
                                         <div class="forum-post-author">
-                                            <a class="author-name" href="#"><%= info[i].user.username %></a>
+                                            <% if(info[i].bIsAnonPost === true){ %>
+                                                <a class="author-name userName" href="#">Anonymous</a>
+                                            <% }else{ %>
+                                                <a class="author-name userName" href="#"><%= info[i].user.username %></a>
+                                            <% } %>
                                             <div class="forum-author-meta">
                                                 <div class="author-badge">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -336,9 +344,15 @@
                                 </div>
                               </div>
                               <div class="mt-25">
-              
-                                <div class="d-flex justify-content-end mt-60">
-              
+                                  <div class="form-check mt-30">
+                                    <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" name="bIsAnonPost">
+                                    <label class="form-check-label" for="disabledFieldsetCheck">
+                                      <h5> Would you like to post this reply anonymously? Check here if yes.</h5>
+                                    </label>
+                                  </div>
+                                  
+                                  <div class="d-flex justify-content-end mt-60">
+                                      
                                   <button class="cancel_btn">Cancel</button>
               
                                   <button class="action_btn" type="submit">Submit</button>

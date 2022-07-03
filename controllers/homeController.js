@@ -8,15 +8,16 @@ const homeView = async (req, res) => {
     let cookies = req.cookies
     const userLocation = cookies.location.split(',').map(item => item=Number(item))
     let threads = await Thread.find({}).sort({ date: -1 })
-
+    console.log('passed thread fetch')
     threads = threads.filter(item => {
       return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) == 'Global')
     })
-    console.log(threads)
+    console.log('passed thread filter, before render')
     res.render('index',{
       threads:threads,
       user:req.user,
     })
+    console.log('passed home render')
   }catch(err){res.send({'error':err}) }
 
 }

@@ -41,6 +41,14 @@ const ThreadSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  location: {
+    type:Array,
+    default:[]
+  },
+  range: {
+    type:String,
+    default:'2'
+  }
 })
 
 const Thread = mongoose.model('Thread',ThreadSchema)

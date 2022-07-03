@@ -9,7 +9,7 @@ const messagesView = async (req, res) => {
     const messages = await Message.find({ threadId:threadId }).sort({ date:1 })
     const thread = await Thread.findOneAndUpdate({ _id:threadId }, { $inc: { views: 1 } })
     // const thread = await Thread.findById(threadId)
-    console.log(thread)
+    // console.log(thread)
 
     res.render('forum-single',{
       thread:thread,
@@ -33,9 +33,9 @@ const addMessage = async (req, res) => {
   }
   else {
     try{
-      console.log( req.body.user )
+      // console.log( req.body.user )
       user = JSON.parse(req.body.user)
-      console.log( user.username )
+      // console.log( user.username )
       if(bIsAnonPost === 'on'){
         bIsAnonPost = true
       } else {
@@ -48,7 +48,7 @@ const addMessage = async (req, res) => {
         bIsAnonPost:bIsAnonPost,
       })
       const thread = await Thread.findById(threadId)
-      console.log(thread)
+      // console.log(thread)
       thread.messages.push(newMessage)
       await thread.save()
       await newMessage.save()
@@ -60,7 +60,7 @@ const addMessage = async (req, res) => {
 }
 
 const deleteMessage = (req,res) => {
-  console.log(req.body)
+  // console.log(req.body)
   Message.findOneAndDelete({ _id:req.body.id })
     .then(() => {
       res.sendStatus(200)

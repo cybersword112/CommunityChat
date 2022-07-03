@@ -80,6 +80,7 @@ const loginUser = (req,res) => {
 const logoutUser = (req,res) => {
   req.logout(function(err) {
     if (err) { return next(err); }
+    req.user
     res.redirect('/login');
   })
 }

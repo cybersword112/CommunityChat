@@ -1,0 +1,96 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Geolocation API</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <style>
+        html, body, #map {padding: 0; margin: 0; height: 100%; width: 100%;}
+        #divLocate {
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            margin: 15px;
+            z-index: 20;
+            background-color: rgba(250, 250, 250, .8);
+        }
+        #map {
+            z-index: 10;
+        }
+        .gpsButton {
+            background-color:#333333;
+            border-radius:28px;
+            border:1px solid #000000;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            padding:13px 25px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #000000;
+        }
+        .gpsButton:hover {
+            background-color:#5f6d8a;
+        }
+        .gpsButton:active {
+            position:relative;
+            top:1px;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1067.0" data-gr-ext-installed="">
+    <div id="divLocate">
+        <button class="gpsButton" onclick="getLocation()">Get Location</button>
+        <div id="gnssData"></div>
+    </div>
+    <div id="map" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 19; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/9/143/186.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(255px, 192px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/9/144/186.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(511px, 192px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/9/143/185.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(255px, -64px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/9/144/185.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(511px, -64px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/9/143/187.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(255px, 448px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/9/144/187.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(511px, 448px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/9/142/186.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-1px, 192px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.openstreetmap.org/9/145/186.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(767px, 192px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/9/142/185.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-1px, -64px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.openstreetmap.org/9/145/185.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(767px, -64px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/9/142/187.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-1px, 448px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.openstreetmap.org/9/145/187.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(767px, 448px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-marker-pane"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(36773px, 47660.4px, 0px) scale(256);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div></div>
+
+    <script>
+        // Setup Geolocation API options
+        const gpsOptions = {enableHighAccuracy: true, timeout: 6000, maximumAge: 0};
+        const gnssDiv = document.getElementById("gnssData");
+        
+        // Geolocation: Success
+        function gpsSuccess(pos) {
+            // Get the date from Geolocation return (pos)
+            const dateObject = new Date(pos.timestamp);
+            // Get the lat, long, accuracy from Geolocation return (pos.coords)
+            const {latitude, longitude, accuracy} = pos.coords;
+            // Add details to page
+			gnssDiv.innerHTML = `Date: ${dateObject} 
+                <br>Lat/Long: ${latitude.toFixed(5)}, ${longitude.toFixed(5)} 
+                <br>Accuracy: ${accuracy} (m)`;
+            const radius = accuracy / 2;
+            layerGpsGroup.clearLayers();
+            // Zoom to the location
+            map.setView([latitude,longitude], 12);
+            //Add a marker and radius based on accuracy to map 
+            L.marker([latitude,longitude]).addTo(layerGpsGroup)
+                .bindPopup(`Lat/Long : ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`)
+                .openPopup();
+            L.circle([latitude,longitude], radius).addTo(layerGpsGroup);
+        }
+
+        // Geolocation: Error
+        function gpsError(err) {
+            console.warn(`Error: ${err.code}, ${err.message}`);
+        }
+        
+        function getLocation() {
+            navigator.geolocation.getCurrentPosition(gpsSuccess, gpsError, gpsOptions);
+        }
+
+        // Setup the leaflet map
+        const map = L.map('map').setView([44, -79], 9);
+        const osmTileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        const layerGpsGroup = L.layerGroup().addTo(map);
+
+    </script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

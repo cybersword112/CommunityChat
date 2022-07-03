@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="assets/niceselectpicker/nice-select.css">
     <link rel="stylesheet" href="assets/animation/animate.css">
     <link rel="stylesheet" href="assets/mcustomscrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
     <link rel="stylesheet" href="css/style-main.css">
     <link rel="stylesheet" href="css/responsive.css">
     <title>CommunityChat -Local Forums</title>
@@ -229,7 +232,19 @@
             </div>
         </section>
         <!--================End Bannner Area =================-->
-
+        <section class="forum-statistics">
+            <div class="container">
+                <div class="banner-text-p">
+                    <button class="btn btn-primary" id="locationFetch">Get Location</button>
+                    <p>Note: If location is denied you will only be shown global posts.</p>
+                </div>
+                <div id="map"></div>
+                <div id="gnssData">Date: Sat Jul 02 2022 09:25:55 GMT-0500 (Central Daylight Time) 
+                    <br>Lat/Long: 35.04652, -89.76364 
+                    <br>Accuracy: 11.519 (m)
+                </div> 
+            </div>
+        </section>
         
         <!--================Community Area =================-->
         <section class="community-area bg-disable">
@@ -263,9 +278,9 @@
                                             <div class="post-info">
                                                 <div class="author">
                                                     <% if(threads[i].bIsAnonPost === true){ %>
-                                                        <img src="img/user-circle-alt.svg" alt="icon">Anonymous
+                                                        <img src="img/user-circle-alt.svg" alt="icon"><span>Anonymous</span>
                                                     <% }else{ %>
-                                                     <img src="img/user-circle-alt.svg" alt="icon"><%= threads[i].postedBy %>
+                                                     <img src="img/user-circle-alt.svg" alt="icon"><span><%= threads[i].postedBy %></span>
                                                     <% } %>
                                                 </div>
             
@@ -289,10 +304,16 @@
                                                 <img src="img/forum/eye-outline.svg" alt="icon"><%= threads[i].views %> Views
                                             </div>
                                             <div class="post-like">
-                                                <img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes
+                                                <button class = "btn-primary"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
+                                            </div>
+                                            <div class="post-dislike">
+                                                <button class = "btn-primary"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
                                             </div>
                                             <div class="post-comment">
                                                 <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
+                                            </div>
+                                            <div class="post-delete">
+                                                <button class = "btn-primary"><i class="fa-solid fa-circle-minus"></i>Delete</button>
                                             </div>
                                         </div>
                                     </div>
@@ -310,6 +331,8 @@
                                 </a>
                             </div>
                         </div>
+
+                        <!-- add new post section -->
                         <section class="all-question-area bg-disable pt-100 pb-120 d-flex justify-content-center">
                             <div class="container custom-container">
                               <div class="row">
@@ -320,7 +343,7 @@
                                   <div class="add-question-widget">
 
                                     <h4 class="widget-title">Create New Thread</h4>
-                                    <form action="/home" method="POST" >
+                                    <form id="newThreadForm">
                                         <input type="hidden" value="<%= String(user.name) %>" name="postedBy">
                                       <div class="mt-30">
                                         <label class="label" for="inp_title">Topic<span>*</span></label>
@@ -332,20 +355,24 @@
                                           Please choose an appropriate topic for the thread
                                         </div>
                                       </div>
-                                      <!-- <div class="mt-25">
-                                        <label class="label" for="inp_category">Category <span>*</span></label>
+                                      <div class="mt-25">
+                                        <label class="label" for="range">Viewable Range (Miles)<span>*</span></label>
                                         <div class="icon-input-group">
-                                          <select id="inp_category" class="custom-select form-control">
-                                            <option value="1">1</option>
+                                          <select id="range" class="custom-select form-control" name="range">
                                             <option value="2">2</option>
+                                            <option value="Global">Global</option>
+                                            <option value=".5">.5</option>
+                                            <option value="1">1</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
                                           </select>
                                           <i class="icon_folder-open"></i>
                                         </div>
                                         <div class="instruction">
-                                          Please choose an appropriate title for the equation so
-                                          it can be answered easily.
+                                            This is the radius in miles that your post will be viewable from.
                                         </div>
-                                      </div> -->
+                                      </div>
                                       <div class="mt-25">
                                         <label class="label" for="inp_tag">Tags</label>
                                         <div class="icon-input-group">
@@ -406,7 +433,7 @@
                       
                                           <button class="cancel_btn">Cancel</button>
                       
-                                          <button class="action_btn" type="submit">Submit</button>
+                                          <button class="action_btn" id="newThreadSubmit"type="submit">Submit</button>
                                         </div>
                                       </div>
                                     </form>
@@ -525,7 +552,13 @@
     <script src="js/plugins.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://kit.fontawesome.com/3272150344.js" crossorigin="anonymous"></script>
+                             <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+                             integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+                             crossorigin=""></script>
     <script src = "js/mainCC.js"></script>
+
 </body>
 
 </html>

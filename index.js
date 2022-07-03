@@ -2,8 +2,9 @@ const express = require('express')
 
 const app = express()
 const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-dotenv.config()
+const dotenv = require('dotenv').config()
+const cookieParser = require('cookie-parser')
+
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 7000
 const session = require('express-session')
@@ -26,6 +27,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(cookieParser())
 app.use(session({
   secret: process.env.SECRET,
   saveUninitialized: true,

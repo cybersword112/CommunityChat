@@ -17,7 +17,7 @@ const homeView = async (req, res) => {
       threads:threads,
       user:req.user,
     })
-  }catch(err){res.send(err)}
+  }catch(err){res.send({'error':err}) }
 
 }
 

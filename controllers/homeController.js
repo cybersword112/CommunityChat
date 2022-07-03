@@ -5,7 +5,7 @@ const Thread = require('../models/threadModel')
 const homeView = async (req, res) => {
   try{
     let cookies = req.cookies
-    const userLocation = cookies.location.split(',').map(item=>item=Number(item))
+    const userLocation = cookies.location.split(',').map(item => item=Number(item))
     let threads = await Thread.find({}).sort({ date: -1 })
     threads = threads.filter(item => {
       return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) == 'Global')

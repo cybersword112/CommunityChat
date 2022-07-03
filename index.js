@@ -1,3 +1,4 @@
+require ('newrelic');
 const express = require('express')
 
 const app = express()
@@ -16,8 +17,8 @@ loginCheck(passport)
 const dataBase = process.env.DB_STRING
 
 mongoose
-  .connect(dataBase, { 
-    useUnifiedTopology: true, 
+  .connect(dataBase, {
+    useUnifiedTopology: true,
     useNewUrlParser: true
   })
   .then(() => console.log('connected to db via mongoose'))

@@ -54,7 +54,7 @@ async function createThread(){
     })
     const data = await response
     console.log(data)
-    // location.reload()
+    location.reload()
   }catch(err){
     console.log(err)
   }

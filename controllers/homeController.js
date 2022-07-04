@@ -69,7 +69,7 @@ const addThread = async (req, res) => {
     })
     newThread
       .save()
-      .then(res.redirect('/home'))
+      .then(res.sendStatus(200))
       .catch((err) => console.log(err))
   }
 }

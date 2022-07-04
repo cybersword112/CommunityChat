@@ -124,7 +124,7 @@ const addThread = async (req, res) => {
         .then((data) => {
           console.log(data)
           console.log('newthread save then point')
-          res.s
+          res.sendStatus(200)
         })
         .catch((err) => console.log(err))
     }

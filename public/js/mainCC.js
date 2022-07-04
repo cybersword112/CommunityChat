@@ -45,9 +45,9 @@ async function createThread(){
   try{
     const formElement = document.querySelector('#newThreadForm')
     const formData = new FormData(formElement)
-    let location = localStorage.getItem('userLocation')
+    let locations = localStorage.getItem('userLocation')
     // console.log(location)
-    formData.append('location',location)
+    formData.append('location',locations)
     const response = await fetch('/home/addThread',{
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
@@ -55,7 +55,8 @@ async function createThread(){
     })
     const data = response
     console.log(data)
-    renderLocalThreads()
+    // renderLocalThreads()
+    // location.reload()
   }catch(err){
     console.log(err)
   }

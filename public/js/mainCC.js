@@ -187,11 +187,10 @@ const osmTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}
 }).addTo(map)
 const layerGpsGroup = L.layerGroup().addTo(map)
 
-// async function cookieLocation(){
-//   await getLocation()
-// }
-// cookieLocation()
-getLocation()
+async function cookieLocation(){
+  await getLocation()
+}
+cookieLocation()
 let loc = localStorage.getItem('userLocation')
 console.log(loc)
 document.cookie = `location=${loc}`

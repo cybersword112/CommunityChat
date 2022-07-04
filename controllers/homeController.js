@@ -3,24 +3,36 @@
 const Thread = require('../models/threadModel')
 // renders home page
 const homeView = async (req, res) => {
-  console.log('homeView')
-  // try{
-  let cookies = req.cookies
-  console.log(cookies)
-  const userLocation = cookies.location.split(',').map(item => item=Number(item))
-  let threads = await Thread.find({}).sort({ date: -1 })
-  console.log('passed thread fetch')
-  threads = threads.filter(item => {
-    return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) == 'Global')
-  })
-  console.log('passed thread filter, before render')
-  res.render('index',{
-    threads:threads,
-    user:req.user,
-  })
-  console.log('passed home render')
-  // }catch(err){res.send({'error':err}) }
+  try{
+    let threads = await Thread.find({}).sort({ date: -1 })
+    threads = threads.filter(item => {
+      return (String(item.range) === 'Global')
+    })
+    res.render('index',{
+      threads:threads,
+      user:req.user,
+    })
+    console.log('passed home render')
+  }catch(err){res.send({ 'error':err }) }
 
+}
+
+const renderLocalThreads = async (req,res) => {
+  console.log('renderThreads')
+  try{
+    console.log(String(req))
+    const userLocation = req.body.location.split(',').map(item => item=Number(item))
+    let threads = await Thread.find({}).sort({ date: -1 })
+    threads = threads.filter(item => {
+      return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
+    })
+    console.log('passed thread local filter, before render')
+    res.render('index',{
+      threads:threads,
+      user:req.user,
+    })
+    console.log('passed local thread render')
+  }catch(err){res.send({ 'error':err }) }
 }
 
 // adds thread to database
@@ -128,4 +140,5 @@ module.exports = {
   deleteThread,
   addLikeThread,
   addDisLikeThread,
+  renderLocalThreads,
 }

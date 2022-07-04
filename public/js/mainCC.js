@@ -2,12 +2,12 @@
 const deleThread = document.querySelectorAll('.post-delete')
 const thumbText = document.querySelectorAll('.post-like')
 const thumbDownText = document.querySelectorAll('.post-dislike')
-const getLocationBtn = document.querySelector('#locationFetch')
+// const getLocationBtn = document.querySelector('#locationFetch')
 
 const newThreadBtn = document.querySelector('#newThreadSubmit')
 
 newThreadBtn.addEventListener('click',createThread)
-getLocationBtn.addEventListener('click',getLocation)
+// getLocationBtn.addEventListener('click',renderLocalThreads)
 
 const threads = document.querySelectorAll('.topic')
 // adds deletion event listeners for threads
@@ -23,7 +23,22 @@ Array.from(thumbDownText).forEach((element) => {
   element.addEventListener('click',addDisLike)
 })
 
-
+// async function renderLocalThreads(){
+//   try{
+//     const formElement = document.querySelector('#renderLocalThreads')
+//     const formData = new FormData(formElement)
+//     let location = localStorage.getItem('userLocation')
+//     // console.log(location)
+//     formData.append('location',location)
+//     const response = await fetch('/home/renderLocalThreads',{
+//       method:'get',
+//       headers:{ 'Content-Type':'text/plain' },
+//       body:formData
+//     })
+//     const data = await response
+//     console.log(data)
+//   }catch(err){console.log(err)}
+// }
 
 async function createThread(){
   try{
@@ -71,7 +86,6 @@ async function deleteThread(evt){
     const data = await response
     // reloads current page
     location.reload()
-
   }
   // if there is an issue with the try portion then catch will fire and console log the error
   catch(err){
@@ -81,10 +95,8 @@ async function deleteThread(evt){
 //*handles sending request to add like to a thread
 async function addLike(evt){
   //*pulls variables directly from DOM
-  // const thName = this.parentNode.childNodes[1].innerText
   const thID = evt.target.parentNode.parentNode.previousElementSibling.children[0].children[0].innerText
   const topic = evt.target.parentNode.parentNode.previousElementSibling.children[0].children[1].innerText
-  // const tLikes = Number(this.parentNode.childNodes[5].innerText)
   // handles attempt of update request to backend
   try{
     //sends request to server to update thread
@@ -170,6 +182,7 @@ function gpsSuccess(pos) {
     .openPopup()
   L.circle([latitude,longitude], radius).addTo(layerGpsGroup)
   localStorage.setItem('userLocation',[latitude.toFixed(5), longitude.toFixed(5)])
+  document.querySelector('#location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
 }
 // Geolocation: Error
 function gpsError(err) {
@@ -187,12 +200,4 @@ const osmTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}
 }).addTo(map)
 const layerGpsGroup = L.layerGroup().addTo(map)
 
-async function cookieLocation(){
-  await getLocation()
-  let loc = localStorage.getItem('userLocation')
-  console.log(loc)
-  document.cookie = `location=${loc};SameSite=None;Secure=true;domain=https://communitychats.herokuapp.com/;httpOnly: true`
-}
-cookieLocation()
-
-
+getLocation()

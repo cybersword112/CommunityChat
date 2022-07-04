@@ -193,6 +193,6 @@ async function cookieLocation(){
 cookieLocation()
 let loc = localStorage.getItem('userLocation')
 console.log(loc)
-document.cookie = `location=${loc}`
+document.cookie = `location=${loc};SameSite=None;Secure=true;domain=https://communitychats.herokuapp.com/;httpOnly: true`
 
 

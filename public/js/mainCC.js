@@ -2,12 +2,12 @@
 const deleThread = document.querySelectorAll('.post-delete')
 const thumbText = document.querySelectorAll('.post-like')
 const thumbDownText = document.querySelectorAll('.post-dislike')
-// const getLocationBtn = document.querySelector('#locationFetch')
+const getLocationBtn = document.querySelector('#locationFetch')
 
 const newThreadBtn = document.querySelector('#newThreadSubmit')
 
 newThreadBtn.addEventListener('click',createThread)
-// getLocationBtn.addEventListener('click',renderLocalThreads)
+getLocationBtn.addEventListener('click',renderLocalThreads)
 
 const threads = document.querySelectorAll('.topic')
 // adds deletion event listeners for threads
@@ -23,22 +23,23 @@ Array.from(thumbDownText).forEach((element) => {
   element.addEventListener('click',addDisLike)
 })
 
-// async function renderLocalThreads(){
-//   try{
-//     const formElement = document.querySelector('#renderLocalThreads')
-//     const formData = new FormData(formElement)
-//     let location = localStorage.getItem('userLocation')
-//     // console.log(location)
-//     formData.append('location',location)
-//     const response = await fetch('/home/renderLocalThreads',{
-//       method:'get',
-//       headers:{ 'Content-Type':'text/plain' },
-//       body:formData
-//     })
-//     const data = await response
-//     console.log(data)
-//   }catch(err){console.log(err)}
-// }
+async function renderLocalThreads(){
+  try{
+    const formElement = document.querySelector('#renderLocalThreads')
+    const formData = new FormData(formElement)
+    // let location = localStorage.getItem('userLocation')
+    // console.log(location)
+    // formData.append('location',location)
+    console.log(...formData.entries())
+    const response = await fetch('/home/',{
+      method:'POST',
+      body:formData
+      // body:JSON.stringify(Object.fromEntries(formData))
+    })
+    const data = await response
+    console.log(data)
+  }catch(err){console.log(err)}
+}
 
 async function createThread(){
   try{
@@ -47,14 +48,14 @@ async function createThread(){
     let location = localStorage.getItem('userLocation')
     // console.log(location)
     formData.append('location',location)
-    const response = await fetch('/home',{
+    const response = await fetch('/home/addThread',{
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
       body:JSON.stringify(Object.fromEntries(formData))
     })
-    const data = await response
+    const data = response
     console.log(data)
-    location.reload()
+    renderLocalThreads()
   }catch(err){
     console.log(err)
   }

@@ -6,6 +6,7 @@ const homeView = async (req, res) => {
   console.log('homeView')
   // try{
   let cookies = req.cookies
+  console.log(cookies)
   const userLocation = cookies.location.split(',').map(item => item=Number(item))
   let threads = await Thread.find({}).sort({ date: -1 })
   console.log('passed thread fetch')

@@ -6,7 +6,7 @@ const {
   deleteMessage,
 } = require('../controllers/messageController')
 
-const { protectRoute } = require('../auth/protect')
+const { protectRoute } = require('../authMiddleware/protect')
 
 const router = express.Router()
 

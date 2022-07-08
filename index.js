@@ -1,38 +1,31 @@
 require ('newrelic');
-const express = require('express')
 
+const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const dotenv = require('dotenv').config()
-const cookieParser = require('cookie-parser')
-
-// eslint-disable-next-line no-undef
-const PORT = process.env.PORT || 7000
-const session = require('express-session')
 const passport = require('passport')
-const { loginCheck } = require('./auth/passport')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
+const connectDb = require('./config/database')
+
+require('dotenv').config( { path:'./config/.env' })
+
+connectDb()
+
+const { loginCheck } = require('./authMiddleware/passport')
 loginCheck(passport)
 
-// eslint-disable-next-line no-undef
-const dataBase = process.env.DB_STRING
-
-mongoose
-  .connect(dataBase, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-  })
-  .then(() => console.log('connected to db via mongoose'))
-  .catch(err => console.log(err))
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(cookieParser())
+
 app.use(session({
   secret: process.env.SECRET,
-  saveUninitialized: true,
-  resave: true
+  saveUninitialized: false,
+  resave: false,
+  store:MongoStore.create({mongoUrl:process.env.DB_STRING})
 }))
 
 app.use(passport.initialize())

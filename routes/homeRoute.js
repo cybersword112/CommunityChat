@@ -10,7 +10,7 @@ const {
   addLocalThread,
 } = require('../controllers/homeController')
 
-const { protectRoute } = require('../auth/protect')
+const { protectRoute } = require('../authMiddleware/protect')
 
 const router = express.Router()
 router.get('/',protectRoute,homeView)

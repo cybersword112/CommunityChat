@@ -1,5 +1,5 @@
 const express = require('express')
-const { protectRoute } = require('../auth/protect')
+const { protectRoute } = require('../authMiddleware/protect')
 const { dashboardView } = require('../controllers/dashboardController')
 
 const router = express.Router()

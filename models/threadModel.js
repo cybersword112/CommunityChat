@@ -17,6 +17,10 @@ const ThreadSchema = new mongoose.Schema({
     type:String,
     default:'Anonymous'
   },
+  microsoftId: {
+    type: String,
+    required: true,
+  },
   bIsAnonPost:{
     type:Boolean,
     default:false

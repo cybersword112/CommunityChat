@@ -1,11 +1,11 @@
 //for register page
-const dashboardView = (req,res) => {
+module.exports ={
+  getDashboardView: (req,res) => {
 
-  res.render('dashboard',{
-    user:req.user
-  })
+    res.render('dashboard',{
+      user:req.user
+    })
+  },
+
 }
 
-module.exports = {
-  dashboardView,
-}

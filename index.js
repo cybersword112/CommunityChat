@@ -1,5 +1,3 @@
-require ('newrelic');
-
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -7,13 +5,19 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const connectDb = require('./config/database')
+const loginRoutes = require('./routes/loginRoute')
+const authRoutes = require('./routes/authRoutes')
+const homeRoutes = require('./routes/homeRoute')
+const dashboardRoutes = require('./routes/dashboardRoute')
+const messageRoutes = require('./routes/messageRoute')
+
 
 require('dotenv').config( { path:'./config/.env' })
+require('./authMiddleware/passport')(passport);
 
 connectDb()
 
-const { loginCheck } = require('./authMiddleware/passport')
-loginCheck(passport)
+const PORT = process.env.port || 7000
 
 
 app.set('view engine', 'ejs')
@@ -35,8 +39,10 @@ app.use('/home',express.static('public'))
 app.use('/messages',express.static('public'))
 
 
-app.use('/', require('./routes/loginRoute'))
-app.use('/dashboard', require('./routes/dashboardRoute'))
-app.use('/home', require('./routes/homeRoute'))
-app.use('/messages', require('./routes/messageRoute'))
+app.use('/', loginRoutes)
+app.use('/auth',authRoutes)
+app.use('/dashboard', dashboardRoutes)
+app.use('/home', homeRoutes)
+app.use('/messages', messageRoutes)
+
 app.listen(PORT, console.log('server is up'))

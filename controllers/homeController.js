@@ -1,173 +1,4 @@
-
-
 const Thread = require('../models/threadModel')
-// renders home page
-const homeView = async (req, res) => {
-  try{
-    let threads = await Thread.find({}).sort({ date: -1 })
-    console.log(req)
-    if(req.query.location){
-      console.log('has location available in homeview')
-      const userLocation = req.query.location.split(',').map(item => item=Number(item))
-      threads = threads.filter(item => {
-        return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
-      })
-    }else{
-      threads = threads.filter(item => {
-        return (String(item.range) === 'Global')
-      })
-    }
-    res.render('index',{
-      threads:threads,
-      user:req.user,
-    })
-    console.log('passed home render')
-  }catch(err){res.send({ 'error':err }) }
-
-}
-// --------not in use---------
-const renderLocalThreads = async (req,res) => {
-  console.log('renderThreads')
-  console.log(req)
-  try{
-    console.log('req' + req.body)
-    const userLocation = req.body.location.split(',').map(item => item=Number(item))
-    let threads = await Thread.find({}).sort({ date: -1 })
-    threads = threads.filter(item => {
-      return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
-    })
-    console.log('passed thread local filter, before render')
-    res.render('index',{
-      threads:threads,
-      user:req.user,
-    })
-    console.log('passed local thread render')
-  }catch(err){res.send({ 'error':err }) }
-}
-
-// adds thread to database from local screen
-// ------not in use
-const addLocalThread = async (req, res) => {
-  const { topic, postedBy, content } = req.body
-  let { tags, bIsAnonPost, location,range } = req.body
-  if (!topic || !postedBy || !content ) {
-    console.log('Fill empty fields')
-  }
-  else {
-    if(tags){
-      tags = tags.split(',')
-    }
-    if(bIsAnonPost === 'on'){
-      bIsAnonPost = true
-    } else {
-      bIsAnonPost = false
-    }
-    if(location){
-      location = location.split(',').map(item => item = Number(item))
-    }
-    if(range){
-      range = String(range)
-    }
-    // console.log(location,range)
-    const newThread = new Thread({
-      topic,
-      content,
-      postedBy,
-      tags,
-      bIsAnonPost,
-      location,
-      range,
-    })
-    newThread
-      .save()
-      .then(res.redirect('/renderLocalThreads'))
-      .catch((err) => console.log(err))
-  }
-}
-
-// adds thread to database
-const addThread = async (req, res) => {
-  try{
-    const { topic, postedBy, content } = req.body
-    let { tags, bIsAnonPost, location,range } = req.body
-    if (!topic || !postedBy || !content ) {
-      console.log('Fill empty fields')
-    }
-    else {
-      if(tags){
-        tags = tags.split(',')
-      }
-      if(bIsAnonPost === 'on'){
-        bIsAnonPost = true
-      } else {
-        bIsAnonPost = false
-      }
-      if(location){
-        location = location.split(',').map(item => item = Number(item))
-      }
-      if(range){
-        range = String(range)
-      }
-      // console.log(location,range)
-      const newThread = new Thread({
-        topic,
-        content,
-        postedBy,
-        tags,
-        bIsAnonPost,
-        location,
-        range,
-      })
-      console.log(newThread)
-      newThread
-        .save()
-        .then((data) => {
-          console.log(data)
-          console.log('newthread save then point')
-          res.sendStatus(200)
-        })
-        .catch((err) => console.log(err))
-    }
-  }catch(err){
-    console.log(err)
-  }
-}
-
-// deletes thread from database
-const deleteThread = (req,res) => {
-  try{
-    // console.log(req.body)
-    if(req.user.name === req.body.postedBy){
-      Thread.findOneAndDelete({ _id:req.body.id })
-        .then(() => {
-          res.sendStatus(200)
-        } )
-        .catch((err) => console.log(err))
-    }else{
-      res.sendStatus(403)
-    }
-  }catch(err){
-    console.log(err)
-  }
-}
-
-const addLikeThread = async (req,res) => {
-  try {
-    const { threadID, promptS } = req.body
-    console.log(threadID,promptS)
-    await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ likes:+1 } })
-    res.sendStatus(200)
-  }catch(err){console.log(err)}
-}
-
-const addDisLikeThread = async (req,res) => {
-  try {
-    const { threadID, promptS } = req.body
-    console.log(threadID,promptS)
-    await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ dislikes: +1 } })
-    res.sendStatus(200)
-  }catch(err){console.log(err)}
-}
 
 function getDistance(origin, destination) {
   // return distance in meters
@@ -190,15 +21,166 @@ function toRadian(degree) {
   return degree*Math.PI/180
 }
 
+module.exports ={
+  // renders home page
+  homeView : async (req, res) => {
+    try{
+      let threads = await Thread.find({}).sort({ date: -1 })
+      console.log(req)
+      if(req.query.location){
+        console.log('has location available in homeview')
+        const userLocation = req.query.location.split(',').map(item => item=Number(item))
+        threads = threads.filter(item => {
+          return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global' || item.microsoftId === req.user.microsoftId)
+        })
+      }else{
+        threads = threads.filter(item => {
+          return (String(item.range) === 'Global')
+        })
+      }
+      res.render('index',{
+        threads:threads,
+        user:req.user,
+      })
+      console.log('passed home render')
+    }catch(err){res.send({ 'error':err }) }
 
+  },
+  // adds thread to database
+  addThread : async (req, res) => {
+    try{
+      const { topic, postedBy, content } = req.body
+      let { tags, bIsAnonPost, location,range } = req.body
+      if (!topic || !postedBy || !content ) {
+        console.log('Fill empty fields')
+      }
+      else {
+        if(tags){
+          tags = tags.split(',')
+        }
+        if(bIsAnonPost === 'on'){
+          bIsAnonPost = true
+        } else {
+          bIsAnonPost = false
+        }
+        if(location){
+          location = location.split(',').map(item => item = Number(item))
+        }
+        if(range){
+          range = String(range)
+        }
+        // console.log(location,range)
+        const newThread = new Thread({
+          topic,
+          content,
+          postedBy,
+          tags,
+          bIsAnonPost,
+          location,
+          range,
+        })
+        console.log(newThread)
+        newThread
+          .save()
+          .then((data) => {
+            console.log(data)
+            console.log('newthread save then point')
+            res.sendStatus(200)
+          })
+          .catch((err) => console.log(err))
+      }
+    }catch(err){
+      console.log(err)
+    }
+  },
+  // deletes thread from database
+  deleteThread : async (req,res) => {
+    try{
+    // console.log(req.body)
+      if(req.user.name === req.body.postedBy){
+        await Thread.findOneAndDelete({ _id:req.body.id })
+        res.sendStatus(200)
+      }else{
+        res.sendStatus(403)
+      }
+    }catch(err){
+      console.log(err)
+    }
+  },
 
-// exports
-module.exports = {
-  homeView,
-  addThread,
-  deleteThread,
-  addLikeThread,
-  addDisLikeThread,
-  renderLocalThreads,
-  addLocalThread,
+  addLikeThread : async (req,res) => {
+    try {
+      const { threadID, promptS } = req.body
+      console.log(threadID,promptS)
+      await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ likes:+1 } })
+      res.sendStatus(200)
+    }catch(err){console.log(err)}
+  },
+  addDisLikeThread : async (req,res) => {
+    try {
+      const { threadID, promptS } = req.body
+      console.log(threadID,promptS)
+      await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ dislikes: +1 } })
+      res.sendStatus(200)
+    }catch(err){console.log(err)}
+  },
 }
+// --------not in use---------
+// const renderLocalThreads = async (req,res) => {
+//   console.log('renderThreads')
+//   console.log(req)
+//   try{
+//     console.log('req' + req.body)
+//     const userLocation = req.body.location.split(',').map(item => item=Number(item))
+//     let threads = await Thread.find({}).sort({ date: -1 })
+//     threads = threads.filter(item => {
+//       return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
+//     })
+//     console.log('passed thread local filter, before render')
+//     res.render('index',{
+//       threads:threads,
+//       user:req.user,
+//     })
+//     console.log('passed local thread render')
+//   }catch(err){res.send({ 'error':err }) }
+// }
+
+// // adds thread to database from local screen
+// // ------not in use
+// const addLocalThread = async (req, res) => {
+//   const { topic, postedBy, content } = req.body
+//   let { tags, bIsAnonPost, location,range } = req.body
+//   if (!topic || !postedBy || !content ) {
+//     console.log('Fill empty fields')
+//   }
+//   else {
+//     if(tags){
+//       tags = tags.split(',')
+//     }
+//     if(bIsAnonPost === 'on'){
+//       bIsAnonPost = true
+//     } else {
+//       bIsAnonPost = false
+//     }
+//     if(location){
+//       location = location.split(',').map(item => item = Number(item))
+//     }
+//     if(range){
+//       range = String(range)
+//     }
+//     // console.log(location,range)
+//     const newThread = new Thread({
+//       topic,
+//       content,
+//       postedBy,
+//       tags,
+//       bIsAnonPost,
+//       location,
+//       range,
+//     })
+//     newThread
+//       .save()
+//       .then(res.redirect('/renderLocalThreads'))
+//       .catch((err) => console.log(err))
+//   }
+// }

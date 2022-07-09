@@ -26,7 +26,6 @@ module.exports ={
   homeView : async (req, res) => {
     try{
       let threads = await Thread.find({}).sort({ date: -1 })
-      console.log(req)
       if(req.query.location){
         console.log('has location available in homeview')
         const userLocation = req.query.location.split(',').map(item => item=Number(item))
@@ -111,7 +110,6 @@ module.exports ={
   addLikeThread : async (req,res) => {
     try {
       const { threadID, promptS } = req.body
-      console.log(threadID,promptS)
       await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ likes:+1 } })
       res.sendStatus(200)
     }catch(err){console.log(err)}
@@ -119,7 +117,6 @@ module.exports ={
   addDisLikeThread : async (req,res) => {
     try {
       const { threadID, promptS } = req.body
-      console.log(threadID,promptS)
       await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ dislikes: +1 } })
       res.sendStatus(200)
     }catch(err){console.log(err)}

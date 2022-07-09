@@ -69,11 +69,11 @@
                     <div class="right-nav">
                         <% if (user) { %>
                             <h6 class="btn text-center" ><%= user.name %></h6>
-                        <form action="/logout" method="post" >  
-                            <button type="submit" class="btn btn-primary" onclick="logout()">
-                                <i class="fa fa-sign-out"></i>Logout
-                            </button>
-                        </form>
+                            <a href="../auth/logout">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-sign-out"></i>Logout
+                                </button>
+                            </a>
                         <% } else { %>
                         <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="/login">Sign In</a>
                         <% } %>

@@ -1,18 +1,11 @@
 const express = require('express')
-
-const {
-  messagesView,
-  addMessage,
-  deleteMessage,
-} = require('../controllers/messageController')
-
-const { protectRoute } = require('../auth/protect')
-
+const messageController = require('../controllers/messageController')
+const { ensureAuth } = require('../authMiddleware/protect')
 const router = express.Router()
 
-router.get('/:threadId',protectRoute,messagesView)
+router.get('/:threadId',messageController.messagesView)
 
-router.post('/',protectRoute,addMessage)
-router.delete('/',protectRoute,deleteMessage)
+router.post('/',messageController.addMessage)
+router.delete('/',messageController.deleteMessage)
 
 module.exports = router

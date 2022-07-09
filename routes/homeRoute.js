@@ -1,24 +1,18 @@
 const express = require('express')
 
-const {
-  homeView,
-  addThread,
-  deleteThread,
-  addLikeThread,
-  addDisLikeThread,
-  renderLocalThreads,
-  addLocalThread,
-} = require('../controllers/homeController')
+const homeController = require('../controllers/homeController')
 
-const { protectRoute } = require('../auth/protect')
+const { ensureAuth } = require('../authMiddleware/protect')
 
 const router = express.Router()
-router.get('/',protectRoute,homeView)
-router.put('/addOneLike',protectRoute,addLikeThread)
-router.put('/addOneDisLike',protectRoute,addDisLikeThread)
-router.post('/addThread',protectRoute,addThread)
+router.get('/',ensureAuth,homeController.homeView)
+router.put('/addOneLike',homeController.addLikeThread)
+router.put('/addOneDisLike',homeController.addDisLikeThread)
+router.post('/addThread',homeController.addThread)
+
 // router.get('/renderLocalThreads',protectRoute,addLocalThread)
-router.post('/',protectRoute,homeView)
-router.delete('/',protectRoute,deleteThread)
+
+router.post('/',homeController.homeView)
+router.delete('/',homeController.deleteThread)
 
 module.exports = router

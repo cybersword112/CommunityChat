@@ -1,23 +1,17 @@
 //js
 const express = require('express')
 
-const {
-  registerView,
-  loginView,
-  registerUser,
-  loginUser,
-  logoutUser,
-} = require('../controllers/loginController')
+const loginController = require('../controllers/loginController')
 
 
 const router = express.Router()
 
-router.get('/register', registerView)
-router.get('/', loginView)
-router.get('/login', loginView)
-router.post('/logout', logoutUser)
+router.get('/register', loginController.registerView)
+router.get('/', loginController.loginView)
+router.get('/login', loginController.loginView)
+router.post('/logout', loginController.logoutUser)
 
-router.post('/register',registerUser)
-router.post('/login', loginUser)
+router.post('/register', loginController.registerUser)
+router.post('/login', loginController.loginUser)
 
 module.exports = router

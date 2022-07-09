@@ -3,7 +3,7 @@ const messageController = require('../controllers/messageController')
 const { ensureAuth } = require('../authMiddleware/protect')
 const router = express.Router()
 
-router.get('/:threadId',messageController.messagesView)
+router.get('/:threadId',ensureAuth,messageController.messagesView)
 
 router.post('/',messageController.addMessage)
 router.delete('/',messageController.deleteMessage)

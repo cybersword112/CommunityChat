@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
 const connectDb = require('./config/database')
 const loginRoutes = require('./routes/loginRoute')
 const homeRoutes = require('./routes/homeRoute')
@@ -24,8 +25,9 @@ app.use(express.json())
 
 app.use(session({
   secret: process.env.SECRET,
-  saveUninitialized: true,
-  resave: true
+  saveUninitialized: false,
+  resave: false,
+  store:MongoStore.create({mongoUrl:process.env.DB_STRING})
 }))
 
 app.use(passport.initialize())

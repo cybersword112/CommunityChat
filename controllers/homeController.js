@@ -26,7 +26,6 @@ module.exports = {
   homeView : async (req, res) => {
     try{
       let threads = await Thread.find({}).sort({ date: -1 })
-      console.log(req)
       if(req.query.location){
         console.log('has location available in homeview')
         const userLocation = req.query.location.split(',').map(item => item=Number(item))
@@ -52,7 +51,7 @@ module.exports = {
     try{
       const { topic, postedBy, content } = req.body
       let { tags, bIsAnonPost, location,range } = req.body
-      if (!topic || !postedBy || !content ) {
+      if (!topic || !postedBy) {
         console.log('Fill empty fields')
       }
       else {
@@ -99,7 +98,7 @@ module.exports = {
   deleteThread : (req,res) => {
     try{
       // console.log(req.body)
-      if(req.user.name === req.body.postedBy){
+      if(req.user.username === req.body.postedBy){
         Thread.findOneAndDelete({ _id:req.body.id })
           .then(() => {
             res.sendStatus(200)

@@ -10,11 +10,11 @@ const ThreadSchema = new mongoose.Schema({
   },
   tags:{
     type:Array,
-    required:true,
     default:[]
   },
   postedBy:{
     type:String,
+    required:true,
     default:'Anonymous'
   },
   bIsAnonPost:{

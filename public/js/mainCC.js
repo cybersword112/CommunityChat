@@ -27,14 +27,10 @@ async function renderLocalThreads(){
   try{
     const formElement = document.querySelector('#renderLocalThreads')
     const formData = new FormData(formElement)
-    // let location = localStorage.getItem('userLocation')
-    // console.log(location)
-    // formData.append('location',location)
     console.log(...formData.entries())
     const response = await fetch('/home/',{
       method:'POST',
       body:formData
-      // body:JSON.stringify(Object.fromEntries(formData))
     })
     const data = await response
     console.log(data)
@@ -56,7 +52,7 @@ async function createThread(){
     const data = response
     console.log(data)
     // renderLocalThreads()
-    // location.reload()
+    location.reload()
   }catch(err){
     console.log(err)
   }
@@ -87,7 +83,7 @@ async function deleteThread(evt){
     //stores response from server in data
     const data = await response
     // reloads current page
-    location.reload()
+    // location.reload()
   }
   // if there is an issue with the try portion then catch will fire and console log the error
   catch(err){
@@ -184,7 +180,7 @@ function gpsSuccess(pos) {
     .openPopup()
   L.circle([latitude,longitude], radius).addTo(layerGpsGroup)
   localStorage.setItem('userLocation',[latitude.toFixed(5), longitude.toFixed(5)])
-  document.querySelector('#location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
+  document.querySelector('.location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
 }
 // Geolocation: Error
 function gpsError(err) {

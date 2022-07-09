@@ -6,12 +6,12 @@ const User = require('../models/userModel')
 
 const loginCheck = passport => {
   passport.use(
-    new LocalStrategy({ usernameField:'email' },(email,password,done) => {
+    new LocalStrategy({ usernameField:'username' },(username,password,done) => {
       //check customer/user
-      User.findOne({ email:email })
+      User.findOne({ username:username })
         .then((user) => {
           if(!user){
-            console.log('wrong email')
+            console.log('wrong username')
             return done()
           }
 
@@ -29,8 +29,6 @@ const loginCheck = passport => {
         .catch((error) => console.log(error))
     })
   )
-  
-
   passport.serializeUser((user,done) => {
     done(null,user.id)
   })

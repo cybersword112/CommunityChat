@@ -10,8 +10,8 @@ module.exports = {
 
   //Post Request that handles Register
   registerUser : (req, res) => {
-    const { name, email, location, password, confirm } = req.body
-    if (!name || !email || !password || !confirm) {
+    const { username, password, confirm } = req.body
+    if (!username || !password || !confirm) {
       console.log('Fill empty fields')
     }
     //Confirm Passwords
@@ -19,21 +19,18 @@ module.exports = {
       console.log('Password must match')
     } else {
       //Validation
-      User.findOne({ email: email }).then((user) => {
+      User.findOne({ username: username }).then((user) => {
         if (user) {
           console.log('email exists')
           res.render('signup', {
-            name,
-            email,
+            username,
             password,
             confirm,
           })
         } else {
           //Validation
           const newUser = new User({
-            name,
-            email,
-            location,
+            username,
             password,
           })
           //Password Hashing
@@ -58,19 +55,19 @@ module.exports = {
   },
 
   loginUser : (req,res) => {
-    const { email,password } = req.body
+    const { username,password } = req.body
     //required
-    if(!email || !password){
+    if(!username || !password){
       console.log('Please fill in all the fields')
       res.render('signup',{
-        email,
+        username,
         password,
       })
     } else {
       passport.authenticate('local', {
         successRedirect:'/home',
         failureRedirect:'/login',
-        failureFlash:true,
+        // failureFlash:true,
       })(req,res)
     }
   },

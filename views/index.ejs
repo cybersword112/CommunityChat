@@ -235,10 +235,10 @@
         <section class="forum-statistics">
             <div class="container">
                 <div class="banner-text-p">
-                    <form id="renderLocalThreads" name="renderLocalThreads">
+                    <!-- <form id="renderLocalThreads" name="renderLocalThreads">
                         <input type="hidden" value="" class="location" name="location">
-                        <button type="submit" class="btn btn-primary" id="locationFetch">Get Local Posts</button>
-                    </form>
+                        <button type="submit" id="locationFetch" class="btn btn-primary">Get Local Posts</button>
+                    </form> -->
                     <p>Note: If location is denied you will only be shown global posts.</p>
                 </div>
                 <div id="map"></div>
@@ -254,7 +254,17 @@
             <div class="container">
                 <div class="d-flex justify-content-between mb-35 flex-wrap">
                     <h2 class="section-title-h2 mb-0">Community Threads</h2>
-                    <div><a href="#newThread" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a></div>
+                    <ul class="horizontal-list">
+                        <li>
+                            <form id="renderLocalThreads" name="renderLocalThreads">
+                                <input type="hidden" value="" class="location" name="location">
+                                <button type="submit" id="locationFetch" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Get Location and local Posts</button>
+                            </form>
+                        </li>
+                        <li>
+                            <a href="#newThread" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a>
+                        </li>
+                    </ul>
                 </div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">

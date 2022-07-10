@@ -80,14 +80,14 @@ module.exports = {
           range,
         })
         console.log(newThread)
-        newThread
-          .save()
-          .then((data) => {
-            console.log(data)
-            console.log('newthread save then point')
-            res.sendStatus(200)
-          })
-          .catch((err) => console.log(err))
+        let data = await newThread.save()
+        console.log(data)
+        console.log('newthread save then point')
+        if(location){
+          res.redirect(`/home/:location=${location[0]},${location[1]}`)
+        }else{
+          res.redirect('/home')
+        }
       }
     }catch(err){
       console.log(err)

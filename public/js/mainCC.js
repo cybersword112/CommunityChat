@@ -32,7 +32,7 @@ async function renderLocalThreads(){
       method:'POST',
       body:formData
     })
-    const data = await response
+    const data = response
     console.log(data)
   }catch(err){console.log(err)}
 }
@@ -52,7 +52,7 @@ async function createThread(){
     const data = response
     console.log(data)
     // renderLocalThreads()
-    location.reload()
+    // location.reload()
   }catch(err){
     console.log(err)
   }
@@ -83,7 +83,7 @@ async function deleteThread(evt){
     //stores response from server in data
     const data = await response
     // reloads current page
-    // location.reload()
+    location.reload()
   }
   // if there is an issue with the try portion then catch will fire and console log the error
   catch(err){
@@ -161,7 +161,7 @@ async function addDisLike(evt){
 const gpsOptions = { enableHighAccuracy: true, timeout: 6000, maximumAge: 600000 }
 const gnssDiv = document.getElementById('gnssData')
 // Geolocation: Success
-function gpsSuccess(pos) {
+async function gpsSuccess(pos) {
   // Get the date from Geolocation return (pos)
   const dateObject = new Date(pos.timestamp)
   // Get the lat, long, accuracy from Geolocation return (pos.coords)
@@ -187,8 +187,11 @@ function gpsError(err) {
   console.warn(`Error: ${err.code}, ${err.message}`)
 }
 // Button onClick, get the the location
-function getLocation() {
+async function getLocation() {
   navigator.geolocation.getCurrentPosition(gpsSuccess, gpsError, gpsOptions)
+  try{
+    renderLocalThreads()
+  }catch(err){console.log(err)}
 }
 // Setup the leaflet map
 const map = L.map('map').setView([36.158086, -86.776126], 9) // Nashville area set as default

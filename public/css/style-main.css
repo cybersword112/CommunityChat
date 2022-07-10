@@ -12846,17 +12846,23 @@ body.body_dark {
   border-radius: 7px;
 }
 
+.horizontal-list{
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
 input:invalid {
   box-shadow: 0 0 5px 1px red;
 }
 input:focus:invalid {
   box-shadow: none;
 }
-  input:invalid:required {
-  }
+input:invalid:required {
+}
   
-  input:valid {
-    border: 2px solid black;
-  }
+input:valid {
+  border: 2px solid black;
+}
 
 /*# sourceMappingURL=style-main.css.map */

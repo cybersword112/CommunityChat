@@ -7,5 +7,7 @@ router.get('/:threadId',ensureAuth,messageController.messagesView)
 
 router.post('/',messageController.addMessage)
 router.delete('/',messageController.deleteMessage)
+router.put('/addLike',messageController.addLike)
+router.put('/addDislike',messageController.addDislike)
 
 module.exports = router

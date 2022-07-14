@@ -12822,6 +12822,24 @@ body.body_dark {
 #overRideTheme{
   color:#0066fe;
 }
+.underlineSection{
+  border-bottom: 1px solid #e6e6e6;
+  width: 100%;
+  margin-bottom: 3%;
+}
+
+.postbutton{
+  border-radius: 5px;
+  /* border-color: gray; */
+  /* color: black; */
+}
+.postButton:hover{
+  background-color: darkblue;
+}
+.makeVisible{
+  color:white;
+}
+
 /* 
  * Always set the map height explicitly to define the size of the div element
  * that contains the map. 
@@ -12838,7 +12856,8 @@ body.body_dark {
   /* height: 20%; */
   /* position:relative; */
   left: 0px;
-  padding-bottom: 5%;
+  padding-bottom: .5%;
+  padding-left: 1%;
   margin: 15px;
   margin-top: 0;
   z-index: 20;

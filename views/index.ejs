@@ -236,19 +236,14 @@
             <div class="container">
                 <div class="banner-text-p">
                     <h2>Location</h2>
+                    <p> Note: If location access is disabled you will only be able to see global posts.</p>
                 </div>
                 <div id="map"></div>
-                <div id="gnssData">Date: Sat Jul 02 2022 09:25:55 GMT-0500 (Central Daylight Time) 
+                <div id="gnssData">
+                    Date: Sat Jul 02 2022 09:25:55 GMT-0500 (Central Daylight Time) 
                     <br>Lat/Long: 35.04652, -89.76364 
                     <br>Accuracy: 11.519 (m)
                 </div> 
-                <div class="banner-text-p">
-                    <!-- <form id="renderLocalThreads" name="renderLocalThreads">
-                        <input type="hidden" value="" class="location" name="location">
-                        <button type="submit" id="locationFetch" class="btn btn-primary">Get Local Posts</button>
-                    </form> -->
-                    <p>Note: If location access is disabled you will only be able to see global posts.</p>
-                </div>
             </div>
         </section>
         
@@ -258,12 +253,12 @@
                 <div class="d-flex justify-content-between mb-35 flex-wrap">
                     <h2 class="section-title-h2 mb-0">Community Threads</h2>
                     <ul class="horizontal-list">
-                        <li>
+                        <!-- <li>
                             <form id="renderLocalThreads" name="renderLocalThreads">
                                 <input type="hidden" value="" class="location" name="location">
                                 <button type="submit" id="locationFetch" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Get Location and local Posts</button>
                             </form>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="#newThread" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a>
                         </li>
@@ -279,7 +274,7 @@
                             type="button" role="tab" aria-controls="home" aria-selected="false">Local Posts</button>
                     </li>
                 </ul>
-                <div class="tab-content mt-30" id="myTabContent">
+        <div class="tab-content mt-30" id="myTabContent">
                     <!-- -----------------first tab----------------- -->
             <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <!-- loop to store threads from database that are located in the threads object array -->
@@ -302,10 +297,10 @@
                                 </div>
 
                                 <div class="post-time">
-                                    <img src="img/time-outline.svg" alt=""><%= threads[i].date %>
+                                    <img src="img/time-outline.svg" alt=""><%= threads[i].date.toLocaleString() %>
                                 </div>
                                 <div class="post-category">
-                                    <img src="img/home_three/forum-catagory-02.svg" alt="">Range: <%= threads[i].range%>
+                                    <img src="img/home_three/forum-catagory-02.svg" alt="">Visibility: <%= threads[i].range%>
                                 </div>
                             </div>
                             <div class="post-tags">
@@ -315,28 +310,28 @@
                             </div>
                         </div>
                         <div class="post-reach">
-                            <div class="post-view">
+                            <div class="post-view makeVisible">
                                 <img src="img/forum/eye-outline.svg" alt="icon"><%= threads[i].views %> Views
-                            </div>
-                            <div class="post-like">
-                                <button class = "btn-primary"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
-                            </div>
-                            <div class="post-dislike">
-                                <button class = "btn-primary"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
                             </div>
                             <div class="post-comment">
                                 <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
                             </div>
+                            <div class="post-like">
+                                <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
+                            </div>
+                            <div class="post-dislike">
+                                <button class = "btn-primary postbutton"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
+                            </div>
                             <% if (threads[i].postedBy === user.username){ %>
                                 <div class="post-delete">
-                                    <button class = "btn-primary"><i class="fa-solid fa-circle-minus"></i>Delete</button>
+                                    <button class = "btn-primary postbutton"><i class="fa-solid fa-circle-minus"></i>Delete</button>
                                 </div>
                             <% } %>
                         </div>
                     </div>
 
                 <% } } %>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-5 mx-auto">
                 <a href="#"
                     class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
@@ -347,7 +342,7 @@
                     More
                 </a>
             </div>
-        </div>
+        </div> -->
         </div>
         <!--------------- 2nd tab Local-------------------------- -->
         <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -371,10 +366,10 @@
                             </div>
 
                             <div class="post-time">
-                                <img src="img/time-outline.svg" alt=""><%= threads[i].date %>
+                                <img src="img/time-outline.svg" alt=""><%= threads[i].date.toLocaleString() %>
                             </div>
                             <div class="post-category">
-                                <img src="img/home_three/forum-catagory-02.svg" alt="">Range: <%= threads[i].range%>
+                                <img src="img/home_three/forum-catagory-02.svg" alt="">Visibility: <%= threads[i].range%> Miles.
                             </div>
                         </div>
                         <div class="post-tags">
@@ -387,25 +382,25 @@
                         <div class="post-view">
                             <img src="img/forum/eye-outline.svg" alt="icon"><%= threads[i].views %> Views
                         </div>
-                        <div class="post-like">
-                            <button class = "btn-primary"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
-                        </div>
-                        <div class="post-dislike">
-                            <button class = "btn-primary"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
-                        </div>
                         <div class="post-comment">
                             <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
                         </div>
+                        <div class="post-like">
+                            <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
+                        </div>
+                        <div class="post-dislike">
+                            <button class = "btn-primary postbutton"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
+                        </div>
                         <% if (threads[i].postedBy === user.username){ %>
                             <div class="post-delete">
-                                <button class = "btn-primary"><i class="fa-solid fa-circle-minus"></i>Delete</button>
+                                <button class ="btn-primary postbutton"><i class="fa-solid fa-circle-minus"></i>Delete</button>
                             </div>
                         <% } %>
                     </div>
                 </div>
 
             <% } }%>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-5 mx-auto">
             <a href="#"
                 class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
@@ -416,21 +411,24 @@
                 More
             </a>
         </div>
-    </div>
+    </div> -->
 </section>
     
         <!--================End Community Area =================-->
 <!-- add post -->
         <section class="all-question-area bg-disable pt-100 pb-120 d-flex justify-content-center">
             <div class="container custom-container">
-              <div class="row">
-                <div class="col-xl-2 d-xl-block d-none pe-0">
-                
-                </div>
-                <div class="col-xl-7 pe-xl-0 ps-xxl-4" id="newThread">
+                <div class="row">
+                    <div class="col-xl-2 d-xl-block d-none pe-0">
+                        
+                    </div>
+                    <div class="col-xl-7 pe-xl-0 ps-xxl-4" id="newThread">
+                        <h2>Create New Thread</h2>
+                        <div class="d-flex justify-content-between mb-35 flex-wrap underlineSection ">
+                        </div>
                   <div class="add-question-widget">
     
-                    <h4 class="widget-title">Create New Thread</h4>
+                    <!-- <h4 class="widget-title">Create New Thread</h4> -->
                     <form id="newThreadForm">
                         <input type="hidden" value="<%= String(user.username) %>" name="postedBy">
                       <div class="mt-30">

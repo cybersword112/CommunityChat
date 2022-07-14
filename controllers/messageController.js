@@ -60,13 +60,30 @@ module.exports = {
     }
   },
 
-  deleteMessage : (req,res) => {
-    // console.log(req.body)
-    Message.findOneAndDelete({ _id:req.body.id })
-      .then(() => {
-        res.sendStatus(200)
-      } )
-      .catch((err) => console.log(err))
+  deleteMessage : async (req,res) => {
+    try{
+      await Message.findOneAndDelete({ _id:req.body.id })
+      res.sendStatus(200)
+    }catch(err){
+      console.log(err)
+    }
   },
+  addLike: async (req,res) => {
+    console.log(req.body)
+    try{
+      await Message.findOneAndUpdate({ _id:req.body.id },{ $inc:{ likes:+1 } })
+      res.sendStatus(200)
+    }catch(err){
+      console.log(err)
+    }
+  },
+  addDislike: async (req,res) => {
+    try{
+      await Message.findOneAndUpdate({ _id:req.body.id },{ $inc:{ dislikes:+1 } })
+      res.sendStatus(200)
+    }catch(err){
+      console.log(err)
+    }
+  }
 
 }

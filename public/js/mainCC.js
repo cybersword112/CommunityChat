@@ -2,12 +2,12 @@
 const deleThread = document.querySelectorAll('.post-delete')
 const thumbText = document.querySelectorAll('.post-like')
 const thumbDownText = document.querySelectorAll('.post-dislike')
-const getLocationBtn = document.querySelector('#locationFetch')
+// const getLocationBtn = document.querySelector('#locationFetch')
 
 const newThreadBtn = document.querySelector('#newThreadSubmit')
 
 newThreadBtn.addEventListener('click',createThread)
-getLocationBtn.addEventListener('click',renderLocalThreads)
+// getLocationBtn.addEventListener('click',renderLocalThreads)
 
 const threads = document.querySelectorAll('.topic')
 // adds deletion event listeners for threads
@@ -23,19 +23,19 @@ Array.from(thumbDownText).forEach((element) => {
   element.addEventListener('click',addDisLike)
 })
 
-async function renderLocalThreads(){
-  try{
-    const formElement = document.querySelector('#renderLocalThreads')
-    const formData = new FormData(formElement)
-    console.log(...formData.entries())
-    const response = await fetch('/home/',{
-      method:'POST',
-      body:formData
-    })
-    const data = response
-    console.log(data)
-  }catch(err){console.log(err)}
-}
+// async function renderLocalThreads(){
+//   try{
+//     const formElement = document.querySelector('#renderLocalThreads')
+//     const formData = new FormData(formElement)
+//     console.log(...formData.entries())
+//     const response = await fetch('/home/',{
+//       method:'POST',
+//       body:formData
+//     })
+//     const data = response
+//     console.log(data)
+//   }catch(err){console.log(err)}
+// }
 
 async function createThread(){
   try{
@@ -167,7 +167,7 @@ async function gpsSuccess(pos) {
   // Get the lat, long, accuracy from Geolocation return (pos.coords)
   const { latitude, longitude, accuracy } = pos.coords
   // Add details to page
-  gnssDiv.innerHTML = `Date: ${dateObject} 
+  gnssDiv.innerHTML = `Date: ${dateObject.toLocaleString()} 
         <br>Lat/Long: ${latitude.toFixed(5)}, ${longitude.toFixed(5)} 
         <br>Accuracy: ${accuracy} (m)`
   const radius = accuracy / 2

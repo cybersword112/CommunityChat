@@ -82,15 +82,8 @@ module.exports = {
           range,
         })
         console.log(newThread)
-        let data = await newThread.save()
-        console.log(data)
-        console.log('newthread save then point')
+        await newThread.save()
         res.location('..')
-        // if(location){
-        //   res.redirect(`/home/:location=${location[0]},${location[1]}`)
-        // }else{
-        //   res.redirect('/home')
-        // }
       }
     }catch(err){
       console.log(err)
@@ -118,7 +111,6 @@ module.exports = {
   addLikeThread : async (req,res) => {
     try {
       const { threadID, promptS } = req.body
-      console.log(threadID,promptS)
       await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ likes:+1 } })
       res.sendStatus(200)
     }catch(err){console.log(err)}
@@ -127,7 +119,6 @@ module.exports = {
   addDisLikeThread : async (req,res) => {
     try {
       const { threadID, promptS } = req.body
-      console.log(threadID,promptS)
       await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ dislikes: +1 } })
       res.sendStatus(200)
     }catch(err){console.log(err)}

@@ -26,9 +26,10 @@ module.exports = {
   homeView : async (req, res) => {
     try{
       let threads = await Thread.find({}).sort({ date: -1 })
-      if(req.query.location){
-        console.log('has location available in homeview')
-        const userLocation = req.query.location.split(',').map(item => item=Number(item))
+      console.log(req.cookies.location)
+      if(req.cookies.location){
+        console.log('has location available in cookie')
+        const userLocation = req.cookies.location.split(',').map(item => item=Number(item))
         threads = threads.filter(item => {
           return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
         })
@@ -49,6 +50,7 @@ module.exports = {
   // adds thread to database
   addThread : async (req, res) => {
     try{
+      console.log(req.cookies)
       const { topic, postedBy, content } = req.body
       let { tags, bIsAnonPost, location,range } = req.body
       if (!topic || !postedBy) {

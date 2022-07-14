@@ -181,6 +181,7 @@ async function gpsSuccess(pos) {
   L.circle([latitude,longitude], radius).addTo(layerGpsGroup)
   localStorage.setItem('userLocation',[latitude.toFixed(5), longitude.toFixed(5)])
   document.querySelector('.location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
+  document.cookie = `location=${[latitude.toFixed(5), longitude.toFixed(5)]};path=/;samesite=lax;`
 }
 // Geolocation: Error
 function gpsError(err) {

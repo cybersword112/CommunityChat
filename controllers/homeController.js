@@ -82,8 +82,10 @@ module.exports = {
           imagePath:'something'
         })
         console.log(newThread)
-        await newThread.save()
-        res.redirect('/home')
+        newThread.save()
+          .then(res.redirect('/home'))
+          .catch((err) => {
+            console.log(err)})
       }
     }catch(err){
       console.log(err)

@@ -48,6 +48,9 @@ const ThreadSchema = new mongoose.Schema({
   range: {
     type:String,
     default:'2'
+  },
+  imagePath:{
+    type:String,
   }
 })
 

@@ -2,6 +2,7 @@ const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
+
 module.exports = {
   //For Register Page
   registerView : (req, res) => {

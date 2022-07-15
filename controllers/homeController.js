@@ -46,9 +46,8 @@ module.exports = {
     }catch(err){res.send({ 'error':err }) }
 
   },
-
   // adds thread to database
-  addThread : async (req, res) => {
+  addThread : async (req,res) => {
     try{
       console.log(req.cookies)
       const { topic, postedBy, content } = req.body
@@ -71,7 +70,7 @@ module.exports = {
         if(range){
           range = String(range)
         }
-        // console.log(location,range)
+        console.log(req.file)
         const newThread = new Thread({
           topic,
           content,
@@ -80,16 +79,16 @@ module.exports = {
           bIsAnonPost,
           location,
           range,
+          imagePath:'something'
         })
         console.log(newThread)
         await newThread.save()
-        res.location('..')
+        res.redirect('/home')
       }
     }catch(err){
       console.log(err)
     }
   },
-
   // deletes thread from database
   deleteThread : (req,res) => {
     try{
@@ -123,7 +122,6 @@ module.exports = {
       res.sendStatus(200)
     }catch(err){console.log(err)}
   },
-
 }
 
 // // --------not in use---------

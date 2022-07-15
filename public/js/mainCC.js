@@ -180,7 +180,7 @@ async function gpsSuccess(pos) {
     .openPopup()
   L.circle([latitude,longitude], radius).addTo(layerGpsGroup)
   localStorage.setItem('userLocation',[latitude.toFixed(5), longitude.toFixed(5)])
-  document.querySelector('.location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
+  // document.querySelector('.location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
   document.cookie = `location=${[latitude.toFixed(5), longitude.toFixed(5)]};path=/;samesite=lax;`
 }
 // Geolocation: Error
@@ -190,9 +190,6 @@ function gpsError(err) {
 // Button onClick, get the the location
 async function getLocation() {
   navigator.geolocation.getCurrentPosition(gpsSuccess, gpsError, gpsOptions)
-  try{
-    renderLocalThreads()
-  }catch(err){console.log(err)}
 }
 // Setup the leaflet map
 const map = L.map('map').setView([36.158086, -86.776126], 9) // Nashville area set as default

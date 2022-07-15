@@ -66,7 +66,6 @@ module.exports = {
         if(range){
           range = String(range)
         }
-        console.log(req.file)
         const newThread = await new Thread({
           topic,
           content,
@@ -79,7 +78,7 @@ module.exports = {
         })
         console.log(newThread)
         await newThread.save()
-        res.redirect('/home',200)
+        res.sendStatus(200)
       }
     }catch(err){
       console.log(err)

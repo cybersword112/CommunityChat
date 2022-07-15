@@ -49,10 +49,7 @@ async function createThread(){
       headers:{ 'Content-Type':'application/json' },
       body:JSON.stringify(Object.fromEntries(formData))
     })
-    // const data = response
-    // console.log(data)
-    // renderLocalThreads()
-    // location.reload()
+    location.assign(document.location.origin + document.location.pathname)
   }catch(err){
     console.log(err)
   }

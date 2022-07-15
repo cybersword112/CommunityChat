@@ -79,9 +79,7 @@ module.exports = {
         })
         console.log(newThread)
         await newThread.save()
-          .then(res.redirect('/home'))
-          .catch((err) => {
-            console.log(err)})
+        res.redirect('/home',200)
       }
     }catch(err){
       console.log(err)

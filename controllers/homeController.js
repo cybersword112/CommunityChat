@@ -26,11 +26,9 @@ module.exports = {
   homeView : async (req, res) => {
     try{
       let threads = await Thread.find({}).sort({ date: -1 })
-      console.log(req.cookies.location)
       if(req.cookies.location){
-        console.log('has location available in cookie')
         const userLocation = req.cookies.location.split(',').map(item => item=Number(item))
-        threads = threads.filter(item => {
+        threads =  threads.filter(item => {
           return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
         })
       }else{
@@ -38,13 +36,11 @@ module.exports = {
           return (String(item.range) === 'Global')
         })
       }
-      res.render('index',{
+      await res.render('index',{
         threads:threads,
         user:req.user,
       })
-      console.log('passed home render')
     }catch(err){res.send({ 'error':err }) }
-
   },
   // adds thread to database
   addThread : async (req,res) => {
@@ -71,7 +67,7 @@ module.exports = {
           range = String(range)
         }
         console.log(req.file)
-        const newThread = new Thread({
+        const newThread = await new Thread({
           topic,
           content,
           postedBy,
@@ -82,7 +78,7 @@ module.exports = {
           imagePath:'something'
         })
         console.log(newThread)
-        newThread.save()
+        await newThread.save()
           .then(res.redirect('/home'))
           .catch((err) => {
             console.log(err)})

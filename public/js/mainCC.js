@@ -46,8 +46,9 @@ async function createThread(){
     formData.append('location',locations)
     const response = await fetch('/home/addThread',{
       method:'POST',
-      headers:{ 'Content-Type':'application/json' },
-      body:JSON.stringify(Object.fromEntries(formData))
+      // headers:{ 'Content-Type':'application/json' },
+      // body:JSON.stringify(Object.fromEntries(formData))
+      body:formData
     })
     location.assign(document.location.origin + document.location.pathname)
   }catch(err){

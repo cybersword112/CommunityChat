@@ -15,6 +15,7 @@ module.exports = {
       res.render('forum-single',{
         thread:thread,
         info:messages,
+        image:req.postImage,
         user:req.user,
         threadId:threadId,
       })
@@ -22,7 +23,6 @@ module.exports = {
       console.log(err)
     }
   },
-
   addMessage : async (req, res) => {
     const { message } = req.body
     let { user, bIsAnonPost } = req.body

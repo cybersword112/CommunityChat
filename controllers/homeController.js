@@ -36,8 +36,10 @@ module.exports = {
           return (String(item.range) === 'Global')
         })
       }
+      let imageList = Array.from(req.filesAll)
       await res.render('index',{
         threads:threads,
+        images:imageList,
         user:req.user,
       })
     }catch(err){res.send({ 'error':err }) }
@@ -48,6 +50,9 @@ module.exports = {
       console.log(req.cookies)
       const { topic, postedBy, content } = req.body
       let { tags, bIsAnonPost, location,range } = req.body
+      let imageID = req.fileID
+      console.log('image id in homecontroller: ' + imageID)
+      console
       if (!topic || !postedBy) {
         console.log('Fill empty fields')
       }
@@ -74,7 +79,7 @@ module.exports = {
           bIsAnonPost,
           location,
           range,
-          imagePath:'something'
+          imageID,
         })
         console.log(newThread)
         await newThread.save()

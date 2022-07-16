@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
-const multer = require('multer')
 const MongoStore = require('connect-mongo')
 const connectDb = require('./config/database')
 const loginRoutes = require('./routes/loginRoute')
@@ -25,6 +24,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
+
 
 app.use(session({
   secret: process.env.SECRET,

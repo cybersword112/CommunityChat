@@ -12840,6 +12840,15 @@ body.body_dark {
   color:white;
 }
 
+.post-picture{
+  width:100%;
+}
+
+.threadImage{
+  width: 20rem;
+  height: auto;
+}
+
 /* 
  * Always set the map height explicitly to define the size of the div element
  * that contains the map. 

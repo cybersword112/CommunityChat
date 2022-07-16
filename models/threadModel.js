@@ -49,7 +49,7 @@ const ThreadSchema = new mongoose.Schema({
     type:String,
     default:'2'
   },
-  imagePath:{
+  imageID:{
     type:String,
   }
 })

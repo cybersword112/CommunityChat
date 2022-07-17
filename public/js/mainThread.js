@@ -2,8 +2,6 @@ const deleteBtns = document.querySelectorAll('.deleteButton')
 const likeBtns = document.querySelectorAll('.likeButton')
 const dislikeBtns = document.querySelectorAll('.dislikeButton')
 
-
-
 Array.from(deleteBtns).forEach((el) => {
   el.addEventListener('click',deleteMessage)
 })

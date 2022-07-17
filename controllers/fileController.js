@@ -2,19 +2,24 @@ const Image = require('../models/imageModel')
 
 const singleFileUpload = async (req, res, next) => {
   try{
-    const file = new Image({
-      fileName: req.file.originalname,
-      filePath: req.file.path,
-      fileType: req.file.mimetype,
-      fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
-    })
-    req.fileID = ""
-    file.save()
-      .then(file => {
-        console.log(file._id)
-        req.fileID = file._id
-        next()
-      }).catch((err) => {console.log(err)})
+    if(req.file != null){
+      const file = new Image({
+        fileName: req.file.originalname,
+        filePath: req.file.path,
+        fileType: req.file.mimetype,
+        fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+      })
+      req.fileID = null
+      file.save()
+        .then(file => {
+          console.log(file._id)
+          req.fileID = file._id
+          next()
+        }).catch((err) => {console.log(err)})
+    }else{
+      req.fileID = null
+      next()
+    }
   }catch(error) {
     res.status(400).send(error.message)
   }
@@ -55,8 +60,7 @@ const getSingleFiles = async (req, res, next) => {
 
 const getSingleImage = async (req, res, next) => {
   try{
-    const image = await Image.findOne({_id:req.params.imageID})
-    // res.status(200).send(files)
+    const image = await Image.find({ _id:req.query.imageID })
     req.postImage = image
     next()
   }catch(error) {

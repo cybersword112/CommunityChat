@@ -2,12 +2,12 @@
 const deleThread = document.querySelectorAll('.post-delete')
 const thumbText = document.querySelectorAll('.post-like')
 const thumbDownText = document.querySelectorAll('.post-dislike')
-// const getLocationBtn = document.querySelector('#locationFetch')
+const getLocationBtn = document.querySelector('#getLocation')
 
 const newThreadBtn = document.querySelector('#newThreadSubmit')
 
 newThreadBtn.addEventListener('click',createThread)
-// getLocationBtn.addEventListener('click',renderLocalThreads)
+getLocationBtn.addEventListener('click',getLocation)
 
 const threads = document.querySelectorAll('.topic')
 // adds deletion event listeners for threads
@@ -23,31 +23,16 @@ Array.from(thumbDownText).forEach((element) => {
   element.addEventListener('click',addDisLike)
 })
 
-// async function renderLocalThreads(){
-//   try{
-//     const formElement = document.querySelector('#renderLocalThreads')
-//     const formData = new FormData(formElement)
-//     console.log(...formData.entries())
-//     const response = await fetch('/home/',{
-//       method:'POST',
-//       body:formData
-//     })
-//     const data = response
-//     console.log(data)
-//   }catch(err){console.log(err)}
-// }
-
 async function createThread(){
   try{
     const formElement = document.querySelector('#newThreadForm')
     const formData = new FormData(formElement)
-    let locations = localStorage.getItem('userLocation')
-    // console.log(location)
-    formData.append('location',locations)
-    const response = await fetch('/home/addThread',{
+    if(localStorage.getItem('userLocation')){
+      let locations = localStorage.getItem('userLocation')
+      formData.append('location',locations)
+    }
+    await fetch('/home/addThread',{
       method:'POST',
-      // headers:{ 'Content-Type':'application/json' },
-      // body:JSON.stringify(Object.fromEntries(formData))
       body:formData
     })
     location.assign(document.location.origin + document.location.pathname)
@@ -155,18 +140,9 @@ async function addDisLike(evt){
 
 //--------------leaflet maps-----------
 
-// Setup Geolocation API options
-const gpsOptions = { enableHighAccuracy: true, timeout: 6000, maximumAge: 600000 }
-const gnssDiv = document.getElementById('gnssData')
-// Geolocation: Success
-async function gpsSuccess(pos) {
-  // Get the date from Geolocation return (pos)
-  const dateObject = new Date(pos.timestamp)
-  // Get the lat, long, accuracy from Geolocation return (pos.coords)
-  const { latitude, longitude, accuracy } = pos.coords
+function paintMap(latitude,longitude,accuracy){
   // Add details to page
-  gnssDiv.innerHTML = `Date: ${dateObject.toLocaleString()} 
-        <br>Lat/Long: ${latitude.toFixed(5)}, ${longitude.toFixed(5)} 
+  gnssDiv.innerHTML = `Lat/Long: ${latitude.toFixed(5)}, ${longitude.toFixed(5)} 
         <br>Accuracy: ${accuracy} (m)`
   const radius = accuracy / 2
   layerGpsGroup.clearLayers()
@@ -177,9 +153,21 @@ async function gpsSuccess(pos) {
     .bindPopup(`Lat/Long : ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`)
     .openPopup()
   L.circle([latitude,longitude], radius).addTo(layerGpsGroup)
+}
+
+
+
+// Setup Geolocation API options
+const gpsOptions = { enableHighAccuracy: true, timeout: 6000, maximumAge: 600000 }
+const gnssDiv = document.getElementById('gnssData')
+// Geolocation: Success
+async function gpsSuccess(pos) {
+  // Get the lat, long, accuracy from Geolocation return (pos.coords)
+  const { latitude, longitude, accuracy } = pos.coords
+  paintMap(latitude,longitude,accuracy)
   localStorage.setItem('userLocation',[latitude.toFixed(5), longitude.toFixed(5)])
-  // document.querySelector('.location').setAttribute('value',[latitude.toFixed(5), longitude.toFixed(5)])
-  document.cookie = `location=${[latitude.toFixed(5), longitude.toFixed(5)]};path=/;samesite=lax;`
+  document.cookie = `location=${[latitude.toFixed(5), longitude.toFixed(5), accuracy]};path=/;samesite=lax;`
+  location.reload()
 }
 // Geolocation: Error
 function gpsError(err) {
@@ -197,4 +185,11 @@ const osmTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}
 }).addTo(map)
 const layerGpsGroup = L.layerGroup().addTo(map)
 
-getLocation()
+
+
+if(document.cookie){
+  let lat = Number(document.cookie.split(',')[0].replace('location=',''))
+  let long = Number(document.cookie.split(',')[1])
+  let accuracy = Number(document.cookie.split(',')[2])
+  paintMap(lat,long,accuracy)
+}

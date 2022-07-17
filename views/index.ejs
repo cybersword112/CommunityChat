@@ -235,13 +235,13 @@
         <section class="forum-statistics">
             <div class="container">
                 <div class="banner-text-p">
-                    <h2>Location</h2>
-                    <p> Note: If location access is disabled you will only be able to see global posts.</p>
+                    <h2>Location
+                        <button id="getLocation" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Get Location</button>
+                    </h2>
+                    <p> Note: If location is unavailable you will only see global posts.</p>
                 </div>
                 <div id="map"></div>
-                <div id="gnssData">
-                    Date: Sat Jul 02 2022 09:25:55 GMT-0500 (Central Daylight Time) 
-                    <br>Lat/Long: 35.04652, -89.76364 
+                <div id="gnssData">Lat/Long: 35.04652, -89.76364 
                     <br>Accuracy: 11.519 (m)
                 </div> 
             </div>
@@ -290,7 +290,7 @@
                         <div class="post-content">
                             <div class="post-title">
                                 <span style="display: none;"><%= threads[i]._id %></span> 
-                                <h6><a href="/messages/<%= threads[i]._id %>&<%= threads[i].imageID%>" class="topic"><span><%= threads[i].topic %></span></a>
+                                <h6><a href="/messages/<%= threads[i]._id %>" class="topic"><span><%= threads[i].topic %></span></a>
                                     <span><i class="icon_check_alt2"></i></span>
                                 </h6>
                             </div>
@@ -355,6 +355,13 @@
             <!-- loop to store threads from database that are located in thr threads object array -->
             <% for(let i=0; i < threads.length; i++) { if(threads[i].range !== "Global"){%>
                 <div class="single-forum-post-widget wow fadeInUp">
+                    <div class="container post-picture">
+                        <% if(images.find((img) =>img._id == threads[i].imageID) ){ %>
+                            <img class="threadImage" src="<%= images.find((img) =>img._id == threads[i].imageID)['filePath'].replace(/public/g,'');%>">
+                            <% } else{ %>
+                                <p>no image </p>
+                            <% } %>
+                    </div>
                     <div class="post-content">
                         <div class="post-title">
                             <span style="display: none;"><%= threads[i]._id %></span> 
@@ -451,13 +458,17 @@
                         <label class="label" for="range">Viewable Range (Miles)<span>*</span></label>
                         <div class="icon-input-group">
                           <select id="range" class="custom-select form-control" name="range">
-                            <option value="2">2</option>
+                            <% if(location != null) { %>
+                            <option value="2">2 miles</option>
                             <option value="Global">Global</option>
-                            <option value=".5">.5</option>
-                            <option value="1">1</option>
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
+                            <option value=".5">1/2 mile</option>
+                            <option value="1">1 mile</option>
+                            <option value="5">5 miles</option>
+                            <option value="10">10 miles</option>
+                            <option value="20">20 miles</option>
+                            <% } else{%>
+                                <option value="Global">Global</option>
+                            <% } %>
                           </select>
                           <i class="icon_folder-open"></i>
                         </div>
@@ -479,7 +490,7 @@
                       <div class="mt-25">
                         <label class="label" for="inp_tag">Image</label>
                         <div class="icon-input-group">
-                          <input class="form-control" type="file" id="demo_image" name="demo_image" />
+                          <input class="form-control" type="file" id="demo_image" name="post_image" />
                           <i class="icon_tags"></i>
                         </div>
                         <div class="instruction">

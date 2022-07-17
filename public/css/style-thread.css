@@ -23,6 +23,17 @@
     border-radius: 5px;
 }
 
+.post-picture{
+    width:100%;
+  }
+  
+.threadImage{
+    width: auto;
+    height: 20rem;
+    border-radius: 3px;
+  }
+
 .updateText{
     
 }
+

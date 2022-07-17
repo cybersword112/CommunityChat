@@ -51,6 +51,7 @@ const ThreadSchema = new mongoose.Schema({
   },
   imageID:{
     type:String,
+    default:null
   }
 })
 

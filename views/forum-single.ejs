@@ -248,6 +248,11 @@
                         <div class="forum-post-content originalContent">
                             <div class="content text-left">
                                 <h5 class="title">Topic: <%= thread.topic %></h5>
+                                <% if(image){ %>
+                                    <div class="container post-picture">
+                                    <img class="threadImage" src="<%= image['filePath'].replace(/public/g,'')%>">
+                                    </div>
+                                    <% } %>
                                 <p class="" >Content: <br><%= thread.content %></p>
                             </div>
                             <div class="action-button-container">
@@ -323,6 +328,7 @@
                             <form action="/messages" method="POST" id="postMessage">
                                 <input type="hidden"  name="threadId" value="<%= threadId %>">
                                 <input type="hidden"  value="<%= JSON.stringify({username:user.username, userID: user._id}) %>" name="user">
+
                               <div class="mt-30">
                                 <label class="label" for="inp_title">Post a Reply<span>:</span></label>
                                 <div class="icon-input-group">

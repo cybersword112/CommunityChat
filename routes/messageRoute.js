@@ -5,7 +5,7 @@ const filecontroller = require('../controllers/fileController')
 const { ensureAuth } = require('../authMiddleware/protect')
 const router = express.Router()
 
-router.get('/:threadId:imageID',ensureAuth,filecontroller.getSingleImage,messageController.messagesView)
+router.get('/:threadId',ensureAuth,messageController.messagesView)
 
 router.post('/',messageController.addMessage)
 router.delete('/',messageController.deleteMessage)

@@ -1,5 +1,4 @@
 const multer = require('multer')
-const path = require('path')
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -13,7 +12,7 @@ let storage = multer.diskStorage({
 // this code goes inside the object passed to multer()
 function fileFilter (req, file, cb) {
   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg'
-  || file.mimetype === 'image/jpeg'){
+  || file.mimetype === 'image/jpeg' || file.mimetype ==='image/gif'){
     cb(null, true)
   }else {
     cb(null, false)

@@ -1,5 +1,6 @@
 const Message = require('../models/messageModel')
 const Thread = require('../models/threadModel')
+const Image = require('../models/imageModel')
 
 let threadId
 module.exports = {
@@ -9,13 +10,16 @@ module.exports = {
       threadId = req.params.threadId
       const messages = await Message.find({ threadId:threadId }).sort({ date:1 })
       const thread = await Thread.findOneAndUpdate({ _id:threadId }, { $inc: { views: 1 } })
-      // const thread = await Thread.findById(threadId)
-      // console.log(thread)
-
+      let image
+      if(thread.imageID !== null){
+        console.log('imageID is not null in messagesView')
+        image = await Image.findById(thread.imageID)
+      }
+      console.log(image)
       res.render('forum-single',{
         thread:thread,
         info:messages,
-        image:req.postImage,
+        image:image,
         user:req.user,
         threadId:threadId,
       })
@@ -24,24 +28,17 @@ module.exports = {
     }
   },
   addMessage : async (req, res) => {
-    const { message } = req.body
-    let { user, bIsAnonPost } = req.body
-    const { threadId } = req.body
+    const { message ,threadId } = req.body
+    let { user, bIsAnonPost} = req.body
     // console.log(user)
     if (!user || !message || !threadId) {
-      // console.log(threadId, message, postedBy)
+      console.log(threadId, message, user)
       console.log('Fill empty fields')
     }
     else {
       try{
-        // console.log( req.body.user )
         user = JSON.parse(req.body.user)
-        // console.log( user.username )
-        if(bIsAnonPost === 'on'){
-          bIsAnonPost = true
-        } else {
-          bIsAnonPost = false
-        }
+        bIsAnonPost = bIsAnonPost ==='on' ? true : false
         const newMessage = new Message({
           threadId:threadId,
           message:message,
@@ -49,7 +46,6 @@ module.exports = {
           bIsAnonPost:bIsAnonPost,
         })
         const thread = await Thread.findById(threadId)
-        // console.log(thread)
         thread.messages.push(newMessage)
         await thread.save()
         await newMessage.save()

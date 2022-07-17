@@ -26,8 +26,9 @@ module.exports = {
   homeView : async (req, res) => {
     try{
       let threads = await Thread.find({}).sort({ date: -1 })
+      let userLocation = null
       if(req.cookies.location){
-        const userLocation = req.cookies.location.split(',').map(item => item=Number(item))
+        userLocation = req.cookies.location.split(',').map(item => item=Number(item))
         threads =  threads.filter(item => {
           return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
         })
@@ -41,36 +42,27 @@ module.exports = {
         threads:threads,
         images:imageList,
         user:req.user,
+        location:userLocation,
       })
     }catch(err){res.send({ 'error':err }) }
   },
   // adds thread to database
   addThread : async (req,res) => {
     try{
-      console.log(req.cookies)
       const { topic, postedBy, content } = req.body
       let { tags, bIsAnonPost, location,range } = req.body
-      let imageID = req.fileID
-      console.log('image id in homecontroller: ' + imageID)
-      console
+      if(req.fileID !== null ){
+        console.log('image id in homecontroller: ' + req.fileID)
+      }
       if (!topic || !postedBy) {
         console.log('Fill empty fields')
       }
       else {
-        if(tags){
-          tags = tags.split(',')
-        }
-        if(bIsAnonPost === 'on'){
-          bIsAnonPost = true
-        } else {
-          bIsAnonPost = false
-        }
-        if(location){
-          location = location.split(',').map(item => item = Number(item))
-        }
-        if(range){
-          range = String(range)
-        }
+        tags = tags ? tags.split(',') : tags
+        bIsAnonPost = bIsAnonPost === 'on' ? true : false
+        location = location ? location.split(',').map(item => item = Number(item)) : location
+        range = range ? String(range) : range
+
         const newThread = await new Thread({
           topic,
           content,
@@ -79,9 +71,8 @@ module.exports = {
           bIsAnonPost,
           location,
           range,
-          imageID,
+          imageID:req.fileID
         })
-        console.log(newThread)
         await newThread.save()
         res.sendStatus(200)
       }
@@ -109,7 +100,7 @@ module.exports = {
 
   addLikeThread : async (req,res) => {
     try {
-      const { threadID, promptS } = req.body
+      const { threadID } = req.body
       await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ likes:+1 } })
       res.sendStatus(200)
     }catch(err){console.log(err)}
@@ -117,69 +108,9 @@ module.exports = {
 
   addDisLikeThread : async (req,res) => {
     try {
-      const { threadID, promptS } = req.body
+      const { threadID } = req.body
       await Thread.findOneAndUpdate({ _id:threadID } , { $inc:{ dislikes: +1 } })
       res.sendStatus(200)
     }catch(err){console.log(err)}
   },
 }
-
-// // --------not in use---------
-// const renderLocalThreads = async (req,res) => {
-//   console.log('renderThreads')
-//   console.log(req)
-//   try{
-//     console.log('req' + req.body)
-//     const userLocation = req.body.location.split(',').map(item => item=Number(item))
-//     let threads = await Thread.find({}).sort({ date: -1 })
-//     threads = threads.filter(item => {
-//       return ( getDistance(item.location,userLocation) <= Number(item.range) ) || (String(item.range) === 'Global')
-//     })
-//     console.log('passed thread local filter, before render')
-//     res.render('index',{
-//       threads:threads,
-//       user:req.user,
-//     })
-//     console.log('passed local thread render')
-//   }catch(err){res.send({ 'error':err }) }
-// }
-
-// // adds thread to database from local screen
-// // ------not in use
-// const addLocalThread = async (req, res) => {
-//   const { topic, postedBy, content } = req.body
-//   let { tags, bIsAnonPost, location,range } = req.body
-//   if (!topic || !postedBy || !content ) {
-//     console.log('Fill empty fields')
-//   }
-//   else {
-//     if(tags){
-//       tags = tags.split(',')
-//     }
-//     if(bIsAnonPost === 'on'){
-//       bIsAnonPost = true
-//     } else {
-//       bIsAnonPost = false
-//     }
-//     if(location){
-//       location = location.split(',').map(item => item = Number(item))
-//     }
-//     if(range){
-//       range = String(range)
-//     }
-//     // console.log(location,range)
-//     const newThread = new Thread({
-//       topic,
-//       content,
-//       postedBy,
-//       tags,
-//       bIsAnonPost,
-//       location,
-//       range,
-//     })
-//     newThread
-//       .save()
-//       .then(res.redirect('/renderLocalThreads'))
-//       .catch((err) => console.log(err))
-//   }
-// }

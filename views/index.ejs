@@ -359,7 +359,9 @@
                 <div class="single-forum-post-widget wow fadeInUp">
                     <div class="container post-picture">
                         <% if(images.find((img) =>img._id == threads[i].imageID) ){ %>
-                            <img class="threadImage" src="data:image/<%=images.find((img) =>img._id == threads[i].imageID).image.contentType%>;base64,<%= images.find((img) =>img._id == threads[i].imageID).image.data.toString('base64') %>">
+                            <% let threadImage=images.find((img) =>img._id == threads[i].imageID) %>
+                            <input type="hidden" name="imageId" id="imageId" value="<%=threadImage._id %>">
+                            <img class="threadImage" src="data:image/<%=threadImage.image.contentType%>;base64,<%= threadImage.image.data.toString('base64') %>">
                             <% } else{ %>
                                 <p>no image </p>
                             <% } %>

@@ -1,4 +1,6 @@
 const Image = require('../models/imageModel')
+var fs = require('fs')
+var path = require('path')
 
 const singleFileUpload = async (req, res, next) => {
   try{
@@ -7,12 +9,15 @@ const singleFileUpload = async (req, res, next) => {
         fileName: req.file.originalname,
         filePath: req.file.path,
         fileType: req.file.mimetype,
-        fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+        fileSize: fileSizeFormatter(req.file.size, 2), // 0.00
+        image: {
+          data: fs.readFileSync(path.join(__dirname , '..','public/uploads/' , req.file.filename)),
+          contentType: 'image/png'
+        }
       })
       req.fileID = null
       file.save()
         .then(file => {
-          console.log(file._id)
           req.fileID = file._id
           next()
         }).catch((err) => {console.log(err)})

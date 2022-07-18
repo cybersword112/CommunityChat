@@ -17,7 +17,12 @@ const imageSchema = new Schema({
   fileSize: {
     type: String,
     required: true
-  }
+  },
+  image:
+    {
+      data: Buffer,
+      contentType: String
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Image', imageSchema)

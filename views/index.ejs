@@ -282,7 +282,7 @@
                     <div class="single-forum-post-widget wow fadeInUp">
                         <div class="container post-picture">
                         <% if(images.find((img) =>img._id == threads[i].imageID) ){ %>
-                            <img class="threadImage" src="<%= images.find((img) =>img._id == threads[i].imageID)['filePath'].replace(/public/g,'');%>">
+                            <img class="threadImage" src="data:image/<%=images.find((img) =>img._id == threads[i].imageID).image.contentType%>;base64,<%= images.find((img) =>img._id == threads[i].imageID).image['data'].toString('base64') %>">
                             <% } else{ %>
                                 <p>no image </p>
                             <% } %>

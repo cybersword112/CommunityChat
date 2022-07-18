@@ -141,16 +141,20 @@ async function addDisLike(evt){
 //--------------leaflet maps-----------
 
 function paintMap(latitude,longitude,accuracy){
+  latitude = Number(latitude)
+  longitude = Number(longitude)
+  accuracy = Number(accuracy)
+  const latlngObj = L.latLng([latitude,longitude])
   // Add details to page
-  gnssDiv.innerHTML = `Lat/Long: ${latitude.toFixed(5)}, ${longitude.toFixed(5)} 
+  gnssDiv.innerHTML = `Lat/Long: ${latitude}, ${longitude} 
         <br>Accuracy: ${accuracy} (m)`
   const radius = accuracy / 2
   layerGpsGroup.clearLayers()
   // Zoom to the location
-  map.setView([latitude,longitude], 12)
+  map.setView(latlngObj, 12)
   //Add a marker and radius based on accuracy to map
   L.marker([latitude,longitude]).addTo(layerGpsGroup)
-    .bindPopup(`Lat/Long : ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`)
+    .bindPopup(`Lat/Long : ${latitude}, ${longitude}`)
     .openPopup()
   L.circle([latitude,longitude], radius).addTo(layerGpsGroup)
 }
@@ -163,10 +167,12 @@ const gnssDiv = document.getElementById('gnssData')
 // Geolocation: Success
 async function gpsSuccess(pos) {
   // Get the lat, long, accuracy from Geolocation return (pos.coords)
-  const { latitude, longitude, accuracy } = pos.coords
+  let { latitude, longitude, accuracy } = pos.coords
+  latitude = latitude.toFixed(5)
+  longitude = longitude.toFixed(5)
   paintMap(latitude,longitude,accuracy)
-  localStorage.setItem('userLocation',[latitude.toFixed(5), longitude.toFixed(5)])
-  document.cookie = `location=${[latitude.toFixed(5), longitude.toFixed(5), accuracy]};path=/;samesite=lax;`
+  localStorage.setItem('userLocation',[latitude, longitude])
+  document.cookie = `location=${[latitude, longitude,accuracy]};path=/;samesite=lax;`
   location.reload()
 }
 // Geolocation: Error
@@ -186,10 +192,11 @@ const osmTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}
 const layerGpsGroup = L.layerGroup().addTo(map)
 
 
-
-if(document.cookie){
-  let lat = Number(document.cookie.split(',')[0].replace('location=',''))
-  let long = Number(document.cookie.split(',')[1])
-  let accuracy = Number(document.cookie.split(',')[2])
+if(document.cookie.includes('location')){
+  let index = document.cookie.split(';').findIndex((item) => item.includes('location='))
+  let location = document.cookie.split(';')[index]
+  let lat = location.split(',')[0].replace('location=','')
+  let long = location.split(',')[1]
+  let accuracy = location.split(',')[2]
   paintMap(lat,long,accuracy)
 }

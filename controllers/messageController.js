@@ -15,7 +15,6 @@ module.exports = {
         console.log('imageID is not null in messagesView')
         image = await Image.findById(thread.imageID)
       }
-      console.log(image)
       res.render('forum-single',{
         thread:thread,
         info:messages,

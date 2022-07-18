@@ -75,10 +75,13 @@ module.exports = {
           range,
           imageID:req.fileID
         })
-        await newThread.validate()
         await newThread.save()
-        setTimeout(()=>{res.redirect(200,'/home')},2000)
-        // await res.redirect(200,'/home')
+        res.redirect('/home')
+        // setTimeout(() => {
+        //   res.redirect('/home')
+        //   console.log('redirect timer passed')
+        // },3000)
+
       }
     }catch(err){
       console.log(err)

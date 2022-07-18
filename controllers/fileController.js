@@ -4,7 +4,7 @@ var path = require('path')
 
 const singleFileUpload = async (req, res, next) => {
   try{
-    if(req.file != null){
+    if(req.file !== null){
       const file = await new Image({
         fileName: req.file.originalname,
         filePath: req.file.path,
@@ -16,20 +16,9 @@ const singleFileUpload = async (req, res, next) => {
         }
       })
       req.fileID = null
-      await file.validate()
-      await file.save((err,file,numAffected) => {
-        if(err){
-          console.log(err)
-          return next(err)
-        }else{
-          req.fileID = file._id
-          next()
-        }
-      })
-      // .then(file => {
-      //   req.fileID = file._id
-      //   next()
-      // }).catch((err) => {console.log(err)})
+      let fileDoc = await file.save()
+      req.fileID = fileDoc._id
+      next()
     }else{
       req.fileID = null
       next()
@@ -72,15 +61,29 @@ const getSingleFiles = async (req, res, next) => {
   }
 }
 
-const getSingleImage = async (req, res, next) => {
+const deleteSingleFiles = async (req, res, next) => {
   try{
-    const image = await Image.find({ _id:req.query.imageID })
-    req.postImage = image
-    next()
+    if(req.body.imageId){
+      let imageToDelete = await Image.deleteOne({_id:req.body.imageId})
+      next()
+    }else{
+      next()
+    }
+    // res.status(200).send(files)
   }catch(error) {
     res.status(400).send(error.message)
   }
 }
+
+// const getSingleImage = async (req, res, next) => {
+//   try{
+//     const image = await Image.find({ _id:req.query.imageID })
+//     req.postImage = image
+//     next()
+//   }catch(error) {
+//     res.status(400).send(error.message)
+//   }
+// }
 // const getallMultipleFiles = async (req, res, next) => {
 //   try{
 //     const files = await MultipleFile.find()
@@ -103,8 +106,6 @@ const fileSizeFormatter = (bytes, decimal) => {
 
 module.exports = {
   singleFileUpload,
-  //   multipleFileUpload,
   getSingleFiles,
-  getSingleImage,
-//   getallMultipleFiles
+  deleteSingleFiles,
 }

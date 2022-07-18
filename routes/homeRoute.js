@@ -13,6 +13,6 @@ router.post('/addThread',upload.single('post_image'), filecontroller.singleFileU
 
 
 router.post('/',homeController.homeView)
-router.delete('/',homeController.deleteThread)
+router.delete('/',filecontroller.deleteSingleFiles,homeController.deleteThread)
 
 module.exports = router

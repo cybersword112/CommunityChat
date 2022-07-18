@@ -1,4 +1,3 @@
-
 const deleThread = document.querySelectorAll('.post-delete')
 const thumbText = document.querySelectorAll('.post-like')
 const thumbDownText = document.querySelectorAll('.post-dislike')
@@ -31,12 +30,12 @@ async function createThread(){
       let locations = localStorage.getItem('userLocation')
       formData.append('location',locations)
     }
-    await fetch('/home/addThread',{
+    fetch('/home/addThread',{
       method:'POST',
       body:formData
     })
-    return false
-    // location.assign(document.location.origin + document.location.pathname)
+    document.getElementById('map').scrollIntoView()
+    location.reload()
   }catch(err){
     console.log(err)
   }
@@ -45,11 +44,14 @@ async function createThread(){
 //*handles fetch for deletion of threads from client to server and database (mongo)
 async function deleteThread(evt){
   //*selects thread name text directly from dom
+  let imageId = null
   const id = evt.target.parentNode.parentNode.previousElementSibling.children[0].children[0].innerText
   const topic = evt.target.parentNode.parentNode.previousElementSibling.children[0].children[1].innerText
   const postedBy = evt.target.parentNode.parentNode.previousElementSibling.children[1].children[0].innerText
   // handles attempt of delete request to backend
-  console.log(id,topic,postedBy)
+  if(evt.target.parentNode.parentNode.parentNode.children[0].children[0].getAttribute('value')){
+    imageId = evt.target.parentNode.parentNode.parentNode.children[0].children[0].getAttribute('value')
+  }
   try{
     //sends request to server to delete thread
     const response = await fetch('/home', {
@@ -60,12 +62,13 @@ async function deleteThread(evt){
       // body of request
       body: JSON.stringify({
         'id':id,
+        'imageId':imageId,
         'topic': topic,
         'postedBy': postedBy,
       })
     })
     //stores response from server in data
-    const data = await response
+    const data = response
     // reloads current page
     location.reload()
   }

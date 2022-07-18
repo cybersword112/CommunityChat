@@ -250,7 +250,7 @@
                                 <h5 class="title">Topic: <%= thread.topic %></h5>
                                 <% if(image){ %>
                                     <div class="container post-picture">
-                                    <img class="threadImage" src="data:image/<%= image.image.contentType%>;base64,<%= image.image['data'].toString('base64') %>"">
+                                    <img class="threadImage" src="data:image/<%= image.image.contentType%>;base64,<%= image.image.data.toString('base64') %>"">
                                     </div>
                                     <% } %>
                                 <p class="" >Content: <br><%= thread.content %></p>

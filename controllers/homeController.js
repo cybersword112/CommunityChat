@@ -56,9 +56,6 @@ module.exports = {
     try{
       const { topic, postedBy, content } = req.body
       let { tags, bIsAnonPost, location,range } = req.body
-      if(req.fileID !== null ){
-        console.log('image id in homecontroller: ' + req.fileID)
-      }
       if (!topic || !postedBy) {
         console.log('Fill empty fields')
       }
@@ -78,8 +75,10 @@ module.exports = {
           range,
           imageID:req.fileID
         })
+        await newThread.validate()
         await newThread.save()
-        res.sendStatus(200)
+        setTimeout(()=>{res.redirect(200,'/home')},2000)
+        // await res.redirect(200,'/home')
       }
     }catch(err){
       console.log(err)

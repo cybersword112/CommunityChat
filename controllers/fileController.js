@@ -5,7 +5,7 @@ var path = require('path')
 const singleFileUpload = async (req, res, next) => {
   try{
     if(req.file != null){
-      const file = new Image({
+      const file = await new Image({
         fileName: req.file.originalname,
         filePath: req.file.path,
         fileType: req.file.mimetype,
@@ -16,11 +16,20 @@ const singleFileUpload = async (req, res, next) => {
         }
       })
       req.fileID = null
-      file.save()
-        .then(file => {
+      await file.validate()
+      await file.save((err,file,numAffected) => {
+        if(err){
+          console.log(err)
+          return next(err)
+        }else{
           req.fileID = file._id
           next()
-        }).catch((err) => {console.log(err)})
+        }
+      })
+      // .then(file => {
+      //   req.fileID = file._id
+      //   next()
+      // }).catch((err) => {console.log(err)})
     }else{
       req.fileID = null
       next()

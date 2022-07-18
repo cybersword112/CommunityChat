@@ -35,7 +35,8 @@ async function createThread(){
       method:'POST',
       body:formData
     })
-    location.assign(document.location.origin + document.location.pathname)
+    return false
+    // location.assign(document.location.origin + document.location.pathname)
   }catch(err){
     console.log(err)
   }

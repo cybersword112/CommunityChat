@@ -30,14 +30,15 @@ async function createThread(){
       let locations = localStorage.getItem('userLocation')
       formData.append('location',locations)
     }
-    let response = await fetch('/home/addThread',{
+    await fetch('/home/addThread',{
       method:'POST',
       body:formData
     })
-    document.getElementById('map').scrollIntoView()
     console.log('right before reload')
-    console.log(response)
-    location.reload()
+    setTimeout(() => {
+      document.getElementById('map').scrollIntoView()
+      location.reload(true)
+    },3000)
   }catch(err){
     console.log(err)
   }

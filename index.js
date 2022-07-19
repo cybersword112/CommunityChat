@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -11,7 +10,7 @@ const homeRoutes = require('./routes/homeRoute')
 const dashboardRoutes = require('./routes/dashboardRoute')
 const messageRoutes = require('./routes/messageRoute')
 
-require('dotenv').config({path:'./config/.env'})
+require('dotenv').config({ path:'./config/.env' })
 
 connectDb()
 
@@ -30,7 +29,7 @@ app.use(session({
   secret: process.env.SECRET,
   saveUninitialized: false,
   resave: false,
-  store:MongoStore.create({mongoUrl:process.env.DB_STRING})
+  store:MongoStore.create({ mongoUrl:process.env.DB_STRING }),
 }))
 
 app.use(passport.initialize())

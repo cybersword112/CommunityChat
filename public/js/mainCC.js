@@ -8,7 +8,7 @@ const newThreadBtn = document.querySelector('#newThreadSubmit')
 newThreadBtn.addEventListener('click',createThread)
 getLocationBtn.addEventListener('click',getLocation)
 
-const threads = document.querySelectorAll('.topic')
+// const threads = document.querySelectorAll('.topic')
 // adds deletion event listeners for threads
 Array.from(deleThread).forEach((element) => {
   element.addEventListener('click', deleteThread)
@@ -30,12 +30,13 @@ async function createThread(){
       let locations = localStorage.getItem('userLocation')
       formData.append('location',locations)
     }
-    fetch('/home/addThread',{
+    let response = await fetch('/home/addThread',{
       method:'POST',
       body:formData
     })
     document.getElementById('map').scrollIntoView()
     console.log('right before reload')
+    console.log(response)
     location.reload()
   }catch(err){
     console.log(err)

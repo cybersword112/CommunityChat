@@ -28,7 +28,7 @@ module.exports = {
   },
   addMessage : async (req, res) => {
     const { message ,threadId } = req.body
-    let { user, bIsAnonPost} = req.body
+    let { user, bIsAnonPost } = req.body
     // console.log(user)
     if (!user || !message || !threadId) {
       console.log(threadId, message, user)

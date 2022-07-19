@@ -73,7 +73,7 @@ const getSingleFiles = async (req, res, next) => {
 const deleteSingleFiles = async (req, res, next) => {
   try{
     if(req.body.imageId){
-      let imageToDelete = await Image.deleteOne({_id:req.body.imageId})
+      await Image.deleteOne({ _id:req.body.imageId })
       next()
     }else{
       next()

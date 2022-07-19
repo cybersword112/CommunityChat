@@ -35,6 +35,7 @@ async function createThread(){
       body:formData
     })
     document.getElementById('map').scrollIntoView()
+    console.log('right before reload')
     location.reload()
   }catch(err){
     console.log(err)

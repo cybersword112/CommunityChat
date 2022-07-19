@@ -11,8 +11,7 @@ router.put('/addOneLike',homeController.addLikeThread)
 router.put('/addOneDisLike',homeController.addDisLikeThread)
 router.post('/addThread',upload.single('post_image'), filecontroller.singleFileUpload,homeController.addThread)
 
-
-router.post('/',homeController.homeView)
+// router.post('/',homeController.homeView)
 router.delete('/',filecontroller.deleteSingleFiles,homeController.deleteThread)
 
 module.exports = router

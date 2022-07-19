@@ -64,7 +64,7 @@ module.exports = {
         bIsAnonPost = bIsAnonPost === 'on' ? true : false
         location = location ? location.split(',').map(item => item = Number(item)) : location
         range = range ? String(range) : range
-
+        console.log(req.body)
         const newThread = await new Thread({
           topic,
           content,
@@ -75,7 +75,9 @@ module.exports = {
           range,
           imageID:req.fileID
         })
+        console.log(newThread)
         await newThread.save()
+        console.log('thread saved')
         res.redirect('/home')
         // setTimeout(() => {
         //   res.redirect('/home')
@@ -85,6 +87,7 @@ module.exports = {
       }
     }catch(err){
       console.log(err)
+      res.sendStatus(403)
     }
   },
   // deletes thread from database

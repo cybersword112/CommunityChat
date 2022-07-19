@@ -4,7 +4,13 @@ var path = require('path')
 
 const singleFileUpload = async (req, res, next) => {
   try{
+
+    console.log(req.user)
+
     if(req.file !== null){
+
+      console.log(req.file)
+
       const file = await new Image({
         fileName: req.file.originalname,
         filePath: req.file.path,
@@ -15,15 +21,18 @@ const singleFileUpload = async (req, res, next) => {
           contentType: 'image/png'
         }
       })
+
       req.fileID = null
       let fileDoc = await file.save()
       req.fileID = fileDoc._id
       next()
     }else{
+      console.log('no req.file in fileupload controller')
       req.fileID = null
       next()
     }
   }catch(error) {
+    console.log(error)
     res.status(400).send(error.message)
   }
 }

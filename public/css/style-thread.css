@@ -24,12 +24,16 @@
 }
 
 .post-picture{
-    width:100%;
-  }
+    width: 100%;
+   padding:2%;
+   margin:0;
+}
   
 .threadImage{
-    width: auto;
-    height: 20rem;
+    width: 100%;
+    height: auto;
+    max-width: fit-content;
+    max-height:20rem ;
     border-radius: 3px;
   }
 

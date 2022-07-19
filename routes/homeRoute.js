@@ -6,12 +6,12 @@ const { ensureAuth } = require('../authMiddleware/protect')
 const { upload } = require('../config/multerconfig')
 
 const router = express.Router()
-router.get('/',ensureAuth,filecontroller.getSingleFiles,homeController.homeView)
-router.put('/addOneLike',homeController.addLikeThread)
-router.put('/addOneDisLike',homeController.addDisLikeThread)
-router.post('/addThread',upload.single('post_image'), filecontroller.singleFileUpload,homeController.addThread)
+router.get('/',filecontroller.getSingleFiles,homeController.homeView)
+router.put('/addOneLike',ensureAuth,homeController.addLikeThread)
+router.put('/addOneDisLike',ensureAuth,homeController.addDisLikeThread)
+router.post('/addThread',ensureAuth,upload.single('post_image'), filecontroller.singleFileUpload,homeController.addThread)
 
 // router.post('/',homeController.homeView)
-router.delete('/',filecontroller.deleteSingleFiles,homeController.deleteThread)
+router.delete('/',ensureAuth,filecontroller.deleteSingleFiles,homeController.deleteThread)
 
 module.exports = router

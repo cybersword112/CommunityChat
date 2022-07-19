@@ -74,6 +74,7 @@
                                 <i class="fa fa-sign-out"></i>Logout
                             </button>
                         </form>
+                        <script> let user = <%=user %> </script>
                         <% } else { %>
                         <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="/login">Sign In</a>
                         <% } %>
@@ -238,11 +239,11 @@
                     <h2>Location
                         <button id="getLocation" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Get Location</button>
                     </h2>
-                    <p> Note: If location is unavailable you will only see global posts.</p>
+                    <p> Note: If location is unavailable or you are not logged in you will only see global posts.</p>
                 </div>
                 <div id="map"></div>
-                <div id="gnssData">Lat/Long: 35.04652, -89.76364 
-                    <br>Accuracy: 11.519 (m)
+                <div id="gnssData">Lat/Long: 
+                    <br>Accuracy:
                 </div> 
             </div>
         </section>
@@ -324,6 +325,7 @@
                             <div class="post-comment">
                                 <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
                             </div>
+                            <% if(user) {%>
                             <div class="post-like">
                                 <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
                             </div>
@@ -334,6 +336,7 @@
                                 <div class="post-delete">
                                     <button class = "btn-primary postbutton"><i class="fa-solid fa-circle-minus"></i>Delete</button>
                                 </div>
+                            <% } %>
                             <% } %>
                         </div>
                     </div>
@@ -402,6 +405,7 @@
                         <div class="post-comment">
                             <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
                         </div>
+                        <% if(user) {%>
                         <div class="post-like">
                             <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
                         </div>
@@ -412,6 +416,7 @@
                             <div class="post-delete">
                                 <button class ="btn-primary postbutton"><i class="fa-solid fa-circle-minus"></i>Delete</button>
                             </div>
+                        <% } %>
                         <% } %>
                     </div>
                 </div>
@@ -433,6 +438,7 @@
     
         <!--================End Community Area =================-->
 <!-- add post -->
+    <% if(user) { %>
         <section class="all-question-area bg-disable pt-100 pb-120 d-flex justify-content-center">
             <div class="container custom-container">
                 <div class="row">
@@ -546,7 +552,7 @@
         </div>
         </div>
             </section>
-
+            <% } %>
 
         <!--================Footer Area =================-->
         <footer class="footer-3 ">

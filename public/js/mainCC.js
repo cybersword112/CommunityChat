@@ -1,26 +1,34 @@
-const deleThread = document.querySelectorAll('.post-delete')
-const thumbText = document.querySelectorAll('.post-like')
-const thumbDownText = document.querySelectorAll('.post-dislike')
 const getLocationBtn = document.querySelector('#getLocation')
 
-const newThreadBtn = document.querySelector('#newThreadSubmit')
+if( document.cookie.includes('connect.sid') ){
+  console.log(document.cookie)
 
-newThreadBtn.addEventListener('click',createThread)
+  const thumbText = document.querySelectorAll('.post-like')
+  const thumbDownText = document.querySelectorAll('.post-dislike')
+  const newThreadBtn = document.querySelector('#newThreadSubmit')
+  const deleThread = document.querySelectorAll('.post-delete')
+
+  newThreadBtn.addEventListener('click',createThread)
+
+  // const threads = document.querySelectorAll('.topic')
+  // adds deletion event listeners for threads
+  Array.from(deleThread).forEach((element) => {
+    element.addEventListener('click', deleteThread)
+  })
+  // adds upvote event listeners for threads
+  Array.from(thumbText).forEach((element) => {
+    element.addEventListener('click', addLike)
+  })
+  // adds downvote event listeners for threads
+  Array.from(thumbDownText).forEach((element) => {
+    element.addEventListener('click',addDisLike)
+  })
+
+}
+
+
 getLocationBtn.addEventListener('click',getLocation)
 
-// const threads = document.querySelectorAll('.topic')
-// adds deletion event listeners for threads
-Array.from(deleThread).forEach((element) => {
-  element.addEventListener('click', deleteThread)
-})
-// adds upvote event listeners for threads
-Array.from(thumbText).forEach((element) => {
-  element.addEventListener('click', addLike)
-})
-// adds downvote event listeners for threads
-Array.from(thumbDownText).forEach((element) => {
-  element.addEventListener('click',addDisLike)
-})
 
 async function createThread(){
   try{

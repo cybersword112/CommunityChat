@@ -35,10 +35,10 @@ async function createThread(){
       body:formData
     })
     console.log('right before reload')
+    document.getElementById('map').scrollIntoView()
     setTimeout(() => {
-      document.getElementById('map').scrollIntoView()
       location.reload(true)
-    },3000)
+    },1750)
   }catch(err){
     console.log(err)
   }

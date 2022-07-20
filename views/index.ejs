@@ -68,13 +68,12 @@
                     </ul>
                     <div class="right-nav makeRoom">
                         <% if (user) { %>
-                            <h6 class="userName makeVisible" ><%= user.username %></h6>
+                            <h6 class="userName makeVisible" id="userLoggedName"><%= user.username %></h6>
                         <form action="/logout" method="post" >  
                             <button type="submit" class="btn btn-primary logout" onclick="logout()">
                                 <i class="fa fa-sign-out"></i>Logout
                             </button>
                         </form>
-                        <script> let user = <%=user %> </script>
                         <% } else { %>
                         <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="/login">Sign In</a>
                         <% } %>

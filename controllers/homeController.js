@@ -88,16 +88,12 @@ module.exports = {
   // deletes thread from database
   deleteThread : (req,res) => {
     try{
-      // console.log(req.body)
-      if(req.user.username === req.body.postedBy){
-        Thread.findOneAndDelete({ _id:req.body.id })
-          .then(() => {
-            res.sendStatus(200)
-          } )
-          .catch((err) => console.log(err))
-      }else{
-        res.sendStatus(403)
-      }
+      console.log(req.body)
+      Thread.findOneAndDelete({ _id:req.body.id })
+        .then(() => {
+          res.sendStatus(200)
+        } )
+        .catch((err) => console.log(err))
     }catch(err){
       console.log(err)
     }

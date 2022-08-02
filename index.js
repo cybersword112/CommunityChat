@@ -9,10 +9,11 @@ const loginRoutes = require('./routes/loginRoute')
 const homeRoutes = require('./routes/homeRoute')
 const dashboardRoutes = require('./routes/dashboardRoute')
 const messageRoutes = require('./routes/messageRoute')
-
+const cloudConfig  = require('./config/cloudinaryconfig')
 require('dotenv').config({ path:'./config/.env' })
 
 connectDb()
+cloudConfig()
 
 const PORT = process.env.PORT || 7000
 const { loginCheck } = require('./authMiddleware/passport')

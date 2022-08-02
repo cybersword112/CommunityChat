@@ -18,11 +18,20 @@ const imageSchema = new Schema({
     type: String,
     required: true
   },
-  image:
-    {
-      data: Buffer,
-      contentType: String
-    }
+  cloudinaryURL:{
+    type: String,
+    required:true
+  },
+  cloudinaryID:{
+    type:String,
+    required:true,
+  }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Image', imageSchema)
+
+// image:
+// {
+//   data: Buffer,
+//   contentType: String
+// }

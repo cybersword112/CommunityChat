@@ -1,6 +1,7 @@
 const Image = require('../models/imageModel')
-var fs = require('fs')
-var path = require('path')
+let fs = require('fs')
+let path = require('path')
+const cloudinary = require('cloudinary').v2
 
 const singleFileUpload = async (req, res, next) => {
   try{
@@ -11,15 +12,19 @@ const singleFileUpload = async (req, res, next) => {
 
       console.log(req.file)
 
+      const image = await cloudinary.uploader.upload(req.file.path,{
+        folder:'CommunityChat',
+      })
+      const imageUrl = image.secure_url
+      const imageCloudinaryID = image.public_id
+
       const file = await new Image({
         fileName: req.file.originalname,
         filePath: req.file.path,
         fileType: req.file.mimetype,
         fileSize: fileSizeFormatter(req.file.size, 2), // 0.00
-        image: {
-          data: fs.readFileSync(path.join(__dirname , '..','public/uploads/' , req.file.filename)),
-          contentType: 'image/png'
-        }
+        cloudinaryURL: imageUrl,
+        cloudinaryID: imageCloudinaryID,
       })
 
       req.fileID = null
@@ -73,6 +78,9 @@ const getSingleFiles = async (req, res, next) => {
 const deleteSingleFiles = async (req, res, next) => {
   try{
     if(req.body.imageId){
+      const image = await Image.findById(req.body.imageId)
+      const imageCloudinaryID = image.cloudinaryID
+      await cloudinary.uploader.destroy(imageCloudinaryID)
       await Image.deleteOne({ _id:req.body.imageId })
       next()
     }else{
@@ -118,3 +126,8 @@ module.exports = {
   getSingleFiles,
   deleteSingleFiles,
 }
+
+// image: {
+//   data: fs.readFileSync(path.join(__dirname , '..','public/uploads/' , req.file.filename)),
+//   contentType: 'image/png'
+// }

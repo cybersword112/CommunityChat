@@ -2,35 +2,66 @@ const Image = require('../models/imageModel')
 let fs = require('fs')
 let path = require('path')
 const cloudinary = require('cloudinary').v2
+// for azure
+const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient
+const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials
 
 const singleFileUpload = async (req, res, next) => {
   try{
-
-    console.log(req.user)
+    // for azure
+    const key = process.env.MS_COMPUTER_VISION_SUBSCRIPTION_KEY
+    const endpoint = process.env.MS_COMPUTER_VISION_ENDPOINT
+    // for azure
+    const computerVisionClient = new ComputerVisionClient(
+      new ApiKeyCredentials({ inHeader: { 'Ocp-Apim-Subscription-Key': key } }),
+      endpoint
+    )
 
     if(req.file !== null){
 
       console.log(req.file)
 
+      // Upload image to cloudinary
       const image = await cloudinary.uploader.upload(req.file.path,{
         folder:'CommunityChat',
       })
       const imageUrl = image.secure_url
       const imageCloudinaryID = image.public_id
 
-      const file = await new Image({
-        fileName: req.file.originalname,
-        filePath: req.file.path,
-        fileType: req.file.mimetype,
-        fileSize: fileSizeFormatter(req.file.size, 2), // 0.00
-        cloudinaryURL: imageUrl,
-        cloudinaryID: imageCloudinaryID,
-      })
+      // Analyze a URL image
+      // for azure
+      console.log('Analyzing objects in image...', imageUrl.split('/').pop())
+      // for azure
+      const adultCheck = (
+        await computerVisionClient.analyzeImage(imageUrl, {
+          visualFeatures: ['Adult']
+        })
+      ).adult
+      console.log(adultCheck)
+      // visualFeatures: ["ImageType","Faces","Adult","Categories","Color","Tags","Description","Objects","Brands"]
+      // Print objects bounding box and confidence
+      // for azure
+      if(adultCheck.adultScore > .76 || adultCheck.racyScore > .76){
+        console.log('post image denied due to content policy.')
+        req.fileID = null
+        await cloudinary.uploader.destroy(imageCloudinaryID)
+        next()
+      }else{
+        const file = await new Image({
+          fileName: req.file.originalname,
+          filePath: req.file.path,
+          fileType: req.file.mimetype,
+          fileSize: fileSizeFormatter(req.file.size, 2), // 0.00
+          cloudinaryURL: imageUrl,
+          cloudinaryID: imageCloudinaryID,
+        })
 
-      req.fileID = null
-      let fileDoc = await file.save()
-      req.fileID = fileDoc._id
-      next()
+        req.fileID = null
+        let fileDoc = await file.save()
+        req.fileID = fileDoc._id
+        next()
+      }
+
     }else{
       console.log('no req.file in fileupload controller')
       req.fileID = null

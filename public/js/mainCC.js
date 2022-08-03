@@ -45,7 +45,7 @@ async function createThread(){
     document.getElementById('map').scrollIntoView()
     setTimeout(() => {
       location.reload(true)
-    },1200)
+    },750)
   }catch(err){
     console.log(err)
   }
@@ -82,7 +82,7 @@ async function deleteThread(evt){
     // reloads current page
     setTimeout(() => {
       location.reload(true)
-    },1000)
+    },750)
   }
   // if there is an issue with the try portion then catch will fire and console log the error
   catch(err){

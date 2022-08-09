@@ -12866,10 +12866,12 @@ body.body_dark {
 
 
 .threadImage{
-  width:100%;
+  width:auto;
   max-width: fit-content;
   height:auto;
   max-height: 10rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
   /* border-bottom: solid 3px #078669; */
   /* border-right:solid 3px #15C39A; */
   /* border-bottom:solid 3px #15C39A; */
@@ -12889,7 +12891,7 @@ body.body_dark {
    margin:0;
   }
   .threadImage{
-    width:100%;
+    width:auto;
     max-width: fit-content;
     height:auto;
     max-height: 10rem;

@@ -46,6 +46,13 @@ module.exports = {
       })
     }catch(err){res.send({ 'error':err }) }
   },
+  aboutView : async (req,res) => {
+    try{
+      res.render('about')
+    }catch(error){
+      console.log(error)
+    }
+  },
   // adds thread to database
   addThread : async (req,res) => {
     try{

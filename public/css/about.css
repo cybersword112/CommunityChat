@@ -1,0 +1,22 @@
+#about-2-container{
+    background-color: rgba(27, 25, 53, 0.946);
+    background-image: radial-gradient(rgba(62, 58, 122, 0.946),rgba(27, 25, 53, 0.946));
+    color:white;
+}
+
+#about-1-container{
+    background-color: rgba(25, 53, 30, 0.946);
+    background-image: linear-gradient(rgba(58, 122, 67, 0.946),rgba(25, 53, 31, 0.946));
+    color:white;
+}
+
+.logo-image{
+    mix-blend-mode: color;
+    border: solid rgba(25, 53, 30, 0.946) 4px;
+    border-radius: 3px bl;
+
+}
+
+.text-light{
+    color: white;
+}

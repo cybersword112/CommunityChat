@@ -21,6 +21,7 @@
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/>
     <link rel="stylesheet" href="css/style-main.css">
+    <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/responsive.css">
     <title>CommunityChat</title>
 </head>
@@ -39,7 +40,7 @@
             <p></p>
         </div>
     </div>
-    <div class="body_wrapper">
+    <div class="">
         <div class="click_capture"></div>
 
         <!--================Navbar Area =================-->
@@ -69,16 +70,6 @@
                         </li>
                     </ul>
                     <div class="right-nav makeRoom">
-                        <% if (user) { %>
-                            <h6 class="userName makeVisible" id="userLoggedName"><%= user.username %></h6>
-                        <form action="/logout" method="post" >  
-                            <button type="submit" class="btn btn-primary logout" onclick="logout()">
-                                <i class="fa fa-sign-out"></i>Logout
-                            </button>
-                        </form>
-                        <% } else { %>
-                        <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="/login">Sign In</a>
-                        <% } %>
                         <div class="px-2 js-darkmode-btn paddedSwitch" title="Toggle dark mode">
                             <label for="something" class="tab-btn tab-btns">
                                 <ion-icon name="moon"></ion-icon>
@@ -112,17 +103,6 @@
                     </a>
                 </div>
                 <div class="mobile_menu_right">
-                    <div class="right-nav">
-                        <% if (user) { %>
-                            <h6 class="userName makeVisible" ><%= user.username %></h6>
-                        <form action="/logout" method="post" >  
-                            <button type="submit" class="btn btn-primary logout" onclick="logout()">
-                                <i class="fa fa-sign-out"></i>Logout
-                            </button>
-                        </form>
-                        <% } else { %>
-                        <a class="action_btn btn_small_two btn-text-medium round-btn-2" href="../login">Sign In</a>
-                        <% } %>
                         <div class="px-2 js-darkmode-btn paddedSwitch" title="Toggle dark mode">
                             <label for="something2" class="tab-btn tab-btns">
                                 <ion-icon name="moon"></ion-icon>
@@ -170,7 +150,7 @@
             </div>
         </div>
         <!--================Banner Area =================-->
-        <section class="banner-area-3 has_search">
+        <section class="banner-area-3">
             <div class="banner-shapes">
                 <div class="shape">
                     <img data-parallax='{"x": -60, "y": 0}' src="img/home_two/banner-shape-1.png" alt="shape">
@@ -212,10 +192,7 @@
             <div class="container">
                 <div class="row doc_banner_content">
                     <div class="col-12 px-0">
-                        <% if (user) { %>
-                            <h4 class ="banner-title-h1">Hi <%= user.username %>, </h4>
-                            <% } %>
-                        <h1 class="banner-title-h1">Welcome to CommunityChat</h1>
+                        <h1 class="banner-title-h1">About CommunityChat</h1>
                         <p class="banner-text-p">a tool to help communities grow closer through local interactions.</p>
                     </div>
                     <!-- Search bar -->
@@ -234,341 +211,75 @@
             </div>
         </section>
         <!--================End Bannner Area =================-->
-        <section class="forum-statistics">
+         <!--================Feature one Area =================-->
+         <section class="feature-two" id="about-1-container">
             <div class="container">
-                <div class="banner-text-p">
-                    <h2>Location
-                        <button id="getLocation" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Get Location</button>
-                    </h2>
-                    <p> Note: If location is unavailable or you are not logged in you will only see global posts.</p>
+                <div class="row align-items-center gy-4 gy-lg-0">
+                    <div class="col-lg-6 order-lg-1 ps-lg-4 text-center text-lg-start  offset-xl-1">
+                        <div class="img-content wow fadeInLeft">
+                            <img class="img-fluid logo-image" src="../img/cover.png" alt="post">
+                            <!-- <img src="img/home_two/scribbles-scribbles-43.png" alt="shape"> -->
+                            <!-- <img class="bg-img" src="img/home_two/daily-notification-bg.png" alt="bg"> -->
+                        </div>
+
+                    </div>
+                    <div class="col-xl-5 col-lg-6 pe-xl-0 order-lg-1">
+                        <div class="feature-content-text wow fadeInRight mt-4 mt-xl-0 ">
+                            <h2 class="text-light">Usage</h2>
+                            <p class="text-light">
+                                This application was built in the spirit of promoting voices within local areas to be heard by others around them.
+                                The hope is that this may allow users in close proximity with one another to have a voice and be a community outside of the likes of larger companies that have incentive to constantly keep your attention.
+
+                            </p>
+                            <hr>
+                            <h5 class="text-light">Want to start posting?</h5>
+                            <a href="/register" class="dbl-arrow">
+                                <div class="arrow-cont">
+                                    <i class="arrow_carrot-right first"></i>
+                                    <i class="arrow_carrot-right second"></i>
+                                </div> sign up
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div id="map"></div>
-                <div id="gnssData">Lat/Long: 
-                    <br>Accuracy:
-                </div> 
             </div>
         </section>
-        
-        <!--================Community Area =================-->
-        <section class="community-area bg-disable">
+        <!--================End Feature one Area =================-->
+        <!--================Feature Two Area =================-->
+        <section class="feature-two" id="about-2-container">
             <div class="container">
-                <div class="d-flex justify-content-between mb-35 flex-wrap">
-                    <h2 class="section-title-h2 mb-0">Community Threads</h2>
-                    <ul class="horizontal-list">
-                        <!-- <li>
-                            <form id="renderLocalThreads" name="renderLocalThreads">
-                                <input type="hidden" value="" class="location" name="location">
-                                <button type="submit" id="locationFetch" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Get Location and local Posts</button>
-                            </form>
-                        </li> -->
-                        <li>
-                            <a href="#newThread" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Post</a>
-                        </li>
-                    </ul>
-                </div>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                        type="button" role="tab" aria-controls="profile" aria-selected="true">Global Posts</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                            type="button" role="tab" aria-controls="home" aria-selected="false">Local Posts</button>
-                    </li>
-                </ul>
-        <div class="tab-content mt-30" id="myTabContent">
-                    <!-- -----------------first tab----------------- -->
-            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <!-- loop to store threads from database that are located in the threads object array -->
-                <% for(let i=0; i < threads.length; i++) { if(threads[i].range === "Global"){ %>
-                    <div class="single-forum-post-widget wow fadeInUp">
-                        <div class="container post-picture">
-                        <% if(images.find((img) =>img._id == threads[i].imageID) ){ %>
-                            <% let threadImage=images.find((img) =>img._id == threads[i].imageID) %>
-                            <input type="hidden" name="imageId" id="imageId" value="<%=threadImage._id %>">
-                            <img class="threadImage" src="<%=threadImage.cloudinaryURL%>">
-                            <% } else{ %>
-                                <p>no image </p>
-                            <% } %>
+                <div class="row align-items-center gy-4 gy-lg-0">
+                    <div class="col-lg-6 order-lg-2 ps-lg-4 text-center text-lg-start  offset-xl-1">
+                        <div class="img-content wow fadeInLeft">
+                            <img class="img-fluid " src="../img/nodejs-new-pantone-white.png" alt="post">
+                            <!-- <img src="img/home_two/scribbles-scribbles-43.png" alt="shape"> -->
+                            <!-- <img class="bg-img" src="img/home_two/daily-notification-bg.png" alt="bg"> -->
                         </div>
-                        <div class="post-content">
-                            <div class="post-title">
-                                <span style="display: none;"><%= threads[i]._id %></span> 
-                                <h6><a href="/messages/<%= threads[i]._id %>" class="topic"><span><%= threads[i].topic %></span></a>
-                                    <span><i class="icon_check_alt2"></i></span>
-                                </h6>
-                            </div>
-                            <div class="post-info">
-                                <div class="author">
-                                    <% if(threads[i].bIsAnonPost === true){ %>
-                                        <img src="img/user-circle-alt.svg" alt="icon"><span>Anonymous</span>
-                                    <% }else{ %>
-                                     <img src="img/user-circle-alt.svg" alt="icon"><span><%= threads[i].postedBy %></span>
-                                    <% } %>
-                                </div>
-                                <div class="post-time">
-                                    <img src="img/time-outline.svg" alt=""><%= threads[i].date.toLocaleString() %>
-                                </div>
-                                <div class="post-category">
-                                    <img src="img/home_three/forum-catagory-02.svg" alt="">Visibility: <%= threads[i].range%>
-                                </div>
-                            </div>
-                            <div class="post-tags">
-                                <% for (let j=0; j < threads[i].tags.length; j++) { %>
-                                    <div class="single-tag"><%= threads[i].tags[j] %></div>
-                                <% } %> 
-                            </div>
-                        </div>
-                        <div class="post-reach">
-                            <div class="post-view makeVisible">
-                                <img src="img/forum/eye-outline.svg" alt="icon"><%= threads[i].views %> Views
-                            </div>
-                            <div class="post-comment">
-                                <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
-                            </div>
-                            <% if(user) {%>
-                            <div class="post-like">
-                                <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
-                            </div>
-                            <div class="post-dislike">
-                                <button class = "btn-primary postbutton"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
-                            </div>
-                            <% if (threads[i].postedBy === user.username){ %>
-                                <div class="post-delete">
-                                    <button class = "btn-primary postbutton"><i class="fa-solid fa-circle-minus"></i>Delete</button>
-                                </div>
-                            <% } %>
-                            <% } %>
-                        </div>
-                    </div>
 
-                <% } %> <% } %>
-        <!-- <div class="row">
-            <div class="col-sm-5 mx-auto">
-                <a href="#"
-                    class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
-                    <div class="arrow-cont">
-                        <i class="arrow_carrot-down first"></i>
-                        <i class="arrow_carrot-down second"></i>
-                    </div> Show
-                    More
-                </a>
-            </div>
-        </div> -->
-        </div>
-        <!--------------- 2nd tab Local-------------------------- -->
-        <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <!-- loop to store threads from database that are located in thr threads object array -->
-            <% for(let i=0; i < threads.length; i++) { if(threads[i].range !== "Global"){%>
-                <div class="single-forum-post-widget wow fadeInUp">
-                    <div class="container post-picture">
-                        <% if(images.find((img) =>img._id == threads[i].imageID) ){ %>
-                            <% let threadImage=images.find((img) =>img._id == threads[i].imageID) %>
-                            <input type="hidden" name="imageId" id="imageId" value="<%=threadImage._id %>">
-                            <img class="threadImage" src="<%=threadImage.cloudinaryURL%>">
-                            <% } else{ %>
-                                <p>no image </p>
-                            <% } %>
                     </div>
-                    <div class="post-content">
-                        <div class="post-title">
-                            <span style="display: none;"><%= threads[i]._id %></span> 
-                            <h6><a href="/messages/<%= threads[i]._id %>" class="topic"><span><%= threads[i].topic %></span></a>
-                                <span><i class="icon_check_alt2"></i></span>
-                            </h6>
+                    <div class="col-xl-5 col-lg-6 pe-xl-0 order-lg-1">
+                        <div class="feature-content-text wow fadeInRight mt-4 mt-xl-0 ">
+                            <h2 class="text-light">Tools Used</h2>
+                            <p class="text-light">
+                                CommunityChat is a fullstack application built utilizing a 
+                                Node.js backend with Express used as a framework. MongoDB alongside mongoose is used to store and access data, along with cloudinary for media storage.
+                            </p>
+                            <hr>
+                            <h5 class="text-light">Interested more in how the site was developed?</h5>
+                            <a href="#" class="dbl-arrow">
+                                <div class="arrow-cont">
+                                    <i class="arrow_carrot-right first"></i>
+                                    <i class="arrow_carrot-right second"></i>
+                                </div> Contact Me
+                            </a>
                         </div>
-                        <div class="post-info">
-                            <div class="author">
-                                <% if(threads[i].bIsAnonPost === true){ %>
-                                    <img src="img/user-circle-alt.svg" alt="icon"><span>Anonymous</span>
-                                <% }else{ %>
-                                 <img src="img/user-circle-alt.svg" alt="icon"><span><%= threads[i].postedBy %></span>
-                                <% } %>
-                            </div>
-
-                            <div class="post-time">
-                                <img src="img/time-outline.svg" alt=""><%= threads[i].date.toLocaleString() %>
-                            </div>
-                            <div class="post-category">
-                                <img src="img/home_three/forum-catagory-02.svg" alt="">Visibility: <%= threads[i].range%> Miles.
-                            </div>
-                        </div>
-                        <div class="post-tags">
-                            <% for (let j=0; j < threads[i].tags.length; j++) { %>
-                                <div class="single-tag"><%= threads[i].tags[j] %></div>
-                            <% } %> 
-                        </div>
-                    </div>
-                    <div class="post-reach">
-                        <div class="post-view">
-                            <img src="img/forum/eye-outline.svg" alt="icon"><%= threads[i].views %> Views
-                        </div>
-                        <div class="post-comment">
-                            <img src="img/forum/chatbubbles-outline.svg" alt="icon"><%= threads[i].messages.length %> Replies
-                        </div>
-                        <% if(user) {%>
-                        <div class="post-like">
-                            <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
-                        </div>
-                        <div class="post-dislike">
-                            <button class = "btn-primary postbutton"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
-                        </div>
-                        <% if (threads[i].postedBy === user.username){ %>
-                            <div class="post-delete">
-                                <button class ="btn-primary postbutton"><i class="fa-solid fa-circle-minus"></i>Delete</button>
-                            </div>
-                        <% } %>
-                        <% } %>
                     </div>
                 </div>
-
-            <% } %> <% } %>
-    <!-- <div class="row">
-        <div class="col-sm-5 mx-auto">
-            <a href="#"
-                class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
-                <div class="arrow-cont">
-                    <i class="arrow_carrot-down first"></i>
-                    <i class="arrow_carrot-down second"></i>
-                </div> Show
-                More
-            </a>
-        </div>
-    </div> -->
-</section>
-    
-        <!--================End Community Area =================-->
-<!-- add post -->
-    <% if(user) { %>
-        <section class="all-question-area bg-disable pt-100 pb-120 d-flex justify-content-center">
-            <div class="container custom-container">
-                <div class="row">
-                    <div class="col-xl-2 d-xl-block d-none pe-0">
-                        
-                    </div>
-                    <div class="col-xl-7 pe-xl-0 ps-xxl-4" id="newThread">
-                        <h2>Create New Thread</h2>
-                        <div class="d-flex justify-content-between mb-35 flex-wrap underlineSection ">
-                        </div>
-                  <div class="add-question-widget">
-    
-                    <!-- <h4 class="widget-title">Create New Thread</h4> -->
-                    <form id="newThreadForm">
-                        <input type="hidden" value="<%= String(user.username) %>" name="postedBy">
-                      <div class="mt-30">
-                        <label class="label" for="inp_title">Topic<span>*</span></label>
-                        <div class="icon-input-group">
-                          <input class="form-control" type="text" id="inp_title" name="topic" required maxlength="120"/>
-                          <i class="icon_chat_alt"></i>
-                        </div>
-                        <div class="instruction">
-                          Please choose an appropriate topic for the thread
-                        </div>
-                      </div>
-                      <div class="mt-25">
-                        <label class="label" for="range">Viewable Range (Miles)<span>*</span></label>
-                        <div class="icon-input-group">
-                          <select id="range" class="custom-select form-control" name="range">
-                            <% if(location != null) { %>
-                            <option value="2">2 miles</option>
-                            <option value="Global">Global</option>
-                            <option value=".5">1/2 mile</option>
-                            <option value="1">1 mile</option>
-                            <option value="5">5 miles</option>
-                            <option value="10">10 miles</option>
-                            <option value="20">20 miles</option>
-                            <% } else{%>
-                                <option value="Global">Global</option>
-                            <% } %>
-                          </select>
-                          <i class="icon_folder-open"></i>
-                        </div>
-                        <div class="instruction">
-                            This is the radius in miles that your post will be viewable from.
-                        </div>
-                      </div>
-                      <div class="mt-25">
-                        <label class="label" for="inp_tag">Tags</label>
-                        <div class="icon-input-group">
-                          <input class="form-control" type="text" id="inp_tag" name="tags" />
-                          <i class="icon_tags"></i>
-                        </div>
-                        <div class="instruction">
-                          Please comma split tags and choose suitable Keywords Ex:
-                          <span>question, event, rant, compliment.</span>
-                        </div>
-                      </div>
-                      <div class="mt-25">
-                        <!-- <label class="label">Attach File <span>*</span></label>
-                        <div id="dropzone" class="dropzone">
-
-                        </div>
-
-                        <ul class="dropzone-file-preview pt-3" id="dropzone-preview-container">
-                            <li>
-                                <div class="upload-progress" data-dz-uploadprogress></div>
-                                <div class="preview-info">
-                                    <ion-icon name="attach"></ion-icon>
-                                    <span data-dz-name></span>
-                                </div>
-                                <button data-dz-remove>Remove</button>
-                            </li>
-                        </ul> -->
-                        <label class="label" for="inp_tag">Image</label>
-                        <div class="icon-input-group">
-                          <input class="form-control" type="file" id="post_image" name="post_image" />
-                          <i class="icon_tags"></i>
-                        </div>
-                        <div class="instruction">
-                          Please make sure file is no larger than 5MB.
-                        </div>
-                      </div>
-                      <div class="mt-25">
-                        <label class="label" for="inp_desc">Description <span>:</span></label>
-                        <textarea id="inp_desc" cols="30" rows="7" class="form-control" name="content"></textarea>
-      
-                        <div class="instruction">
-                         The thread description is a good place to tell people what your thread is about.
-                        </div>
-                      </div>
-                      <div class="mt-25">
-                        <!-- <label class="label">Attach File <span>*</span></label>
-                        <div id="dropzone" class="dropzone">
-      
-                        </div>
-      
-                        <ul class="dropzone-file-preview pt-3" id="dropzone-preview-container">
-                          <li>
-                            <div class="upload-progress" data-dz-uploadprogress></div>
-                            <div class="preview-info">
-                              <ion-icon name="attach"></ion-icon>
-                              <span data-dz-name></span>
-                            </div>
-                            <button data-dz-remove>Remove</button>
-                          </li>
-                        </ul>-->
-                        <div class="form-check mt-30">
-                          <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" name="bIsAnonPost">
-                          <label class="form-check-label" for="disabledFieldsetCheck">
-                            <h3> Would you like to post this thread anonymously? Check here if yes.</h3>
-                          </label>
-                        </div>
-      
-                        <div class="d-flex justify-content-between mt-60">
-      
-                          <button class="cancel_btn" type="reset">Cancel</button>
-      
-                          <button class="action_btn" id="newThreadSubmit" type="button">Submit</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>     
             </div>
-        </div>
-        </div>
-            </section>
-            <% } %>
+        </section>
+        <!--================End Feature Two Area =================-->
+        
+    
 
         <!--================Footer Area =================-->
         <footer class="footer-3 ">
@@ -584,55 +295,15 @@
                 <div class="footer-top pt-105 pb-120">
                     <div class="row gy-lg-0 gy-4">
                         <div class="col-lg-4 col-sm-6 wow fadeInLeft">
-                            <!-- <div class="footer-widget pr-20">
-                                <a href="#"> <img src="img/logo-w.png" alt="logo"></a>
-                                <p class="f-text mt-55">Join with your email address</p>
-                                <div class="footer-sub-form-2">
-                                    <form action="#">
-                                        <div class="form-inp-container">
-                                            <input type="text" placeholder="email@example.com">
-                                            <button class="action_btn" type="submit">Join Now</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="col-lg-2 ps-xl-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <!-- <div class="footer-widget ps-lg-5">
-                                <h6 class="widget-title mb-4">Company</h6>
-                                <ul class="link-list list-unstyled">
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                </ul>
-                            </div> -->
-
 
                         </div>
                         <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <!-- <div class="footer-widget pl-lg-90">
-                                <h6 class="widget-title mb-4">Product</h6>
-                                <ul class="link-list list-unstyled">
-                                    <li><a href="#">Designer</a></li>
-                                    <li><a href="#">Interactions</a></li>
-                                    <li><a href="#">CMS</a></li>
-                                    <li><a href="#">Ecommerce</a></li>
-                                </ul>
-                            </div> -->
-
-
 
                         </div>
                         <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <!-- <div class="footer-widget ps-lg-3">
-                                <h6 class="widget-title mb-4">Get Help</h6>
-                                <ul class="link-list list-unstyled">
-                                    <li><a href="#">Forum</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                    <li><a href="#">Community</a></li>
-                                </ul>
-                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -674,7 +345,7 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
                              integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
                              crossorigin=""></script>
-    <script src = "js/mainCC.js"></script>
+    <!-- <script src = "js/mainCC.js"></script> -->
 
 </body>
 

@@ -12864,6 +12864,16 @@ body.body_dark {
  margin:0;
 }
 
+.center{
+  text-align: center;
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  display: block;
+  /* margin-left: 40%; */
+}
 
 .threadImage{
   width:auto;

@@ -11,6 +11,8 @@
   
   A full-stack location based discussion forum aimed towards facilitating communication for local communities and neighborhoods, allows users to choose to post as their chosen username or anonymously and also allows users to select the visibility range of their post for other users. Threads can be used to share text content alone and or images to the designated audience. 
 
+  Site can be found at: https://communitychats.herokuapp.com/login
+
   ## Table of Contents
   * [Usage](#usage)
   * [License](#license)

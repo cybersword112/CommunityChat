@@ -16,9 +16,9 @@ const singleFileUpload = async (req, res, next) => {
       new ApiKeyCredentials({ inHeader: { 'Ocp-Apim-Subscription-Key': key } }),
       endpoint
     )
-
-    if(req.file !== null){
-
+    console.log('before file not null')
+    if(req.file !==( null || undefined)){
+      console.log('After file not null')
       console.log(req.file)
 
       // Upload image to cloudinary

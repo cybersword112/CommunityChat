@@ -81,11 +81,6 @@ module.exports = {
         await newThread.save()
         console.log('thread saved')
         res.redirect('/home')
-        // setTimeout(() => {
-        //   res.redirect('/home')
-        //   console.log('redirect timer passed')
-        // },3000)
-
       }
     }catch(err){
       console.log(err)

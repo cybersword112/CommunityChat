@@ -29,9 +29,3 @@ const imageSchema = new Schema({
 }, { timestamps: true })
 
 module.exports = mongoose.model('Image', imageSchema)
-
-// image:
-// {
-//   data: Buffer,
-//   contentType: String
-// }

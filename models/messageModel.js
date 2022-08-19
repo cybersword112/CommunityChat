@@ -1,8 +1,4 @@
 const mongoose = require('mongoose')
-const UserSchema = require('mongoose').model('User').schema
-
-
-
 
 const MessageSchema = new mongoose.Schema({
   threadId: {

@@ -1,6 +1,4 @@
 const Image = require('../models/imageModel')
-let fs = require('fs')
-let path = require('path')
 const cloudinary = require('cloudinary').v2
 // for azure
 const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient

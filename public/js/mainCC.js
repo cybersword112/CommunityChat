@@ -68,7 +68,7 @@ async function deleteThread(evt){
       // method of request
       method: 'delete',
       // headers of request, lets backend know how to treat it
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json'},
       // body of request
       body: JSON.stringify({
         'id':id,

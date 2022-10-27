@@ -249,13 +249,13 @@
                         </div> -->
                         <div class="forum-post-content originalContent">
                             <div class="content text-left">
-                                <h5 class="title">Topic: <%= thread.topic %></h5>
+                                <h5 class="title"><%= thread.topic %></h5>
                                 <% if(image){ %>
                                     <div class="container post-picture">
                                     <img class="threadImage" src="<%=image.cloudinaryURL%>"">
                                     </div>
                                     <% } %>
-                                <p class="" >Content: <br><%= thread.content %></p>
+                                <p class="" ><br><%= thread.content %></p>
                             </div>
                             <div class="action-button-container">
                                 <a href="#postMessage" class="action_btn btn-ans ask-btn reply-btn">Reply</a>

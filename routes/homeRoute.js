@@ -15,11 +15,11 @@ const router = express.Router()
 
 // handles get reqs to the home root path retrieves pictures and then renders the home page/thread page
 router.get('/',filecontroller.getSingleFiles,homeController.homeView)
-// handles put requests for adding a like/dislike to a certain thread 
+// handles put requests for adding a like/dislike to a certain thread
 router.put('/addOneLike',ensureAuth,homeController.addLikeThread)
 router.put('/addOneDisLike',ensureAuth,homeController.addDisLikeThread)
 // handles post request for adding a thread, ensures the user is logged in, uploads the image if present, first to the file system (fs) and then to cloudinary, then finally the addthread method saves the thread to mongoDB
-router.post('/addThread',ensureAuth,upload.single('post_image'), filecontroller.singleFileUpload,homeController.addThread)
+router.post('/addThread',ensureAuth,upload.single('post_image'), filecontroller.singleFileUpload, homeController.addThread)
 // handles get requests for the about route
 router.get('/about',homeController.aboutView)
 

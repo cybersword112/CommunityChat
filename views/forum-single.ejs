@@ -212,35 +212,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-11">
-                        <!-- Forum post top area -->
-                        <div class="row originalPost">
-                            <div class="col-lg-9 col-md-8">
-                                <div class="forum-post-top">
-                                    <!-- images for user go in this anchor image -->
-                                    <!-- <a class="author-avatar" href="#">
-                                        <img src="img/forum/author-avatar.png" alt="">
-                                    </a> -->
-                                    <div class="forum-post-author">
-                                        <% if(thread.bIsAnonPost === true){ %>
-                                            <a class="author-name userName" href="#"> Anonymous </a>
-                                        <% }else{ %>
-                                            <a class="author-name userName" href="#"> <%= thread.postedBy %> </a>
-                                        <% } %>
-                                        <div class="forum-author-meta">
-                                            <div class="author-badge">
-                                                <i class="icon_calendar"></i>
-                                                <a href="#"><%= thread.date.toLocaleString() %></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-lg-3 col-md-4">
-                                <div class="action-button-container">
-                                    <a href="#" class="action_btn btn-ans ask-btn">Ask Question</a>
-                                </div>
-                            </div> -->
-                        </div>
 
                         <!-- Forum post content -->
                         <!-- <div class="q-title">
@@ -272,7 +243,35 @@
                             </div>
  
                         </div>
-
+                        <!-- Forum post top area -->
+                        <div class="row originalPost">
+                            <div class="col-lg-9 col-md-8">
+                                <div class="forum-post-top">
+                                    <!-- images for user go in this anchor image -->
+                                    <!-- <a class="author-avatar" href="#">
+                                        <img src="img/forum/author-avatar.png" alt="">
+                                    </a> -->
+                                    <div class="forum-post-author">
+                                        <% if(thread.bIsAnonPost === true){ %>
+                                            <a class="author-name userName" href="#"> Anonymous </a>
+                                        <% }else{ %>
+                                            <a class="author-name userName" href="#"> <%= thread.postedBy %> </a>
+                                        <% } %>
+                                        <div class="forum-author-meta">
+                                            <div class="author-badge">
+                                                <i class="icon_calendar"></i>
+                                                <a href="#"><%= thread.date.toLocaleString() %></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-3 col-md-4">
+                                <div class="action-button-container">
+                                    <a href="#" class="action_btn btn-ans ask-btn">Ask Question</a>
+                                </div>
+                            </div> -->
+                        </div>
                         <!-- All answer -->
                         <div class="all-answers">
                             <h3 class="title">Replies</h3>

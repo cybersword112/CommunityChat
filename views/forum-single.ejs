@@ -228,10 +228,32 @@
                                     <% } %>
                                 <p class="" ><br><%= thread.content %></p>
                             </div>
+                        <div class = "make-left"> 
+                            
+                            <div class="forum-post-top">
+                                <!-- images for user go in this anchor image -->
+                                <!-- <a class="author-avatar" href="#">
+                                    <img src="img/forum/author-avatar.png" alt="">
+                                </a> -->
+                                <div class="forum-post-author">
+                                    <% if(thread.bIsAnonPost === true){ %>
+                                        <a class="author-name userName" href="#">Posted by Anonymous </a>
+                                    <% }else{ %>
+                                        <a class="author-name userName" href="#">Posted by <%= thread.postedBy %> </a>
+                                    <% } %>
+                                    <div class="forum-author-meta">
+                                        <div class="author-badge">
+                                            <i class="icon_calendar"></i>
+                                            <a href="#"><%= thread.date.toLocaleString() %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="action-button-container">
                                 <a href="#postMessage" class="action_btn btn-ans ask-btn reply-btn">Reply</a>
                                 <!-- <a href="#" class="action_btn btn-ans ask-btn too-btn">I have this question too (20)</a> -->
                             </div>
+                        </div>
                             <div class="forum-post-btm">
                                 <!-- <div class="taxonomy forum-post-tags">
                                     <i class="icon_tags_alt"></i><a href="#">Bug</a>, <a href="#">Feature</a>, <a
@@ -242,35 +264,6 @@
                                 </div> -->
                             </div>
  
-                        </div>
-                        <!-- Forum post top area -->
-                        <div class="row originalPost">
-                            <div class="col-lg-9 col-md-8">
-                                <div class="forum-post-top">
-                                    <!-- images for user go in this anchor image -->
-                                    <!-- <a class="author-avatar" href="#">
-                                        <img src="img/forum/author-avatar.png" alt="">
-                                    </a> -->
-                                    <div class="forum-post-author">
-                                        <% if(thread.bIsAnonPost === true){ %>
-                                            <a class="author-name userName" href="#">Posted by Anonymous </a>
-                                        <% }else{ %>
-                                            <a class="author-name userName" href="#">Posted by <%= thread.postedBy %> </a>
-                                        <% } %>
-                                        <div class="forum-author-meta">
-                                            <div class="author-badge">
-                                                <i class="icon_calendar"></i>
-                                                <a href="#"><%= thread.date.toLocaleString() %></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-lg-3 col-md-4">
-                                <div class="action-button-container">
-                                    <a href="#" class="action_btn btn-ans ask-btn">Ask Question</a>
-                                </div>
-                            </div> -->
                         </div>
                         <!-- All answer -->
                         <div class="all-answers">

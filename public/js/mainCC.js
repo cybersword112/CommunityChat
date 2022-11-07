@@ -59,9 +59,7 @@ async function deleteThread(evt){
   const topic = evt.target.parentNode.parentNode.previousElementSibling.children[0].children[1].innerText
   const postedBy = evt.target.parentNode.parentNode.previousElementSibling.children[1].children[0].innerText
   // handles attempt of delete request to backend
-  if(evt.target.parentNode.parentNode.parentNode.children[0].children[0].getAttribute('value')){
-    imageId = evt.target.parentNode.parentNode.parentNode.children[0].children[0].getAttribute('value')
-  }
+  imageId = evt.target.parentNode.parentNode.parentNode.children[0].children[0].getAttribute('value') || null
   try{
     //sends request to server to delete thread
     const response = await fetch('/home', {

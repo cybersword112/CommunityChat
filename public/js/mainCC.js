@@ -94,13 +94,9 @@ async function addLike(evt){
   const topic = evt.target.parentNode.parentNode.previousElementSibling.children[0].children[1].innerText
   // handles attempt of update request to backend
   try{
-    //sends request to server to update thread
     const response = await fetch('/home/addOneLike', {
-      // method of request
       method: 'put',
-      // headers of request, lets backend know how to treat it
       headers: { 'Content-Type': 'application/json' },
-      // body of request
       body: JSON.stringify({
         'threadID': thID,
         'promptS': topic,
@@ -108,9 +104,15 @@ async function addLike(evt){
     })
     //stores response from server in data
     const data = await response
-    console.log(data)
+    // if response is success then edits live DOM  to avoid reload.
+    if(data.status === 200){
+      let counterElement = evt.target.querySelector('.like-count')
+      // Assumes the counter contains only a number
+      let currentCount = parseInt(counterElement.innerText, 10)
+      counterElement.innerText = currentCount + 1
+    }
     // reloads current page
-    location.reload()
+    // location.reload()
 
   }
   // if there is an issue with the try portion then catch will fire and console log the error
@@ -129,21 +131,22 @@ async function addDisLike(evt){
   try{
     //sends request to server to update thread
     const response = await fetch('/home/addOneDisLike', {
-      // method of request
       method: 'put',
-      // headers of request, lets backend know how to treat it
       headers: { 'Content-Type': 'application/json' },
-      // body of request
       body: JSON.stringify({
         'threadID': thID,
         'promptS': topic,
       })
     })
-    //stores response from server in data
     const data = await response
-    console.log(data)
+    if(data.status === 200){
+      let counterElement = evt.target.querySelector('.dislike-count')
+      // Assumes the counter contains only a number
+      let currentCount = parseInt(counterElement.innerText, 10)
+      counterElement.innerText = currentCount + 1
+    }
     // reloads current page
-    location.reload()
+    // location.reload()
 
   }
   // if there is an issue with the try portion then catch will fire and console log the error

@@ -304,8 +304,8 @@
                                         <p><%= info[i].message %></p>
                                         <div class="action-button-container action-btns">
                                             <!-- <a href="#" class="action_btn btn-ans ask-btn reply-btn">Reply</a> -->
-                                            <a href="#" class="action_btn btn-ans ask-btn too-btn dislikeButton" data-id="<%=info[i]._id %>">Dislike(s) <%= info[i].dislikes %></a>
-                                            <a href="#" class="action_btn btn-ans ask-btn too-btn likeButton" data-id="<%=info[i]._id %>">Like(s) <%= info[i].likes %></a>
+                                            <a href="#" class="action_btn btn-ans ask-btn too-btn dislikeButton" data-id="<%=info[i]._id %>">Dislike(s) <span class="dislikes-count"><%= info[i].dislikes %></span></a>
+                                            <a href="#" class="action_btn btn-ans ask-btn too-btn likeButton" data-id="<%=info[i]._id %>">Like(s) <span class="likes-count"><%= info[i].likes %></span></a>
                                             <% if(info[i].user.username == user.username){ %>
                                             <a href="#" class="action_btn btn-ans ask-btn deleteButton" data-id="<%=info[i]._id %>">Delete</a>
                                             <% } %>

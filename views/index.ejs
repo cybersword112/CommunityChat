@@ -348,10 +348,10 @@
                             </div>
                             <% if(user) {%>
                             <div class="post-like">
-                                <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><%= threads[i].likes %> Likes</button>
+                                <button class = "btn-primary postbutton"><img src="img/forum/thumbs-up-outline.svg" alt="icon"><span class="like-count"><%= threads[i].likes %></span> Likes</button>
                             </div>
                             <div class="post-dislike">
-                                <button class = "btn-primary postbutton"><i class="fa-solid fa-thumbs-down"></i> <%= threads[i].dislikes %> DisLikes</button>
+                                <button class = "btn-primary postbutton"><i class="fa-solid fa-thumbs-down"></i><span class="dislike-count"><%= ' '+threads[i].dislikes %></span> DisLikes</button>
                             </div>
                             <% if (threads[i].postedBy === user.username){ %>
                                 <div class="post-delete">

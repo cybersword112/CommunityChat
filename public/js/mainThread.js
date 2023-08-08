@@ -30,24 +30,34 @@ async function deleteMessage(evt){
 async function addLike(evt){
   const id = evt.target.dataset.id
   console.log(id)
-  await fetch('/messages/addLike',{
+  let data = await fetch('/messages/addLike',{
     method:'PUT',
     headers:{ 'Content-Type':'application/json' },
     body:JSON.stringify({
       id:id,
     })
   })
-  location.reload()
+  if(data.status === 200){
+    let elem = evt.target.querySelector('.likes-count')
+    let num = parseInt(elem.innerText,10)
+    elem.innerText = num+1
+  }
+  // location.reload()
 }
 
 async function addDislike(evt){
   const id = evt.target.dataset.id
-  await fetch('/messages/addDislike',{
+  let data = await fetch('/messages/addDislike',{
     method:'PUT',
     headers:{ 'Content-Type':'application/json' },
     body:JSON.stringify({
       id:id,
     })
   })
-  location.reload()
+  if(data.status === 200){
+    let elem = evt.target.querySelector('.dislikes-count')
+    let num = parseInt(elem.innerText,10)
+    elem.innerText = num+1
+  }
+  // location.reload()
 }
